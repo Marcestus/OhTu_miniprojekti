@@ -15,18 +15,27 @@ public class Kayttoliittyma {
 
     public void kayttoliittymaStart() {
 
-        
+        System.out.println("Komennot:");
+        System.out.println("1 - lisää lukuvinkki");
+        System.out.println("2 - poista lukuvinkki");
+        System.out.println("3 - hae lukuvinkit");
 
         while (true) {
-            System.out.println("Moikka, laita 1 jos haluat lopettaa!");
+            System.out.println("Anna komento: ");
             String vastaus = io.syote();
-            if(vastaus.equals("1")){
-                io.print("moikka");
-                break;
+
+            switch (vastaus) {
+                case "1":
+                    palvelu.lisaaLukuvinkki();
+                    break;
+                case "2":
+                    palvelu.poistaLukuvinkki();
+                    break;
+                case "3":
+                    palvelu.haeLukuvunkit();
+                default:
+                    System.out.println("Virheellinen komento");
             }
-                
         }
-
     }
-
 }
