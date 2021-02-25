@@ -28,6 +28,23 @@ public class Lukuvinkki {
         return tagit;
     }
 
+    public String getTagitString() {
+        if (tagit.isEmpty()) {
+            return "-";
+        }
+
+        StringBuilder palautettavaString = new StringBuilder();
+        palautettavaString.append(tagit.get(0));
+
+        if (tagit.size() > 1) {
+            for (int i = 1; i < tagit.size(); i++) {
+                palautettavaString.append(", " + tagit.get(i));
+            }
+        }
+
+        return palautettavaString.toString();
+    }
+
     public void setTagit(List<String> tagit) {
         this.tagit = tagit;
     }
