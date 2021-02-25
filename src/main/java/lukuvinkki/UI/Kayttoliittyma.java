@@ -35,6 +35,7 @@ public class Kayttoliittyma {
                     palvelu.haeLukuvunkit();
                 default:
                     System.out.println("Virheellinen komento");
+                    break;
             }
         }
     }
