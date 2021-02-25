@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import lukuvinkki.domain.*;
 
@@ -43,30 +45,24 @@ public class Tietokantahallinta implements TietokantaRajapinta {
   
     }
 
-    // Tällä hetkellä tulostus tapahtuu tässä metodissa suoraan, on mahdollista siirtää sovelluslogiikan alle, mutta proof of concept
-    public void haeKaikkiLukuvinkit() {
+    public List<Lukuvinkki> haeKaikkiLukuvinkit() {
         String hakuKasky = "SELECT otsikko, url, tagit FROM lukuvinkki;";
 
+        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+
         try (PreparedStatement stmt = connection.prepareStatement(hakuKasky)) {
-
             ResultSet result = stmt.executeQuery();
-
-            if (!result.next()) {
-                io.print("Tietokannassa ei lukuvinkkejä!");
-                return;
-            }
-
             while (result.next()) {
-                io.print("Otsikko: " + result.getString(0));
-                io.print("Url: " + result.getString(1));
-                io.print("Tagit: " + result.getString(2));
-                io.print("");
+                String otsikko = result.getString(0);
+                String url = result.getString(1);
+                String tagit = result.getString(2);
+                lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit));
             }
-
         } catch (SQLException error) {
             io.print("ERROR: " + error.getMessage());
         }
 
+        return lukuvinkit;
     }
 
     private boolean alustaTietokanta() {

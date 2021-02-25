@@ -23,7 +23,7 @@ public class Kayttoliittyma {
         System.out.println("3 - hae lukuvinkit");
 
         while (true) {
-            System.out.println("Anna komento: ");
+            System.out.print("Anna komento: ");
             String vastaus = io.syote();
 
             switch (vastaus) {

@@ -5,8 +5,14 @@ import java.util.List;
 
 public class Lukuvinkki {
 
-    private String otsikko, url;
+    private String otsikko, url, tagitString;
     private List<String> tagit;
+
+    public Lukuvinkki(String otsikko, String url, String tagitString) {
+        this.otsikko = otsikko;
+        this.url = url;
+        this.tagitString = tagitString;
+    }
 
     public String getOtsikko() {
         return otsikko;
@@ -46,7 +52,17 @@ public class Lukuvinkki {
         return palautettavaString.toString();
     }
 
+    public void setTagitString(String tagit) {
+        this.tagitString = tagit;
+    }
+
     public void setTagit(List<String> tagit) {
         this.tagit = tagit;
+    }
+
+    @Override
+    public String toString() {
+        String teksti = "Otsikko: %s, Url: %s, Tagit: %s";
+        return String.format(teksti, this.otsikko, this.url, this.tagitString);
     }
 }
