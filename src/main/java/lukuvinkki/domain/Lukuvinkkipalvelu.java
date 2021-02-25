@@ -1,12 +1,15 @@
 package lukuvinkki.domain;
 
+import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
 
     IORajapinta io;
+    TietokantaRajapinta tietokanta;
 
-    public Lukuvinkkipalvelu(IORajapinta io) {
+    public Lukuvinkkipalvelu(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
+        this.tietokanta = tietokanta;
     }
 
     public void lisaaLukuvinkki() {

@@ -3,6 +3,7 @@ package lukuvinkki.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -40,6 +41,32 @@ public class Tietokantahallinta implements TietokantaRajapinta {
             return false;
         }
   
+    }
+
+    // Tällä hetkellä tulostus tapahtuu tässä metodissa suoraan, on mahdollista siirtää sovelluslogiikan alle, mutta proof of concept
+    public void haeKaikkiLukuvinkit() {
+        String hakuKasky = "SELECT otsikko, url, tagit FROM lukuvinkki;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(hakuKasky)) {
+
+            ResultSet result = stmt.executeQuery();
+
+            if (!result.next()) {
+                io.print("Tietokannassa ei lukuvinkkejä!");
+                return;
+            }
+
+            while (result.next()) {
+                io.print("Otsikko: " + result.getString(0));
+                io.print("Url: " + result.getString(1));
+                io.print("Tagit: " + result.getString(2));
+                io.print("");
+            }
+
+        } catch (SQLException error) {
+            io.print("ERROR: " + error.getMessage());
+        }
+
     }
 
     private boolean alustaTietokanta() {

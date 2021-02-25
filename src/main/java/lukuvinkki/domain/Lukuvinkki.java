@@ -28,6 +28,7 @@ public class Lukuvinkki {
         return tagit;
     }
 
+    // Tietokantahallinta lisää tällä hetkellä tagit tekstimuodossa pilkulla erotettuna
     public String getTagitString() {
         if (tagit.isEmpty()) {
             return "-";
