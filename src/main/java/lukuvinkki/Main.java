@@ -9,7 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         IORajapinta io = new KonsoliIO();
         TietokantaRajapinta tietokanta = new Tietokantahallinta("lukuvinkkikirjasto.db", io);
         
@@ -18,9 +17,7 @@ public class Main {
         } else {
             Kayttoliittyma ui = new Kayttoliittyma(io, tietokanta);
             ui.kayttoliittymaStart();
-        }
-
-        
+        }  
 
     }
 

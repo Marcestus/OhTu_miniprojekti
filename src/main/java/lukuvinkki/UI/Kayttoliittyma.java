@@ -5,11 +5,11 @@ import lukuvinkki.domain.*;
 
 public class Kayttoliittyma {
 
-    private KonsoliIO io;
+    private IORajapinta io;
     private Lukuvinkkipalvelu palvelu;
     private TietokantaRajapinta tietokanta;
 
-    public Kayttoliittyma(KonsoliIO io, TietokantaRajapinta tietokanta) {
+    public Kayttoliittyma(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
         this.palvelu = new Lukuvinkkipalvelu(io);
         this.tietokanta = tietokanta;
@@ -35,6 +35,7 @@ public class Kayttoliittyma {
                     break;
                 case "3":
                     palvelu.haeLukuvunkit();
+                    break;
                 default:
                     System.out.println("Virheellinen komento");
                     break;

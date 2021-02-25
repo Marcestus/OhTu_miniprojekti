@@ -3,9 +3,9 @@ package lukuvinkki.domain;
 
 public class Lukuvinkkipalvelu {
 
-    KonsoliIO io;
+    IORajapinta io;
 
-    public Lukuvinkkipalvelu(KonsoliIO io) {
+    public Lukuvinkkipalvelu(IORajapinta io) {
         this.io = io;
     }
 
