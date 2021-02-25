@@ -3,7 +3,6 @@
 bin/
 .settings
 .project
-.gradle
 build/
 gradle/
 .idea
