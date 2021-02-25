@@ -1,13 +1,16 @@
 package lukuvinkki.UI;
 
 import lukuvinkki.domain.*;
+import lukuvinkki.domain.*;
 
 public class Kayttoliittyma {
 
     private KonsoliIO io;
+    private Lukuvinkkipalvelu palvelu;
 
     public Kayttoliittyma(KonsoliIO io) {
         this.io = io;
+        this.palvelu = new Lukuvinkkipalvelu(io);
     }
 
     public void kayttoliittymaStart() {
