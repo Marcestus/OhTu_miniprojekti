@@ -1,7 +1,7 @@
 package lukuvinkki;
 
 import lukuvinkki.domain.*;
-import lukuvinkki.UI.*;
+import lukuvinkki.ui.*;
 import lukuvinkki.dao.TietokantaRajapinta;
 import lukuvinkki.dao.Tietokantahallinta;
 
@@ -12,13 +12,11 @@ public class Main {
         IORajapinta io = new KonsoliIO();
         TietokantaRajapinta tietokanta = new Tietokantahallinta("lukuvinkkikirjasto.db", io);
         
-        if(!tietokanta.otaYhteysTietokantaan()) {
+        if (!tietokanta.otaYhteysTietokantaan()) {
             io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
         } else {
             Kayttoliittyma ui = new Kayttoliittyma(io, tietokanta);
             ui.kayttoliittymaStart();
-        }  
-
+        }
     }
-
 }

@@ -1,4 +1,4 @@
-package lukuvinkki.UI;
+package lukuvinkki.ui;
 
 import lukuvinkki.dao.*;
 import lukuvinkki.domain.*;
