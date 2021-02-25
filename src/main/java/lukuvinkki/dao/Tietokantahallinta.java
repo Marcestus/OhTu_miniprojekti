@@ -30,8 +30,8 @@ public class Tietokantahallinta implements TietokantaRajapinta {
 
         try (PreparedStatement stmt = connection.prepareStatement(addKasky)) {
             stmt.setString(1, lukuvinkki.getOtsikko());
-            stmt.setString(2, lukuvinkki.getURL());
-            stmt.setString(3, lukuvinkki.getTagit());
+            stmt.setString(2, lukuvinkki.getUrl());
+            stmt.setString(3, "tagi");
 
             stmt.executeUpdate();
             return true;

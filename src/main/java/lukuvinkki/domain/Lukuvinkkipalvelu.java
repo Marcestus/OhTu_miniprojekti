@@ -20,5 +20,5 @@ public class Lukuvinkkipalvelu {
     public void haeLukuvunkit() {
         System.out.println("Lista vinkeistä");
     }
-
+    
 }
