@@ -7,8 +7,21 @@ repositories {
 	jcenter()
 }
 
+project.ext {
+	cucumberVersion = '6.8.1'
+	junitVersion = '4.13'
+}
+
 dependencies {
 	implementation 'org.xerial:sqlite-jdbc:3.8.11'
+	testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
+	testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
+	testCompile 'junit:junit:' + junitVersion
+}
+
+test {
+	testLogging.showStandardStreams = true
+	systemProperties System.getProperties()
 }
 
 application {
