@@ -7,3 +7,4 @@ build/
 .gradle/
 .idea
 lukuvinkkikirjasto.db
+.vscode/
