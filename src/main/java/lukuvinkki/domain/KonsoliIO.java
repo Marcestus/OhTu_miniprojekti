@@ -2,7 +2,7 @@ package lukuvinkki.domain;
 
 import java.util.Scanner;
 
-public class KonsoliIO {
+public class KonsoliIO implements IORajapinta {
     private Scanner lukija;
     
     public KonsoliIO() {
