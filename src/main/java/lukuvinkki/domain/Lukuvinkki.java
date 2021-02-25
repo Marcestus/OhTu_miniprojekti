@@ -1,6 +1,8 @@
 package lukuvinkki.domain;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Lukuvinkki {
@@ -12,8 +14,9 @@ public class Lukuvinkki {
         this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
+        this.tagit = new ArrayList(Arrays.asList(tagitString));
     }
-
+    
     public String getOtsikko() {
         return otsikko;
     }
@@ -36,10 +39,10 @@ public class Lukuvinkki {
 
     // Tietokantahallinta lisää tällä hetkellä tagit tekstimuodossa pilkulla erotettuna
     public String getTagitString() {
-        if (tagit.isEmpty()) {
-            return "-";
-        }
-
+        return tagit.isEmpty() ? "-" : muodostaTagitString();
+    }
+    
+    public String muodostaTagitString() {
         StringBuilder palautettavaString = new StringBuilder();
         palautettavaString.append(tagit.get(0));
 
@@ -48,7 +51,7 @@ public class Lukuvinkki {
                 palautettavaString.append(", " + tagit.get(i));
             }
         }
-
+        
         return palautettavaString.toString();
     }
 
@@ -59,10 +62,14 @@ public class Lukuvinkki {
     public void setTagit(List<String> tagit) {
         this.tagit = tagit;
     }
+    
+    public void lisaaTagi(String tag) {
+        tagit.add(tag);
+    }
 
     @Override
     public String toString() {
-        String teksti = "Otsikko: %s, Url: %s, Tagit: %s";
-        return String.format(teksti, this.otsikko, this.url, this.tagitString);
+        String teksti = "Otsikko: %s\nUrl: %s\nTagit: %s";
+        return String.format(teksti, this.otsikko, this.url, muodostaTagitString());
     }
 }
