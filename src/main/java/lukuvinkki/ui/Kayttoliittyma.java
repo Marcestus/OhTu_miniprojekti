@@ -15,12 +15,15 @@ public class Kayttoliittyma {
         this.tietokanta = tietokanta;
     }
 
-    public void kayttoliittymaStart() {     
+    public void kayttoliittymaStart() {
 
         System.out.println("Komennot:");
         System.out.println("1 - lisää lukuvinkki");
         System.out.println("2 - poista lukuvinkki");
         System.out.println("3 - hae lukuvinkit");
+        System.out.println("4 - selaa lukuvinkkejä");
+        System.out.println("5 - muokkaa lukuvinkkejä");
+        System.out.println("-1 - lopeta ohjelma");
 
         while (true) {
             System.out.print("Anna komento: ");
@@ -36,10 +39,24 @@ public class Kayttoliittyma {
                 case "3":
                     palvelu.haeLukuvunkit();
                     break;
+                case "4":
+                    System.out.println("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä");
+                    break;
+                case "5":
+                    System.out.println("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä");
+                    break;
+                case "-1":
+                    lopeta();
                 default:
                     System.out.println("Virheellinen komento");
                     break;
             }
         }
+
     }
+
+    public void lopeta() {
+        System.exit(0);
+    }
+
 }
