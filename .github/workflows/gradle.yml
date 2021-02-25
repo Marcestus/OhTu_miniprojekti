@@ -19,3 +19,9 @@ jobs:
       run: chmod +x gradlew
     - name: Test with Gradle
       run: ./gradlew test
+    - name: Clean Tests
+      run: ./gradlew clean
+    - name: Code coverage report
+      run: ./gradlew jacocoTestReport
+    - name: Checkstyle
+      run: ./gradlew checkstyleMain
