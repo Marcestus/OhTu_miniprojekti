@@ -1,5 +1,6 @@
 package lukuvinkki.domain;
 
+import java.util.List;
 import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
@@ -39,8 +40,8 @@ public class Lukuvinkkipalvelu {
             // tietokanta.lisaaUusiLukuvinkki() heittää tällä hetkellä errorin: java.lang.NullPointerException
             // muuten alla olevassa if lausekkeessa lisättäisiin tietokantaan uusi lukuvinkki
             // antamalla ehdoksi: if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki))
-            if (kelvollisetArvot(lukuvinkki)) {
-                io.print("Uusi lukuvinkki: " + lukuvinkki.toString() + " lisätty tietokantaan!");
+            if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki)) {
+                io.print("Uusi lukuvinkki: \n" + lukuvinkki.toString() + "\nlisätty tietokantaan!");
             } else {
                 throw new Exception("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
             }
@@ -58,15 +59,17 @@ public class Lukuvinkkipalvelu {
     // Komento 3
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
-
-        if (tietokanta.haeKaikkiLukuvinkit().isEmpty()) {
+        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+        
+        if (vinkit.isEmpty()) {
             io.print("Tietokannassa ei lukuvinkkejä!");
             return;
         }
 
         io.print("Tietokannassa olevat lukuvinkit:");
-        for (Lukuvinkki lukuvinkki : tietokanta.haeKaikkiLukuvinkit()) {
+        for (Lukuvinkki lukuvinkki : vinkit) {
             io.print(lukuvinkki.toString());
+            System.out.println("");
         }
     }
 }
