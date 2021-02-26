@@ -53,9 +53,9 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         try (PreparedStatement stmt = connection.prepareStatement(hakuKasky)) {
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
-                String otsikko = result.getString(0);
-                String url = result.getString(1);
-                String tagit = result.getString(2);
+                String otsikko = result.getString(1);
+                String url = result.getString(2);
+                String tagit = result.getString(3);
                 lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit));
             }
         } catch (SQLException error) {
