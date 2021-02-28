@@ -12,7 +12,6 @@ public class LukuvinkkiTest {
         lukuvinkki = new Lukuvinkki("testi", "urlTesti", "tagTest");
     }
 
-
     @Test
     public void testMuodostaTagitString() {
         assertEquals("tagTest", lukuvinkki.muodostaTagitString());
@@ -32,4 +31,27 @@ public class LukuvinkkiTest {
         assertEquals(testiString2, lukuvinkki.toString());
     }
     
+    @Test
+    public void lukuvinkinLuontiIlmanTagiaTest() {
+        Lukuvinkki vinkkiIlmanTagia = new Lukuvinkki("testi", "urlTesti", "");
+        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: -";
+        assertEquals(testiString, vinkkiIlmanTagia.toString());
+    }
+    
+    
+    @Test
+    public void lukuvinkinLuontiIlmanTagiaJaLisaaminenTest() {
+        Lukuvinkki vinkkiIlmanTagia = new Lukuvinkki("testi", "urlTesti", "");
+        vinkkiIlmanTagia.lisaaTagi("ekaTagiTyhjanJalkeen");
+        
+        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen";
+        assertEquals(testiString, vinkkiIlmanTagia.toString());
+        
+        vinkkiIlmanTagia.lisaaTagi("tokaTagi");
+        vinkkiIlmanTagia.lisaaTagi("kolmasTagi");
+        vinkkiIlmanTagia.lisaaTagi("neljasTagi");
+        
+        testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen, tokaTagi, kolmasTagi, neljasTagi";
+        assertEquals(testiString, vinkkiIlmanTagia.toString());
+    }
 }

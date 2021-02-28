@@ -14,7 +14,11 @@ public class Lukuvinkki {
         this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
-        this.tagit = new ArrayList(Arrays.asList(tagitString));
+        alustaTagitLista(tagitString);
+    }
+    
+    public void alustaTagitLista(String tag) {
+        this.tagit = tag.isEmpty() ? new ArrayList() : new ArrayList(Arrays.asList(tag));
     }
     
     public String getOtsikko() {
@@ -70,6 +74,6 @@ public class Lukuvinkki {
     @Override
     public String toString() {
         String teksti = "Otsikko: %s\nUrl: %s\nTagit: %s";
-        return String.format(teksti, this.otsikko, this.url, muodostaTagitString());
+        return String.format(teksti, this.otsikko, this.url, getTagitString());
     }
 }

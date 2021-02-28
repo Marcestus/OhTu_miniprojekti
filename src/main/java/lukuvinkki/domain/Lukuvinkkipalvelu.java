@@ -41,7 +41,9 @@ public class Lukuvinkkipalvelu {
             // muuten alla olevassa if lausekkeessa lisättäisiin tietokantaan uusi lukuvinkki
             // antamalla ehdoksi: if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki))
             if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki)) {
-                io.print("Uusi lukuvinkki: \n" + lukuvinkki.toString() + "\nlisätty tietokantaan!");
+                io.print("Uusi lukuvinkki:");
+                io.print(lukuvinkki.toString());
+                io.print("lisätty onnistuneesti tietokantaan!");
             } else {
                 throw new Exception("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
             }
