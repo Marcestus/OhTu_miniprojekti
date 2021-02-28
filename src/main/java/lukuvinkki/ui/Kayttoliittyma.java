@@ -24,7 +24,6 @@ public class Kayttoliittyma {
         System.out.println("4 - selaa lukuvinkkejä");
         System.out.println("5 - muokkaa lukuvinkkejä");
         System.out.println("-1 - lopeta ohjelma");
-        System.out.println("");
 
         while (true) {
             System.out.println("Anna komento: ");

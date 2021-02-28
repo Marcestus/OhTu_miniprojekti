@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
-
     IORajapinta io;
     TietokantaRajapinta tietokanta;
 
@@ -17,14 +16,14 @@ public class Lukuvinkkipalvelu {
         this.tietokanta = tietokanta;
     }
 
-    private boolean kelvollisetArvot(Lukuvinkki lukuvinkki) {
+    public boolean kelvollisetArvot(Lukuvinkki lukuvinkki) {
         return !lukuvinkki.getOtsikko().isEmpty()
                 && !lukuvinkki.getUrl().isEmpty()
                 && lukuvinkki.getOtsikko().length() > 3
                 && lukuvinkki.getUrl().length() > 3;
     }
     
-    private boolean onkoSivustoaOlemassa(String urlValidoitavaksi) {
+    public boolean onkoSivustoaOlemassa(String urlValidoitavaksi) {
         try {
             URL url = new URL("http://" + urlValidoitavaksi);
             HttpURLConnection yhteys = (HttpURLConnection) url.openConnection();
@@ -36,12 +35,12 @@ public class Lukuvinkkipalvelu {
             } 
 
         } catch (Exception e) {
-            return false;
+            System.out.println("Error: " + e.getMessage());
         }
         return false;
     }
     
-    private boolean tarkastaUrlMuoto(String url) {
+    public boolean onkoUrlMuotoValidi(String url) {
         String urlRegex = "^[-a-zA-Z0-9+&@#/%?=~_|,!:.;]*[-a-zA-Z0-9+@#/%=&_|]";
         return url.matches(urlRegex) ? true : false;
     }
