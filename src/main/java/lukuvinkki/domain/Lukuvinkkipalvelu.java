@@ -1,6 +1,10 @@
 package lukuvinkki.domain;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
@@ -19,6 +23,28 @@ public class Lukuvinkkipalvelu {
                 && lukuvinkki.getOtsikko().length() > 3
                 && lukuvinkki.getUrl().length() > 3;
     }
+    
+    private boolean onkoSivustoaOlemassa(String urlValidoitavaksi) {
+        try {
+            URL url = new URL("http://" + urlValidoitavaksi);
+            HttpURLConnection yhteys = (HttpURLConnection) url.openConnection();
+            yhteys.setRequestMethod("HEAD");
+            int responseCode = yhteys.getResponseCode();
+            
+            if (HttpURLConnection.HTTP_OK == responseCode) {
+                return true;
+            } 
+
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
+    
+    private boolean tarkastaUrlMuoto(String url) {
+        String urlRegex = "^[-a-zA-Z0-9+&@#/%?=~_|,!:.;]*[-a-zA-Z0-9+@#/%=&_|]";
+        return url.matches(urlRegex) ? true : false;
+    }
 
     // Komento 1
     public void lisaaLukuvinkki() {
@@ -36,7 +62,7 @@ public class Lukuvinkkipalvelu {
             String tagit = io.syote();
 
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, tagit);
-
+            
             // tietokanta.lisaaUusiLukuvinkki() heittää tällä hetkellä errorin: java.lang.NullPointerException
             // muuten alla olevassa if lausekkeessa lisättäisiin tietokantaan uusi lukuvinkki
             // antamalla ehdoksi: if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki))
