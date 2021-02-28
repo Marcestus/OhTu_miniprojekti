@@ -24,9 +24,10 @@ public class Kayttoliittyma {
         System.out.println("4 - selaa lukuvinkkejä");
         System.out.println("5 - muokkaa lukuvinkkejä");
         System.out.println("-1 - lopeta ohjelma");
+        System.out.println("");
 
         while (true) {
-            System.out.print("Anna komento: ");
+            System.out.println("Anna komento: ");
             String vastaus = io.syote();
 
             switch (vastaus) {
@@ -52,7 +53,6 @@ public class Kayttoliittyma {
                     break;
             }
         }
-
     }
 
     public void lopeta() {

@@ -31,8 +31,8 @@ public class Lukuvinkkipalvelu {
             io.print("Anna lukuvinkin url: ");
             String url = io.syote();
 
-            io.print("(Huom. Tagit annetaan pilkulla eroteltuna, esim. seuraavasti: tagi1, tagi2, tagi3, ...)");
             io.print("Anna tagit lukuvinkille: ");
+            io.print("(Huom. Tagit annetaan pilkulla eroteltuna, esim. seuraavasti: tagi1, tagi2, tagi3, ...)");
             String tagit = io.syote();
 
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, tagit);
