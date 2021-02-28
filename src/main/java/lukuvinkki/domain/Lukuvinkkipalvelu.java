@@ -2,6 +2,7 @@ package lukuvinkki.domain;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,32 +18,21 @@ public class Lukuvinkkipalvelu {
     }
 
     public boolean kelvollisetArvot(Lukuvinkki lukuvinkki) {
-        return !lukuvinkki.getOtsikko().isEmpty()
-                && !lukuvinkki.getUrl().isEmpty()
-                && lukuvinkki.getOtsikko().length() > 3
-                && lukuvinkki.getUrl().length() > 3;
+        return lukuvinkki.getOtsikko().length() > 3
+                && lukuvinkki.getUrl().length() > 3
+                && onkoUrlMuotoValidi(lukuvinkki.getUrl());
     }
-    
-    public boolean onkoSivustoaOlemassa(String urlValidoitavaksi) {
-        try {
-            URL url = new URL("http://" + urlValidoitavaksi);
-            HttpURLConnection yhteys = (HttpURLConnection) url.openConnection();
-            yhteys.setRequestMethod("HEAD");
-            int responseCode = yhteys.getResponseCode();
-            
-            if (HttpURLConnection.HTTP_OK == responseCode) {
+        
+    public boolean onkoUrlMuotoValidi(String url) {       
+        String[] paatteet = {".fi", ".com", ".io", ".org", ".net"};
+       
+        for (String paate : paatteet) {
+            if (url.contains(paate)) {
                 return true;
-            } 
-
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            }
         }
+       
         return false;
-    }
-    
-    public boolean onkoUrlMuotoValidi(String url) {
-        String urlRegex = "^[-a-zA-Z0-9+&@#/%?=~_|,!:.;]*[-a-zA-Z0-9+@#/%=&_|]";
-        return url.matches(urlRegex) ? true : false;
     }
 
     // Komento 1
@@ -55,16 +45,13 @@ public class Lukuvinkkipalvelu {
 
             io.print("Anna lukuvinkin url: ");
             String url = io.syote();
-
-            io.print("Anna tagit lukuvinkille: ");
-            io.print("(Huom. Tagit annetaan pilkulla eroteltuna, esim. seuraavasti: tagi1, tagi2, tagi3, ...)");
-            String tagit = io.syote();
-
-            Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, tagit);
             
-            // tietokanta.lisaaUusiLukuvinkki() heittää tällä hetkellä errorin: java.lang.NullPointerException
-            // muuten alla olevassa if lausekkeessa lisättäisiin tietokantaan uusi lukuvinkki
-            // antamalla ehdoksi: if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki))
+            io.print("Anna tagit lukuvinkille: ");
+            io.print("(paina Enter, jos et tahdo lisätä tagejä.)");
+            
+            Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
+            lukuvinkki.setTagit(muodostaTagit());
+            
             if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki)) {
                 io.print("Uusi lukuvinkki:");
                 io.print(lukuvinkki.toString());
@@ -73,9 +60,27 @@ public class Lukuvinkkipalvelu {
                 throw new Exception("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
             }
         } catch (Exception error) {
-            io.print("Error: " + error);
             io.print("Error: " + error.getMessage());
         }
+    }
+    
+    private ArrayList<String> muodostaTagit() {
+        int index = 1;
+        ArrayList<String> tags = new ArrayList();
+        
+        while (true) {
+            io.print("Tag " + index + ": ");
+            String tagit = io.syote();
+
+            if (tagit.isEmpty())  {
+                break;
+            }
+            
+            index++;
+            tags.add(tagit);
+        }
+        
+        return tags;
     }
 
     // Komento 2
@@ -95,8 +100,7 @@ public class Lukuvinkkipalvelu {
 
         io.print("Tietokannassa olevat lukuvinkit:");
         for (Lukuvinkki lukuvinkki : vinkit) {
-            io.print(lukuvinkki.toString());
-            System.out.println("");
+            io.print(lukuvinkki.toString() + "\n");
         }
     }
 }
