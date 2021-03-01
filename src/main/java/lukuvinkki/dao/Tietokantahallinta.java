@@ -1,5 +1,8 @@
 package lukuvinkki.dao;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -81,6 +84,15 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         } catch (SQLException error) {
             io.print("ERROR:" + error.getMessage());
             return false;
+        }
+    }
+    
+    public void poistaTestiTietokanta(String poistoDB) {
+        try {
+            Path testiTietokannanOsoite = FileSystems.getDefault().getPath(poistoDB);
+            Files.delete(testiTietokannanOsoite);
+        } catch (Exception e) {
+            System.out.println("Testi tietokannan poisto ei onnistunut.");
         }
     }
 

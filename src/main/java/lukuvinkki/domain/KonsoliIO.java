@@ -16,4 +16,9 @@ public class KonsoliIO implements IORajapinta {
     public String syote() {
         return lukija.nextLine();
     }
+    
+    // vain testaukseen
+    public void alustaTestiSyote(String testiSyote) {
+        lukija = new Scanner(testiSyote);
+    }
 }

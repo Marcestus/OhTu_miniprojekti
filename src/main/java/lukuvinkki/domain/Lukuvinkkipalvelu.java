@@ -36,7 +36,7 @@ public class Lukuvinkkipalvelu {
     }
 
     // Komento 1
-    public void lisaaLukuvinkki() {
+    public boolean lisaaLukuvinkki() {
         io.print("Komento (lisää lukuvinkki) valittu \n");
 
         try {
@@ -56,12 +56,14 @@ public class Lukuvinkkipalvelu {
                 io.print("Uusi lukuvinkki:");
                 io.print(lukuvinkki.toString());
                 io.print("lisätty onnistuneesti tietokantaan!");
+                return true;
             } else {
                 throw new Exception("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
             }
         } catch (Exception error) {
             io.print("Error: " + error.getMessage());
         }
+        return false;
     }
     
     private ArrayList<String> muodostaTagit() {
