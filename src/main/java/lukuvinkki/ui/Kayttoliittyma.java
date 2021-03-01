@@ -11,8 +11,8 @@ public class Kayttoliittyma {
 
     public Kayttoliittyma(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
-        this.palvelu = new Lukuvinkkipalvelu(io, tietokanta);
         this.tietokanta = tietokanta;
+        this.palvelu = new Lukuvinkkipalvelu(this.io, this.tietokanta);
     }
 
     public void kayttoliittymaStart() {
