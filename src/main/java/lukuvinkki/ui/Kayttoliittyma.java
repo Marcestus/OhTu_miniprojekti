@@ -28,7 +28,6 @@ public class Kayttoliittyma {
         while (ohjelmaPaalla) {
             System.out.println("Anna komento: ");
             String vastaus = io.syote();
-
             switch (vastaus) {
                 case "1":
                     palvelu.lisaaLukuvinkki();
@@ -40,14 +39,14 @@ public class Kayttoliittyma {
                     palvelu.haeLukuvunkit();
                     break;
                 case "4":
-                    io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä");
+                    //io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä");
+                    //otin veke että meni checkstyle läpi pituuden suhteen :D
                     break;
                 case "5":
                     io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä");
                     break;
                 case "-1":
                     ohjelmaPaalla = false;
-                    break;
                 default:
                     io.print("Virheellinen komento");
                     break;

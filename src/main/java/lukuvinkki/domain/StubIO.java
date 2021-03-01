@@ -9,8 +9,7 @@ public class StubIO implements IORajapinta {
     private ArrayList<String> tulostukset;
     private int index;
 
-
-public StubIO(List<String> syotteet) {
+    public StubIO(List<String> syotteet) {
         this.syotteet = syotteet;
         this.tulostukset = new ArrayList();
         index = 0;
@@ -34,5 +33,4 @@ public StubIO(List<String> syotteet) {
         }
         return "-1";
     }
-
 }
