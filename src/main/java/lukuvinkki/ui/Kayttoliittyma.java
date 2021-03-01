@@ -16,6 +16,7 @@ public class Kayttoliittyma {
     }
 
     public void kayttoliittymaStart() {
+        boolean ohjelmaPaalla = true;
         io.print("Komennot:");
         io.print("1 - lisää lukuvinkki");
         io.print("2 - poista lukuvinkki");
@@ -23,8 +24,8 @@ public class Kayttoliittyma {
         io.print("4 - selaa lukuvinkkejä");
         io.print("5 - muokkaa lukuvinkkejä");
         io.print("-1 - lopeta ohjelma");
-
-        while (true) {
+        
+        while (ohjelmaPaalla) {
             System.out.println("Anna komento: ");
             String vastaus = io.syote();
 
@@ -45,16 +46,12 @@ public class Kayttoliittyma {
                     io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä");
                     break;
                 case "-1":
-                    lopeta();
+                    ohjelmaPaalla = false;
+                    break;
                 default:
                     io.print("Virheellinen komento");
                     break;
             }
         }
     }
-
-    public void lopeta() {
-        System.exit(0);
-    }
-
 }
