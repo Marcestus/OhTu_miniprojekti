@@ -9,3 +9,5 @@ build/
 lukuvinkkikirjasto.db
 .vscode/
 testi.db
+cucemberTesti.db
+nbproject/

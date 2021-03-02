@@ -29,7 +29,7 @@ public class Stepdefs {
     
     @After 
     public void poistaTestiTietokanta() {
-        tietokanta.poistaTestiTietokanta("testi.db");
+        tietokanta.poistaTestiTietokanta("cucemberTesti.db");
     }
     
     @Given("komento lisaa valittu")
@@ -78,7 +78,7 @@ public class Stepdefs {
     @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")
     public void ohjelmanTulostusVastaa(String otsikko, String url, String tag1, String tag2, String tag3) {
         io = new StubIO(syotteet);
-        tietokanta = new Tietokantahallinta("testi.db", io);
+        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
@@ -91,7 +91,7 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         io = new StubIO(syotteet);
-        tietokanta = new Tietokantahallinta("testi.db", io);
+        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
