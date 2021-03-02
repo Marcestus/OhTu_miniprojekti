@@ -36,14 +36,14 @@ public class LukuvinkkipalveluTest {
     
     @Test
     public void testKelvollisetArvotEiKelvollisillaVinkeilla() {
-        Lukuvinkki kelvollinenVinkki = new Lukuvinkki("test", "eiUrl", "");
-        assertFalse(testiPalvelu.kelvollisetArvot(kelvollinenVinkki));
+        Lukuvinkki eiKelvollinenVinkki = new Lukuvinkki("test", "eiUrl", "");
+        assertFalse(testiPalvelu.kelvollisetArvot(eiKelvollinenVinkki));
         
-        kelvollinenVinkki = new Lukuvinkki("lol", "testi.com", "tagi");
-        assertFalse(testiPalvelu.kelvollisetArvot(kelvollinenVinkki));
+        eiKelvollinenVinkki = new Lukuvinkki("lol", "testi.com", "tagi");
+        assertFalse(testiPalvelu.kelvollisetArvot(eiKelvollinenVinkki));
         
-        kelvollinenVinkki = new Lukuvinkki("test", "test.jokuRandom", "tag1, tage1000");
-        assertFalse(testiPalvelu.kelvollisetArvot(kelvollinenVinkki));
+        eiKelvollinenVinkki = new Lukuvinkki("test", "test.jokuRandom", "tag1, tage1000");
+        assertFalse(testiPalvelu.kelvollisetArvot(eiKelvollinenVinkki));
     }
 
     @Test
