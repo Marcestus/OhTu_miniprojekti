@@ -4,7 +4,6 @@
 ### Asennus
 
 Lataa GitHub repositorio omalle koneellesi 
-- [Lukuvinkkikirjasto](https://github.com/Marcestus/OhTu_miniprojekti)
 
 ### Käynnistys
 
