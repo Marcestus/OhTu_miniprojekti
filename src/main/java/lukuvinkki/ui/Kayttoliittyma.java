@@ -16,16 +16,10 @@ public class Kayttoliittyma {
     }
 
     public void kayttoliittymaStart() {
-        boolean ohjelmaPaalla = true;
-        io.print("Komennot:");
-        io.print("1 - lisää lukuvinkki");
-        io.print("2 - poista lukuvinkki");
-        io.print("3 - hae lukuvinkit");
-        io.print("4 - selaa lukuvinkkejä");
-        io.print("5 - muokkaa lukuvinkkejä");
-        io.print("-1 - lopeta ohjelma");
-        
-        while (ohjelmaPaalla) {
+        System.out.println("Tervetuloa käyttämään lukuvinkkikirjastoa!");
+        naytaKomennot();
+        loop:
+        while (true) {
             System.out.println("Anna komento: ");
             String vastaus = io.syote();
             switch (vastaus) {
@@ -39,18 +33,28 @@ public class Kayttoliittyma {
                     palvelu.haeLukuvunkit();
                     break;
                 case "4":
-                    //io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä");
-                    //otin veke että meni checkstyle läpi pituuden suhteen :D
+                    io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä");
                     break;
                 case "5":
                     io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä");
                     break;
                 case "-1":
-                    ohjelmaPaalla = false;
+                    System.out.println("Ohjelma sulkeutuu");
+                    break loop;
                 default:
                     io.print("Virheellinen komento");
                     break;
             }
         }
+    }
+
+    public void naytaKomennot() {
+        io.print("Komennot:");
+        io.print("1 - lisää lukuvinkki");
+        io.print("2 - poista lukuvinkki");
+        io.print("3 - hae lukuvinkit");
+        io.print("4 - selaa lukuvinkkejä");
+        io.print("5 - muokkaa lukuvinkkejä");
+        io.print("-1 - lopeta ohjelma");
     }
 }
