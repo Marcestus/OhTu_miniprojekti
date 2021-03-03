@@ -68,7 +68,7 @@ public class Lukuvinkkipalvelu {
     
     private ArrayList<String> muodostaTagit() {
         int index = 1;
-        ArrayList<String> tags = new ArrayList();
+        ArrayList<String> tags = lisaaTagitURLPerusteella();
         
         while (true) {
             io.print("Tag " + index + ": ");
@@ -84,6 +84,16 @@ public class Lukuvinkkipalvelu {
         
         return tags;
     }
+
+    private ArrayList<String> lisaaTagitURLPerusteella() {
+        ArrayList<String> tags = new ArrayList<>();
+
+
+
+
+        return tags;
+    }
+    
 
     // Komento 2
     public void poistaLukuvinkki() {
