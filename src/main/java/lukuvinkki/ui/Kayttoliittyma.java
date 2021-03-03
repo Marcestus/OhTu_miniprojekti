@@ -27,7 +27,7 @@ public class Kayttoliittyma {
                     palvelu.lisaaLukuvinkki();
                     break;
                 case "2":
-                    palvelu.poistaLukuvinkki();
+                    io.print("Tästä voi ohjelman tulevassa versiossa poistaa tallennettuja lukuvinkkejä");
                     break;
                 case "3":
                     palvelu.haeLukuvunkit();
