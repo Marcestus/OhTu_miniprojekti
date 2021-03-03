@@ -11,7 +11,7 @@ public class StubIO implements IORajapinta {
 
     public StubIO(List<String> syotteet) {
         this.syotteet = syotteet;
-        this.tulostukset = new ArrayList();
+        this.tulostukset = new ArrayList<>();
         index = 0;
     }
 

@@ -27,7 +27,7 @@ public class Lukuvinkki {
     }
     
     public void alustaTagitLista(String tag) {
-        this.tagit = tag.isEmpty() ? new ArrayList() : new ArrayList(Arrays.asList(tag));
+        this.tagit = tag.isEmpty() ? new ArrayList<>() : new ArrayList<>(Arrays.asList(tag));
     }
     
     public String getOtsikko() {
@@ -48,6 +48,10 @@ public class Lukuvinkki {
 
     public List<String> getTagit() {
         return tagit;
+    }
+
+    public int getID() {
+        return this.id;
     }
 
     // Tietokantahallinta lisää tällä hetkellä tagit tekstimuodossa pilkulla erotettuna
