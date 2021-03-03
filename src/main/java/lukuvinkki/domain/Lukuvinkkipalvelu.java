@@ -88,7 +88,7 @@ public class Lukuvinkkipalvelu {
     private ArrayList<String> lisaaTagitURLPerusteella() {
         ArrayList<String> tags = new ArrayList<>();
 
-        int i = 0;
+        int i = 1;
 
 
         return tags;
