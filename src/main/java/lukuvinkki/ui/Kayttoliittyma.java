@@ -38,6 +38,9 @@ public class Kayttoliittyma {
                 case "5":
                     io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä");
                     break;
+                case "6":
+                    palvelu.haeLukuvinkitTaginPerusteella();
+                    break;
                 case "-1":
                     System.out.println("Ohjelma sulkeutuu");
                     break loop;
@@ -55,6 +58,7 @@ public class Kayttoliittyma {
         io.print("3 - hae lukuvinkit");
         io.print("4 - selaa lukuvinkkejä");
         io.print("5 - muokkaa lukuvinkkejä");
+        io.print("6 - hae lukuvinkit tägeillä");
         io.print("-1 - lopeta ohjelma");
     }
 }
