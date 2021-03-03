@@ -3,18 +3,24 @@ package lukuvinkki.domain;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.print.attribute.standard.JobOriginatingUserName;
+
 import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
     IORajapinta io;
     TietokantaRajapinta tietokanta;
+    private HashMap<String, String> urlinMukaisetTagit;
 
     public Lukuvinkkipalvelu(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
         this.tietokanta = tietokanta;
+        alustaUrlinMukaisetTagit();
     }
 
     public boolean kelvollisetArvot(Lukuvinkki lukuvinkki) {
@@ -41,16 +47,19 @@ public class Lukuvinkkipalvelu {
 
         try {
             io.print("Anna lukuvinkin otsikko: ");
+            
             String otsikko = io.syote();
 
             io.print("Anna lukuvinkin url: ");
+
+            // muutos muotoon String url = normalisointi(io.syote())
             String url = io.syote();
             
             io.print("Anna tagit lukuvinkille: ");
-            io.print("(paina Enter, jos et tahdo lisätä tagejä.)");
+            io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
             
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
-            lukuvinkki.setTagit(muodostaTagit());
+            lukuvinkki.setTagit(muodostaTagit(url));
             
             if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki)) {
                 io.print("Uusi lukuvinkki:");
@@ -66,33 +75,52 @@ public class Lukuvinkkipalvelu {
         return false;
     }
     
-    private ArrayList<String> muodostaTagit() {
-        int index = 1;
-        ArrayList<String> tags = lisaaTagitURLPerusteella();
+    private ArrayList<String> muodostaTagit(String url) {
+
+        ArrayList<String> tags = lisaaTagitURLPerusteella(url);
         
         while (true) {
-            io.print("Tag " + index + ": ");
+            io.print("Anna uusi tagi: ");
             String tagit = io.syote();
 
             if (tagit.isEmpty())  {
                 break;
+            } else if (tags.contains(tagit)) {
+                continue;
             }
             
-            index++;
             tags.add(tagit);
         }
         
         return tags;
     }
 
-    private ArrayList<String> lisaaTagitURLPerusteella() {
+    private ArrayList<String> lisaaTagitURLPerusteella(String url) {
         ArrayList<String> tags = new ArrayList<>();
 
-        int i = 2;
-        int a;
-
+        for (String verrattavaURL : this.urlinMukaisetTagit.keySet()) {
+            if (url.contains(verrattavaURL)) {
+                tags.add(urlinMukaisetTagit.get(verrattavaURL));
+                break;
+            }
+        }
 
         return tags;
+    }
+
+    private void alustaUrlinMukaisetTagit() {
+
+        this.urlinMukaisetTagit = new HashMap<>();
+
+        this.urlinMukaisetTagit.put("https://www.medium.com/", "blogi");
+        this.urlinMukaisetTagit.put("https://www.youtube.com/", "video");
+        this.urlinMukaisetTagit.put("https://dl.acm.org/", "julkaisu");
+        this.urlinMukaisetTagit.put("https://ieeexplore.ieee.org/", "julkaisu");
+
+    }
+
+    public HashMap<String, String> getUrlinMukaisetTagitTesteihin() {
+        return this.urlinMukaisetTagit;
     }
     
 
