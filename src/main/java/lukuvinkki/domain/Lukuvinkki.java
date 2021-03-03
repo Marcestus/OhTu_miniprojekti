@@ -8,12 +8,21 @@ import java.util.List;
 public class Lukuvinkki {
 
     private String otsikko, url, tagitString;
+    private int id;
     private List<String> tagit;
 
     public Lukuvinkki(String otsikko, String url, String tagitString) {
         this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
+        alustaTagitLista(tagitString);
+    }
+
+    public Lukuvinkki(String otsikko, String url, String tagitString, int id) {
+        this.otsikko = otsikko;
+        this.url = url;
+        this.tagitString = tagitString;
+        this.id = id;
         alustaTagitLista(tagitString);
     }
     

@@ -49,23 +49,29 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     }
 
     public List<Lukuvinkki> haeKaikkiLukuvinkit() {
-        String hakuKasky = "SELECT otsikko, url, tagit FROM lukuvinkki;";
+        String hakuKasky = "SELECT id, otsikko, url, tagit FROM lukuvinkki;";
 
         List<Lukuvinkki> lukuvinkit = new ArrayList<>();
 
         try (PreparedStatement stmt = connection.prepareStatement(hakuKasky)) {
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
-                String otsikko = result.getString(1);
-                String url = result.getString(2);
-                String tagit = result.getString(3);
-                lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit));
+                int id = result.getInt(1);
+                String otsikko = result.getString(2);
+                String url = result.getString(3);
+                String tagit = result.getString(4);
+                
+                lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit, id));
             }
         } catch (SQLException error) {
             io.print("ERROR: " + error.getMessage());
         }
 
         return lukuvinkit;
+    }
+
+    public boolean poistaLukuvinkki(Lukuvinkki lukuvinkki) {
+        return false;
     }
 
     private boolean alustaTietokanta() {
