@@ -50,7 +50,7 @@ public class Lukuvinkkipalvelu {
         return !url.contains("https://") ? ("https://" + url) : (url);
     }
 
-    public boolean sivuOnOlemassa(String osoite) {
+    public boolean sivustoOnOlemassa(String osoite) {
         try {
             URL url = new URL(osoite);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

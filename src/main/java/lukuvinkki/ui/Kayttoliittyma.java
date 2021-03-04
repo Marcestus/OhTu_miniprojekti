@@ -113,7 +113,7 @@ public class Kayttoliittyma {
         io.print("Anna lukuvinkin url: ");
         String url = palvelu.normalisoiUrl(io.syote());
 
-        if (!palvelu.sivuOnOlemassa(url)) {
+        if (!palvelu.sivustoOnOlemassa(url)) {
             io.print("Osoitteella ei löytynyt sisältöä, yritä uudelleen toisella osoitteella");
             return;
         }
