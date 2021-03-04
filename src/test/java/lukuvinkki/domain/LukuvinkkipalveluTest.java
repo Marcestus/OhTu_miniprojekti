@@ -20,10 +20,30 @@ public class LukuvinkkipalveluTest {
         testiPalvelu = new Lukuvinkkipalvelu(testiIO, testiTietokanta);
         
         
-        testiPalvelu.lisaaLukuvinkki("testiVinkki1","https://www.testivinkki1.com/",new ArrayList<String>(){{ add("tagi1vinkki1"); add("samattagit");}});
-        testiPalvelu.lisaaLukuvinkki("testiVinkki2","https://www.testivinkki2.com/",new ArrayList<String>(){{ add("samattagit"); add("tagi2vinkki2");}});
-        testiPalvelu.lisaaLukuvinkki("testiVinkki3","https://www.testivinkki3.com/",new ArrayList<String>(){{ add("tagi1vinkki3"); add("tagi2vinkki3");}});
-        testiPalvelu.lisaaLukuvinkki("testiVinkki4","https://www.testivinkki4.com/",new ArrayList<String>(){{ add("tagi1vinkki4"); add("tagi2vinkki4");}});
+        testiPalvelu.lisaaLukuvinkki("testiVinkki1", "https://www.testivinkki1.com/", new ArrayList<String>() {
+            {
+                add("tagi1vinkki1");
+                add("samattagit");
+            }
+        });
+        testiPalvelu.lisaaLukuvinkki("testiVinkki2", "https://www.testivinkki2.com/", new ArrayList<String>() {
+            {
+                add("samattagit");
+                add("tagi2vinkki2");
+            }
+        });
+        testiPalvelu.lisaaLukuvinkki("testiVinkki3", "https://www.testivinkki3.com/", new ArrayList<String>() {
+            {
+                add("tagi1vinkki3");
+                add("tagi2vinkki3");
+            }
+        });
+        testiPalvelu.lisaaLukuvinkki("testiVinkki4", "https://www.testivinkki4.com/", new ArrayList<String>() {
+            {
+                add("tagi1vinkki4");
+                add("tagi2vinkki4");
+            }
+        });
     }
     
     @After
@@ -33,20 +53,33 @@ public class LukuvinkkipalveluTest {
     
     @Test
     public void testHaeLukuvinkitTaginPerusteellaKunTagiOlemassaYhdessaVinkissa() {
-        List<String> kysytytTagit = new ArrayList<String>(){{ add("tagi1vinkki1"); add("samattagit");}};
+        List<String> kysytytTagit = new ArrayList<String>() {
+            {
+                add("tagi1vinkki1");
+                add("samattagit");
+            }
+        };
         assertTrue(testiPalvelu.haeLukuvinkitTaginPerusteella(kysytytTagit).size() == 2);
         
     }
     
     @Test
     public void testHaeLukuvinkitTaginPerusteellaKunTagiOlemassaUseammassaVinkissa() {
-        List<String> kysytytTagit = new ArrayList<String>(){{ add("tagi1vinkki1");}};
+        List<String> kysytytTagit = new ArrayList<String>() {
+            {
+                add("tagi1vinkki1");
+            }
+        };
         assertTrue(testiPalvelu.haeLukuvinkitTaginPerusteella(kysytytTagit).size() == 1);
     }
     
     @Test
     public void testHaeLukuvinkitTaginPerusteellaPalauttaaTyhjanListanKunVinkkiaVastaavallaTagillaEiLoydy() {
-        List<String> kysytytTagit = new ArrayList<String>(){{ add("tammostaeiole");}};
+        List<String> kysytytTagit = new ArrayList<String>() {
+            {
+                add("tammostaeiole");
+            }
+        };
         assertTrue(testiPalvelu.haeLukuvinkitTaginPerusteella(kysytytTagit).isEmpty());
     }
 

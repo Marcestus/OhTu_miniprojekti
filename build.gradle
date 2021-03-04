@@ -30,13 +30,17 @@ application {
 	mainClass = 'lukuvinkki.Main'
 }
 
-run{
+run {
 	standardInput = System.in
 }
 
 jacocoTestReport {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
+	reports {
+		xml.enabled true
+		html.enabled true
+	}
+}
+
+tasks.withType(Checkstyle) {
+	exclude 'src/main/lukuvinkki.ui/Kayttoliittyma.java'
 }
