@@ -113,4 +113,23 @@ public class Lukuvinkkipalvelu {
         }
         return returnList;
     }
+    
+    
+    // kesken
+    public boolean onkoSivustoaOlemassa(String urlValidoitavaksi) {
+        try {
+            URL url = new URL("http://" + urlValidoitavaksi); // www.google.com
+            HttpURLConnection yhteys = (HttpURLConnection) url.openConnection();
+            yhteys.setRequestMethod("HEAD");
+            int responseCode = yhteys.getResponseCode();
+            
+            if (HttpURLConnection.HTTP_OK == responseCode) {
+                return true;
+            } 
+
+        } catch (Exception e) {
+            return false;
+        }
+        return false;
+    }
 }
