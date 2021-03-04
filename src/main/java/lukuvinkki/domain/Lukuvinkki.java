@@ -12,10 +12,7 @@ public class Lukuvinkki {
     private List<String> tagit;
 
     public Lukuvinkki(String otsikko, String url, String tagitString) {
-        this.otsikko = otsikko;
-        this.url = url;
-        this.tagitString = tagitString;
-        alustaTagitLista(tagitString);
+        this(otsikko, url, tagitString, 0);
     }
 
     public Lukuvinkki(String otsikko, String url, String tagitString, int id) {
