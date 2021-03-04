@@ -17,6 +17,7 @@ User story katsotaan valmiiksi, kun se täyttää seuraavat vaatimukset:
 
 - Koodista on uusin toimiva versio GitHubissa, ja GitHub Actions -palvelun status badge -merkki README-tiedostossa kertoo, että koodi läpäisee kaikki testit.
  
-- Koodi on tyyliltään ja nimennältään yhtenäistä ja läpäisee Checkstyle-tarkastuksen.
-
-- Ohjelman arkkitehtuuri on järkevä.
+- Koodi on tyyliltään ja nimennältään yhtenäistä ja läpäisee sekä katselmoinnin että Checkstyle-tarkastuksen:
+  * uusi koodi on lisätty repositorioon pull requestin kautta ja läpäisee automaattiset testit
+  * joku muu kuin koodin kirjoittaja(t) on katselmoinut koodin
+  * koodi on lisätty päähaaraan vasta, kun se on katselmoitu.
