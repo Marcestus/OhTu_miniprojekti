@@ -42,60 +42,24 @@ public class Lukuvinkkipalvelu {
     }
 
     // Komento 1
-    public boolean lisaaLukuvinkki() {
-        io.print("Komento (lisää lukuvinkki) valittu \n");
-
+    public String lisaaLukuvinkki(String otsikko, String url, List<String> tagit) {
         try {
-            io.print("Anna lukuvinkin otsikko: ");
-            
-            String otsikko = io.syote();
-
-            io.print("Anna lukuvinkin url: ");
-
-            // muutos muotoon String url = normalisointi(io.syote())
-            String url = io.syote();
-            
-            io.print("Anna tagit lukuvinkille: ");
-            io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
-            
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
-            lukuvinkki.setTagit(muodostaTagit(url));
+            lukuvinkki.setTagit(tagit);
             
             if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki)) {
-                io.print("Uusi lukuvinkki:");
-                io.print(lukuvinkki.toString());
-                io.print("lisätty onnistuneesti tietokantaan!");
-                return true;
+                String pal = "Uusi lukuvinkki:\n" + lukuvinkki.toString() + "\nlisätty onnistuneesti tietokantaan!";
+                return pal;
             } else {
                 throw new Exception("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
             }
         } catch (Exception error) {
             io.print("Error: " + error.getMessage());
         }
-        return false;
-    }
-    
-    private ArrayList<String> muodostaTagit(String url) {
-
-        ArrayList<String> tags = lisaaTagitURLPerusteella(url);
-        
-        while (true) {
-            io.print("Anna uusi tagi: ");
-            String tagit = io.syote();
-
-            if (tagit.isEmpty())  {
-                break;
-            } else if (tags.contains(tagit)) {
-                continue;
-            }
-            
-            tags.add(tagit);
-        }
-        
-        return tags;
+        return "";
     }
 
-    private ArrayList<String> lisaaTagitURLPerusteella(String url) {
+    public ArrayList<String> lisaaTagitURLPerusteella(String url) {
         ArrayList<String> tags = new ArrayList<>();
 
         for (String verrattavaURL : this.urlinMukaisetTagit.keySet()) {
@@ -130,40 +94,23 @@ public class Lukuvinkkipalvelu {
     }
 
     // Komento 3
-    public void haeLukuvunkit() {
-        io.print("Komento (hae lukuvinkit) valittu \n");
-        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
-        
-        if (vinkit.isEmpty()) {
-            io.print("Tietokannassa ei lukuvinkkejä!");
-            return;
-        }
-
-        io.print("Tietokannassa olevat lukuvinkit:");
-        for (Lukuvinkki lukuvinkki : vinkit) {
-            io.print(lukuvinkki.toString() + "\n");
-        }
+    public List<Lukuvinkki> haeLukuvunkit() {
+        return tietokanta.haeKaikkiLukuvinkit();
     }
 
-    public void haeLukuvinkitTaginPerusteella() {
-        io.print("Komento (hae lukuvinkit tägeillä) valittu \n");
-
-        io.print("Anna tägit haulle \n");
-
-        // mergessä lisää parametriksi tyhjä string
-        
-        ArrayList<String> tagit = muodostaTagit("");
-
+    public List<Lukuvinkki> haeLukuvinkitTaginPerusteella(List<String> kysytytTagit) {        
         List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
-
+        
+        List<Lukuvinkki> returnList = new ArrayList<>();
         for (Lukuvinkki lukuvinkki : vinkit) {
             String lukuvinkinTagit = lukuvinkki.getTagitString();
-            for (String tagi : tagit) {
+            for (String tagi : kysytytTagit) {
                 if (lukuvinkinTagit.contains(tagi)) {
-                    io.print(lukuvinkki.toString() + "\n");
+                    returnList.add(lukuvinkki);
                     break;
                 }
             }
         }
+        return returnList;
     }
 }
