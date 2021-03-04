@@ -1,16 +1,20 @@
 package lukuvinkki.domain;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 
 import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
+
     IORajapinta io;
     TietokantaRajapinta tietokanta;
     private HashMap<String, String> urlinMukaisetTagit;
@@ -26,35 +30,55 @@ public class Lukuvinkkipalvelu {
                 && lukuvinkki.getUrl().length() > 3
                 && onkoUrlMuotoValidi(lukuvinkki.getUrl());
     }
-        
-    public boolean onkoUrlMuotoValidi(String url) {       
+
+    public boolean onkoUrlMuotoValidi(String url) {
         String[] paatteet = {".fi", ".com", ".io", ".org", ".net"};
-       
+
         for (String paate : paatteet) {
             if (url.contains(paate)) {
                 return true;
             }
         }
-       
+
         return false;
     }
 
-    // Komento 1
-    public String lisaaLukuvinkki(String otsikko, String url, List<String> tagit) {
+    public String normalisoiUrl(String url) {
+        // Alustavasti url alkuun lisätään https:// jos sitä ei valmiiksi löydy
+        // Jatkossa paremmat validoinnit
+        // Esim. jos url ei sisällä www. tai jos url käyttää http:// -> https:// sijasta jne.
+        return !url.contains("https://") ? ("https://" + url) : (url);
+    }
+
+    public boolean sivuOnOlemassa(String osoite) {
+        try {
+            URL url = new URL(osoite);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            /*
+            InputStream inputStream = connection.getInputStream();
+            String result = new BufferedReader(new InputStreamReader(inputStream))
+                    .lines()
+                    .collect(Collectors.joining("\n"));
+            io.print("REQUEST BODY: " + result);
+            */
+
+            return connection.getResponseCode() == 200;
+        } catch (Exception error) {
+            return false;
+        }
+    }
+
+    public boolean lisaaLukuvinkki(String otsikko, String url, List<String> tagit) {
         try {
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
             lukuvinkki.setTagit(tagit);
-            
-            if (kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki)) {
-                String pal = "Uusi lukuvinkki:\n" + lukuvinkki.toString() + "\nlisätty onnistuneesti tietokantaan!";
-                return pal;
-            } else {
-                throw new Exception("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
-            }
+            return kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki);
         } catch (Exception error) {
             io.print("Error: " + error.getMessage());
+            return false;
         }
-        return "";
     }
 
     public ArrayList<String> lisaaTagitURLPerusteella(String url) {
@@ -71,37 +95,31 @@ public class Lukuvinkkipalvelu {
     }
 
     private void alustaUrlinMukaisetTagit() {
-
         this.urlinMukaisetTagit = new HashMap<>();
-
         this.urlinMukaisetTagit.put("https://www.medium.com/", "blogi");
         this.urlinMukaisetTagit.put("https://www.youtube.com/", "video");
         this.urlinMukaisetTagit.put("https://dl.acm.org/", "julkaisu");
         this.urlinMukaisetTagit.put("https://ieeexplore.ieee.org/", "julkaisu");
-
     }
 
     public HashMap<String, String> getUrlinMukaisetTagitTesteihin() {
         return this.urlinMukaisetTagit;
     }
-    
 
-    // Komento 2
     public void poistaLukuvinkki() {
-        
+
         //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
-        
+
         io.print("Komento (poista lukuvinkki) valittu \n");
     }
 
-    // Komento 3
     public List<Lukuvinkki> haeLukuvunkit() {
         return tietokanta.haeKaikkiLukuvinkit();
     }
 
-    public List<Lukuvinkki> haeLukuvinkitTaginPerusteella(List<String> kysytytTagit) {        
+    public List<Lukuvinkki> haeLukuvinkitTaginPerusteella(List<String> kysytytTagit) {
         List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
-        
+
         List<Lukuvinkki> returnList = new ArrayList<>();
         for (Lukuvinkki lukuvinkki : vinkit) {
             String lukuvinkinTagit = lukuvinkki.getTagitString();
@@ -113,24 +131,5 @@ public class Lukuvinkkipalvelu {
             }
         }
         return returnList;
-    }
-    
-    
-    // kesken
-    public boolean onkoSivustoaOlemassa(String urlValidoitavaksi) {
-        try {
-            URL url = new URL("http://" + urlValidoitavaksi); // www.google.com
-            HttpURLConnection yhteys = (HttpURLConnection) url.openConnection();
-            yhteys.setRequestMethod("HEAD");
-            int responseCode = yhteys.getResponseCode();
-            
-            if (HttpURLConnection.HTTP_OK == responseCode) {
-                return true;
-            } 
-
-        } catch (Exception e) {
-            return false;
-        }
-        return false;
     }
 }

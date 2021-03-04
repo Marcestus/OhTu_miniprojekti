@@ -29,9 +29,9 @@ public class Kayttoliittyma {
                     lisaaLukuvinkki();
                     break;
                 case "2":
-                    
+
                     //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
-                    
+
                     io.print("Tästä voi ohjelman tulevassa versiossa poistaa tallennettuja lukuvinkkejä");
                     break;
                 case "3":
@@ -55,7 +55,7 @@ public class Kayttoliittyma {
             }
         }
     }
-    
+
     public void haeLukuvinkitTaginPerusteella() {
         io.print("Komento (hae lukuvinkit tägeillä) valittu \n");
         io.print("Anna tägit haulle \n");
@@ -63,12 +63,12 @@ public class Kayttoliittyma {
         List<Lukuvinkki> vinkit = palvelu.haeLukuvinkitTaginPerusteella(tagit);
         tulostaLukuvinkit(vinkit);
     }
-    
+
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
-         
+
         List<Lukuvinkki> vinkit = palvelu.haeLukuvunkit();
-        
+
         if (vinkit.isEmpty()) {
             io.print("Tietokannassa ei lukuvinkkejä!");
             return;
@@ -77,16 +77,16 @@ public class Kayttoliittyma {
         io.print("Tietokannassa olevat lukuvinkit:");
         tulostaLukuvinkit(vinkit);
     }
-    
+
     public void tulostaLukuvinkit(List<Lukuvinkki> vinkit) {
         for (Lukuvinkki lukuvinkki : vinkit) {
             io.print(lukuvinkki.toString() + "\n");
         }
     }
-    
+
     public ArrayList<String> muodostaTagit(String url) {
         ArrayList<String> tags = palvelu.lisaaTagitURLPerusteella(url);
-        
+
         while (true) {
             io.print("Anna uusi tagi: ");
             String tagit = io.syote();
@@ -96,38 +96,37 @@ public class Kayttoliittyma {
             } else if (tags.contains(tagit)) {
                 continue;
             }
-            
+
             tags.add(tagit);
         }
-        
+
         return tags;
     }
-    
-    
+
+
     public void lisaaLukuvinkki() {
         io.print("Komento (lisää lukuvinkki) valittu \n");
-        io.print("Anna lukuvinkin otsikko: ");
 
+        io.print("Anna lukuvinkin otsikko: ");
         String otsikko = io.syote();
 
         io.print("Anna lukuvinkin url: ");
+        String url = palvelu.normalisoiUrl(io.syote());
 
-        // muutos muotoon String url = normalisointi(io.syote())
-        String url = io.syote();
+        if (!palvelu.sivuOnOlemassa(url)) {
+            io.print("Osoitteella ei löytynyt sisältöä, yritä uudelleen toisella osoitteella");
+            return;
+        }
 
         io.print("Anna tagit lukuvinkille: ");
         io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
-        
         List<String> tagit = muodostaTagit(url);
-        
-        String success = palvelu.lisaaLukuvinkki(otsikko, url, tagit);
-        
-        if (success.isEmpty()) {
-            io.print("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
+
+        if (palvelu.lisaaLukuvinkki(otsikko, url, tagit)) {
+            io.print("Uusi lukuvinkki lisätty onnistuneesti tietokantaan! \n");
         } else {
-            io.print(success);
+            io.print("Virheelliset arvot lukuvinkissä, muutoksia ei tehty. \n");
         }
-            
     }
 
     public void naytaKomennot() {
