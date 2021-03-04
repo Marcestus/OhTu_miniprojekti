@@ -53,4 +53,11 @@ public class TietokantahallintaTest {
         assertTrue(otsikko2Loytyy);
         assertTrue(otsikko3Loytyy);
     }
+    
+    @Test
+    public void testPoistaLukuvinkki() {
+        testiTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("poistettava1", "poistettava1.fi", "tag1poistoon"));
+        testiTietokanta.poistaLukuvinkki(1);
+        assertTrue(testiTietokanta.haeKaikkiLukuvinkit().isEmpty());
+    }
 }
