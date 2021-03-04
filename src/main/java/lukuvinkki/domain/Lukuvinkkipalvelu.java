@@ -144,4 +144,25 @@ public class Lukuvinkkipalvelu {
             io.print(lukuvinkki.toString() + "\n");
         }
     }
+
+    public void haeLukuvinkitTaginPerusteella() {
+        io.print("Komento (hae lukuvinkit tägeillä) valittu \n");
+
+        io.print("Anna tägit haulle \n");
+
+        // mergessä lisää parametriksi tyhjä string
+        ArrayList<String> tagit = muodostaTagit();
+
+        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+
+        for (Lukuvinkki lukuvinkki : vinkit) {
+            String lukuvinkinTagit = lukuvinkki.getTagitString();
+            for (String tagi : tagit) {
+                if (lukuvinkinTagit.contains(tagi)) {
+                    io.print(lukuvinkki.toString() + "\n");
+                    break;
+                }
+            }
+        }
+    }
 }
