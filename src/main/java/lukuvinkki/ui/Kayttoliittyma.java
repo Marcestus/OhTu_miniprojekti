@@ -18,11 +18,11 @@ public class Kayttoliittyma {
     }
 
     public void kayttoliittymaStart() {
-        System.out.println("Tervetuloa käyttämään lukuvinkkikirjastoa!");
+        io.print("Tervetuloa käyttämään lukuvinkkikirjastoa!");
         naytaKomennot();
         loop:
         while (true) {
-            System.out.println("Anna komento: ");
+            io.print("Anna komento: ");
             String vastaus = io.syote();
             switch (vastaus) {
                 case "1":
