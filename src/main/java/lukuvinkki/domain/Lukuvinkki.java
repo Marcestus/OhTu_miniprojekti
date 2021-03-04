@@ -20,7 +20,7 @@ public class Lukuvinkki {
         this.url = url;
         this.tagitString = tagitString;
         this.id = id;
-        alustaTagitLista(tagitString);
+        alustaTagitLista(this.tagitString);
     }
     
     public void alustaTagitLista(String tag) {
