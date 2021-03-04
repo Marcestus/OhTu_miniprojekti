@@ -90,6 +90,9 @@ public class Lukuvinkkipalvelu {
 
     // Komento 2
     public void poistaLukuvinkki() {
+        
+        //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
+        
         io.print("Komento (poista lukuvinkki) valittu \n");
     }
 

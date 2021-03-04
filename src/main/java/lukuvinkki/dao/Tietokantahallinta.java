@@ -70,8 +70,19 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         return lukuvinkit;
     }
 
-    public boolean poistaLukuvinkki(Lukuvinkki lukuvinkki) {
-        return false;
+    public boolean poistaLukuvinkki(int poistettavanID) {
+        String poistoKasky = "DELETE FROM lukuvinkki WHERE id = ?;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(poistoKasky)) {
+            stmt.setInt(1, poistettavanID);
+            stmt.executeUpdate();
+            
+            return true;
+        } catch (SQLException error) {
+            io.print("ERROR: " + error.getMessage());
+            return false;
+        }
+        
     }
 
     private boolean alustaTietokanta() {

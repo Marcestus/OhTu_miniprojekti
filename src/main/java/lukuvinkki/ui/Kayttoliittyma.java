@@ -29,6 +29,9 @@ public class Kayttoliittyma {
                     lisaaLukuvinkki();
                     break;
                 case "2":
+                    
+                    //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
+                    
                     io.print("Tästä voi ohjelman tulevassa versiossa poistaa tallennettuja lukuvinkkejä");
                     break;
                 case "3":
