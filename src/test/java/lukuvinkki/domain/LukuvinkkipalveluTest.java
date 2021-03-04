@@ -1,5 +1,7 @@
 package lukuvinkki.domain;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import lukuvinkki.dao.Tietokantahallinta;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -68,23 +70,15 @@ public class LukuvinkkipalveluTest {
     
     @Test
     public void testLisaaLukuvinkki() {
-        String testiSyote = "Otsikko\n" + "otsikko.fi\n" + "tagi1\n" + "tag2\n\n";
-        testiIO.alustaTestiSyote(testiSyote);
-        //assertTrue(testiPalvelu.lisaaLukuvinkki());
+        Lukuvinkki vinkki = new Lukuvinkki("Otsikko", "otsikko.fi", "");
+        vinkki.setTagit(new ArrayList<>(Arrays.asList("tag1, tag2")));
         
-        String testiSyoteIlmanTageja = "Otsikko\n" + "otsikko.fi\n\n";
-        testiIO.alustaTestiSyote(testiSyoteIlmanTageja);
-        //assertTrue(testiPalvelu.lisaaLukuvinkki());
+        String testiString = "Uusi lukuvinkki:\n" + vinkki.toString() + "\nlisätty onnistuneesti tietokantaan!";
+        assertEquals(testiString, testiPalvelu.lisaaLukuvinkki("Otsikko", "otsikko.fi", new ArrayList<>(Arrays.asList("tag1, tag2"))));
     }
     
     @Test
     public void testLisaaLukuvinkkiEiKelvollisellaSyotteella() {
-        String testiSyote = "Otsikko\n" + "otsikko.f\n" + "tagi1\n" + "tag2\n\n";
-        testiIO.alustaTestiSyote(testiSyote);
-        //assertFalse(testiPalvelu.lisaaLukuvinkki());
-        
-        String testiSyoteIlmanTageja = "lyh\n" + "otsikko.fi\n\n";
-        testiIO.alustaTestiSyote(testiSyoteIlmanTageja);
-        //assertFalse(testiPalvelu.lisaaLukuvinkki());
+        assertEquals("", testiPalvelu.lisaaLukuvinkki("Otsikko", "otsikko.vaara", new ArrayList<>(Arrays.asList("tag1, tag2"))));
     }
 }

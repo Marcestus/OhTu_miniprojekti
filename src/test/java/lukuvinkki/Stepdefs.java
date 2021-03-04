@@ -83,9 +83,9 @@ public class Stepdefs {
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
         
-        assertTrue(io.getPrints().contains("Otsikko: " + otsikko + "\n" +
+        assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + otsikko + "\n" +
                                             "Url: " + url + "\n" + 
-                                            "Tagit: " + tag1 + ", " + tag2 + ", " + tag3));
+                                            "Tagit: " + tag1 + ", " + tag2 + ", " + tag3 + "\nlisätty onnistuneesti tietokantaan!"));
     }
     
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
