@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.print.attribute.standard.JobOriginatingUserName;
-
 import lukuvinkki.dao.TietokantaRajapinta;
 
 public class Lukuvinkkipalvelu {
