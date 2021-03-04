@@ -1,18 +1,16 @@
 package lukuvinkki;
 
 import io.cucumber.java.Before;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
-import lukuvinkki.dao.TietokantaRajapinta;
 import lukuvinkki.dao.Tietokantahallinta;
 import lukuvinkki.domain.StubIO;
 import lukuvinkki.ui.Kayttoliittyma;
-import org.junit.After;
-import org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
@@ -24,7 +22,7 @@ public class Stepdefs {
 
     @Before
     public void setup() {
-        this.syotteet = new ArrayList();
+        this.syotteet = new ArrayList<>();
     }
     
     @After 

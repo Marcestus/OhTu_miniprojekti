@@ -34,12 +34,17 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     public boolean lisaaUusiLukuvinkki(Lukuvinkki lukuvinkki) {
         String addKasky = "INSERT INTO lukuvinkki (otsikko, url, tagit) VALUES (?, ?, ?);";
 
-        try (PreparedStatement stmt = connection.prepareStatement(addKasky)) {
+
+        try {
+            this.connection = DriverManager.getConnection(this.tiedostonURL);
+            PreparedStatement stmt = connection.prepareStatement(addKasky);
             stmt.setString(1, lukuvinkki.getOtsikko());
             stmt.setString(2, lukuvinkki.getUrl());
             stmt.setString(3, lukuvinkki.getTagitString());
 
             stmt.executeUpdate();
+            this.connection.close();
+
             return true;
         } catch (SQLException error) {
             io.print("ERROR: " + error.getMessage());
@@ -53,7 +58,9 @@ public class Tietokantahallinta implements TietokantaRajapinta {
 
         List<Lukuvinkki> lukuvinkit = new ArrayList<>();
 
-        try (PreparedStatement stmt = connection.prepareStatement(hakuKasky)) {
+        try {
+            this.connection = DriverManager.getConnection(this.tiedostonURL);
+            PreparedStatement stmt = connection.prepareStatement(hakuKasky);
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 int id = result.getInt(1);
@@ -63,6 +70,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
                 
                 lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit, id));
             }
+            this.connection.close();
         } catch (SQLException error) {
             io.print("ERROR: " + error.getMessage());
         }
@@ -79,11 +87,13 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         String createTableKasky = "CREATE TABLE IF NOT EXISTS lukuvinkki (id integer PRIMARY KEY, otsikko text, url text, tagit text);";
 
         try {
-            this.connection = DriverManager.getConnection(tiedostonURL);
+            this.connection = DriverManager.getConnection(this.tiedostonURL);
 
             Statement stmt = connection.createStatement();
 
             stmt.execute(createTableKasky);
+
+            this.connection.close();
 
             return true;
 
