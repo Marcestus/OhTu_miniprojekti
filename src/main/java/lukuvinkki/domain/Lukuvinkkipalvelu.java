@@ -151,7 +151,8 @@ public class Lukuvinkkipalvelu {
         io.print("Anna tägit haulle \n");
 
         // mergessä lisää parametriksi tyhjä string
-        ArrayList<String> tagit = muodostaTagit();
+        
+        ArrayList<String> tagit = muodostaTagit("");
 
         List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
 
