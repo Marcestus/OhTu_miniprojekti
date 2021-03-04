@@ -34,7 +34,6 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     public boolean lisaaUusiLukuvinkki(Lukuvinkki lukuvinkki) {
         String addKasky = "INSERT INTO lukuvinkki (otsikko, url, tagit) VALUES (?, ?, ?);";
 
-
         try {
             this.connection = DriverManager.getConnection(this.tiedostonURL);
             PreparedStatement stmt = connection.prepareStatement(addKasky);
@@ -81,9 +80,12 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     public boolean poistaLukuvinkki(int poistettavanID) {
         String poistoKasky = "DELETE FROM lukuvinkki WHERE id = ?;";
 
-        try (PreparedStatement stmt = connection.prepareStatement(poistoKasky)) {
+        try {
+            this.connection = DriverManager.getConnection(this.tiedostonURL);
+            PreparedStatement stmt = connection.prepareStatement(poistoKasky);
             stmt.setInt(1, poistettavanID);
             stmt.executeUpdate();
+            this.connection.close();
             
             return true;
         } catch (SQLException error) {
