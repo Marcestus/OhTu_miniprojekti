@@ -2,6 +2,7 @@ package lukuvinkki.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import lukuvinkki.dao.Tietokantahallinta;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -17,11 +18,36 @@ public class LukuvinkkipalveluTest {
         testiTietokanta = new Tietokantahallinta("testi.db", testiIO);
         testiTietokanta.otaYhteysTietokantaan();
         testiPalvelu = new Lukuvinkkipalvelu(testiIO, testiTietokanta);
+        
+        
+        testiPalvelu.lisaaLukuvinkki("testiVinkki1","https://www.testivinkki1.com/",new ArrayList<String>(){{ add("tagi1vinkki1"); add("samattagit");}});
+        testiPalvelu.lisaaLukuvinkki("testiVinkki2","https://www.testivinkki2.com/",new ArrayList<String>(){{ add("samattagit"); add("tagi2vinkki2");}});
+        testiPalvelu.lisaaLukuvinkki("testiVinkki3","https://www.testivinkki3.com/",new ArrayList<String>(){{ add("tagi1vinkki3"); add("tagi2vinkki3");}});
+        testiPalvelu.lisaaLukuvinkki("testiVinkki4","https://www.testivinkki4.com/",new ArrayList<String>(){{ add("tagi1vinkki4"); add("tagi2vinkki4");}});
     }
     
     @After
     public void poistaTestiDatabase() {
         testiTietokanta.poistaTestiTietokanta("testi.db");
+    }
+    
+    @Test
+    public void testHaeLukuvinkitTaginPerusteellaKunTagiOlemassaYhdessaVinkissa() {
+        List<String> kysytytTagit = new ArrayList<String>(){{ add("tagi1vinkki1"); add("samattagit");}};
+        assertTrue(testiPalvelu.haeLukuvinkitTaginPerusteella(kysytytTagit).size() == 2);
+        
+    }
+    
+    @Test
+    public void testHaeLukuvinkitTaginPerusteellaKunTagiOlemassaUseammassaVinkissa() {
+        List<String> kysytytTagit = new ArrayList<String>(){{ add("tagi1vinkki1");}};
+        assertTrue(testiPalvelu.haeLukuvinkitTaginPerusteella(kysytytTagit).size() == 1);
+    }
+    
+    @Test
+    public void testHaeLukuvinkitTaginPerusteellaPalauttaaTyhjanListanKunVinkkiaVastaavallaTagillaEiLoydy() {
+        List<String> kysytytTagit = new ArrayList<String>(){{ add("tammostaeiole");}};
+        assertTrue(testiPalvelu.haeLukuvinkitTaginPerusteella(kysytytTagit).isEmpty());
     }
 
     @Test
@@ -81,4 +107,18 @@ public class LukuvinkkipalveluTest {
     public void testLisaaLukuvinkkiEiKelvollisellaSyotteella() {
         assertEquals("", testiPalvelu.lisaaLukuvinkki("Otsikko", "otsikko.vaara", new ArrayList<>(Arrays.asList("tag1, tag2"))));
     }
+    
+    @Test
+    public void testLisaaAutomaattisetTagitKunNiitaOn() {
+        assertTrue(testiPalvelu.lisaaTagitURLPerusteella("https://www.medium.com/").size() == 1);
+        assertTrue(testiPalvelu.lisaaTagitURLPerusteella("https://www.medium.com/").get(0).equals("blogi"));
+    }
+    
+    @Test
+    public void testEiLisaaAutomaattisiaTagejaKunNiitaEiOle() {
+        assertTrue(testiPalvelu.lisaaTagitURLPerusteella("https://www.helsinki.fi/").isEmpty());
+    }
+    
+    
+    
 }
