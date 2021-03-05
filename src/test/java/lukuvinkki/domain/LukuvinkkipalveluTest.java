@@ -20,7 +20,7 @@ public class LukuvinkkipalveluTest {
         testiPalvelu = new Lukuvinkkipalvelu(testiIO, testiTietokanta);
         
         
-        testiPalvelu.lisaaLukuvinkki("testiVinkki1", "https://www.testivinkki1.com/", new ArrayList<String>() {
+        testiPalvelu.lisaaLukuvinkki("testiVinkki1", "https://www.google.com/", new ArrayList<String>() {
             {
                 add("tagi1vinkki1");
                 add("samattagit");
@@ -129,16 +129,14 @@ public class LukuvinkkipalveluTest {
     
     @Test
     public void testLisaaLukuvinkki() {
-        Lukuvinkki vinkki = new Lukuvinkki("Otsikko", "otsikko.fi", "");
+        Lukuvinkki vinkki = new Lukuvinkki("Otsikko", "google.com", "");
         vinkki.setTagit(new ArrayList<>(Arrays.asList("tag1, tag2")));
-        
-        String testiString = "Uusi lukuvinkki:\n" + vinkki.toString() + "\nlisätty onnistuneesti tietokantaan!";
-        assertEquals(testiString, testiPalvelu.lisaaLukuvinkki("Otsikko", "otsikko.fi", new ArrayList<>(Arrays.asList("tag1, tag2"))));
+        assertTrue(testiPalvelu.lisaaLukuvinkki("Otsikko", "google.com", new ArrayList<>(Arrays.asList("tag1, tag2"))));
     }
     
     @Test
     public void testLisaaLukuvinkkiEiKelvollisellaSyotteella() {
-        assertEquals("", testiPalvelu.lisaaLukuvinkki("Otsikko", "otsikko.vaara", new ArrayList<>(Arrays.asList("tag1, tag2"))));
+        assertFalse(testiPalvelu.lisaaLukuvinkki("Otsikko", "otsikko.vaara", new ArrayList<>(Arrays.asList("tag1, tag2"))));
     }
     
     @Test
@@ -151,7 +149,4 @@ public class LukuvinkkipalveluTest {
     public void testEiLisaaAutomaattisiaTagejaKunNiitaEiOle() {
         assertTrue(testiPalvelu.lisaaTagitURLPerusteella("https://www.helsinki.fi/").isEmpty());
     }
-    
-    
-    
 }

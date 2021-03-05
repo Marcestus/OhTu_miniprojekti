@@ -1,6 +1,7 @@
 package lukuvinkki.ui;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lukuvinkki.dao.*;
 import lukuvinkki.domain.*;
@@ -123,9 +124,11 @@ public class Kayttoliittyma {
         List<String> tagit = muodostaTagit(url);
 
         if (palvelu.lisaaLukuvinkki(otsikko, url, tagit)) {
-            io.print("Uusi lukuvinkki lisätty onnistuneesti tietokantaan! \n");
+            Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
+            lukuvinkki.setTagit(tagit);
+            io.print("Uusi lukuvinkki:\n" + lukuvinkki.toString() + "\nlisätty onnistuneesti tietokantaan!");
         } else {
-            io.print("Virheelliset arvot lukuvinkissä, muutoksia ei tehty. \n");
+            io.print("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
         }
     }
 

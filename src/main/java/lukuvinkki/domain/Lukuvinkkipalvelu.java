@@ -44,7 +44,7 @@ public class Lukuvinkkipalvelu {
     }
 
     public String normalisoiUrl(String url) {
-        // Alustavasti url alkuun lisätään https:// jos sitä ei valmiiksi löydy
+        // Alustavasti url:n alkuun lisätään https:// jos sitä ei valmiiksi löydy
         // Jatkossa paremmat validoinnit
         // Esim. jos url ei sisällä www. tai jos url käyttää http:// -> https:// sijasta jne.
         return !url.contains("https://") ? ("https://" + url) : (url);
@@ -55,15 +55,6 @@ public class Lukuvinkkipalvelu {
             URL url = new URL(osoite);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-
-            /*
-            InputStream inputStream = connection.getInputStream();
-            String result = new BufferedReader(new InputStreamReader(inputStream))
-                    .lines()
-                    .collect(Collectors.joining("\n"));
-            io.print("REQUEST BODY: " + result);
-            */
-
             return connection.getResponseCode() == 200;
         } catch (Exception error) {
             return false;
