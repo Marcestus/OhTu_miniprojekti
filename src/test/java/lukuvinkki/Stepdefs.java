@@ -48,6 +48,7 @@ public class Stepdefs {
     public void lukuvinkkiLisattyEpavalidillaURL(String url) {
         syotteet.add("otsikkoTesti");
         syotteet.add(url);
+        syotteet.add("google.com");
         syotteet.add("tag1");
         syotteet.add("tag2");
         syotteet.add("");
@@ -94,7 +95,8 @@ public class Stepdefs {
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
 
-        boolean loytykoHaettavaTekstiOsa = io.getPrints().stream()
+        boolean loytykoHaettavaTekstiOsa = io.getPrints()
+                .stream()
                 .anyMatch(x -> x.contains(teksti));
 
         assertTrue(loytykoHaettavaTekstiOsa);

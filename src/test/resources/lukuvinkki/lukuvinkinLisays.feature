@@ -13,7 +13,7 @@ Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
     Scenario: kayttaja ei voi lisata lukuvinkkia epavalidilla url-osoitteella
         Given komento lisaa valittu
         When  lukuvinkki epavalidilla URL-osoitteella "huonoURL" lisatty
-        Then  ohjelman tulostus sisaltaa "Osoitteella ei löytynyt sisältöä, yritä uudelleen toisella osoitteella" tekstin
+        Then  ohjelman tulostus sisaltaa "Ole hyvä ja anna kelvollinen lukuvinkin url:" tekstin
 
     Scenario: kayttajan lisaamassa lukuvinkissa tagit eroteltuna pilkuilla
         Given komento lisaa valittu

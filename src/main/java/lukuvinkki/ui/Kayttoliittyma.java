@@ -104,20 +104,38 @@ public class Kayttoliittyma {
         return tags;
     }
 
+    private String muodostaOtsikko() {
+        while (true) {
+            String otsikko = io.syote();
+            if (otsikko.length() > 3) {
+                return otsikko;
+            } else {
+                io.print("Virhe: Otsikon tulee olla vähintään 4 merkkiä pitkä");
+                io.print("Ole hyvä ja anna kelvollinen lukuvinkin otsikko: ");
+            }
+        }
+    }
+
+    private String muodostaUrl() {
+        while (true) {
+            String url = palvelu.normalisoiUrl(io.syote());
+            if (palvelu.sivustoOnOlemassa(url)) {
+                return url;
+            } else {
+                io.print("Virhe: Osoitteella ei löytynyt sisältöä");
+                io.print("Ole hyvä ja anna kelvollinen lukuvinkin url: ");
+            }
+        }
+    }
 
     public void lisaaLukuvinkki() {
         io.print("Komento (lisää lukuvinkki) valittu \n");
 
         io.print("Anna lukuvinkin otsikko: ");
-        String otsikko = io.syote();
+        String otsikko = muodostaOtsikko();
 
         io.print("Anna lukuvinkin url: ");
-        String url = palvelu.normalisoiUrl(io.syote());
-
-        if (!palvelu.sivustoOnOlemassa(url)) {
-            io.print("Osoitteella ei löytynyt sisältöä, yritä uudelleen toisella osoitteella");
-            return;
-        }
+        String url = muodostaUrl();
 
         io.print("Anna tagit lukuvinkille: ");
         io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
