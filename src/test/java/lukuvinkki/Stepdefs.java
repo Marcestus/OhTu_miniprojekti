@@ -105,9 +105,9 @@ public class Stepdefs {
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
         
-        assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + haettuOtsikko + "\n" +
-                "Url: " + url + "\n" +
-                "Tagit: -\nlisätty onnistuneesti tietokantaan!"));
+        String printtaus = String.join("", io.getPrints());
+        assertTrue(printtaus.contains(url));
+        assertTrue(printtaus.contains(haettuOtsikko));
     }
 
     @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")

@@ -28,7 +28,7 @@ Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
     Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
         Given komento lisaa valittu
         When  lukuvinkki lisatty url "www.facebook.com" ja komennolla hae valmis otsikko "y"
-        Then  Ohjelman tulostus sisältää "https://www.facebook.com" sivuston haetun otsikon "Facebook – kirjaudu sisään tai rekisteröidy"
+        Then  Ohjelman tulostus sisältää "https://www.facebook.com" sivuston haetun otsikon "Facebook"
 
     Scenario: kayttaja voi valita, etta valmista otsikkoa ei haeta url-osoitteesta
         Given komento lisaa valittu
