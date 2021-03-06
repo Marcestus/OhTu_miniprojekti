@@ -20,7 +20,7 @@ public class Kayttoliittyma {
 
     public void kayttoliittymaStart() {
         io.print("Tervetuloa käyttämään lukuvinkkikirjastoa!");
-        naytaKomennot();
+        tulostaKomennot();
         loop:
         while (true) {
             io.print("Anna komento: ");
@@ -107,6 +107,7 @@ public class Kayttoliittyma {
     private String muodostaOtsikko() {
         while (true) {
             String otsikko = io.syote();
+                        
             if (otsikko.length() > 3) {
                 return otsikko;
             } else {
@@ -115,7 +116,7 @@ public class Kayttoliittyma {
             }
         }
     }
-
+    
     private String muodostaUrl() {
         while (true) {
             String url = palvelu.normalisoiUrl(io.syote());
@@ -127,6 +128,21 @@ public class Kayttoliittyma {
             }
         }
     }
+    
+    private String asetaValmisOtsikkoJosTarpeen(String aiemminSyotettyOtsikko, String syote, String url) {
+        if (syote.equals("y")) {
+            String haettuOtsikko = palvelu.getOtsikkoURLOsoitteesta(url);
+            if (!haettuOtsikko.equals("epaonnistunut")) {
+                io.print("Otsikko '" + haettuOtsikko + "' haettu onnistuneesti!");
+                return haettuOtsikko;
+            } else {
+                io.print("Valitettavasti sivuston otsikkoa ei voitu hakea.");
+                io.print("Käytämme aiemmin syöttämääsi otsikkoa.");
+            }
+        }
+        
+        return aiemminSyotettyOtsikko;
+    }
 
     public void lisaaLukuvinkki() {
         io.print("Komento (lisää lukuvinkki) valittu \n");
@@ -136,7 +152,12 @@ public class Kayttoliittyma {
 
         io.print("Anna lukuvinkin url: ");
         String url = muodostaUrl();
-
+        
+        io.print("Haluatko korvata aiemmin syötetyn otsikon hakemalla sivuston otsikon?\n"
+                + "(Syöta 'y' mikäli kyllä, muuten paina Enter)");
+        String valmisOtsikkoKomento = io.syote();
+        otsikko = asetaValmisOtsikkoJosTarpeen(otsikko, valmisOtsikkoKomento, url);
+        
         io.print("Anna tagit lukuvinkille: ");
         io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
         List<String> tagit = muodostaTagit(url);
@@ -150,7 +171,7 @@ public class Kayttoliittyma {
         }
     }
 
-    public void naytaKomennot() {
+    public void tulostaKomennot() {
         io.print("Komennot:");
         io.print("1 - lisää lukuvinkki");
         io.print("2 - poista lukuvinkki");

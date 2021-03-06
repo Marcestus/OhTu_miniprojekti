@@ -1,6 +1,7 @@
 package lukuvinkki.domain;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -12,6 +13,8 @@ import java.util.stream.Collectors;
 
 
 import lukuvinkki.dao.TietokantaRajapinta;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class Lukuvinkkipalvelu {
 
@@ -48,6 +51,15 @@ public class Lukuvinkkipalvelu {
         // Jatkossa paremmat validoinnit
         // Esim. jos url ei sisällä www. tai jos url käyttää http:// -> https:// sijasta jne.
         return !url.contains("https://") ? ("https://" + url) : (url);
+    }
+    
+    public String getOtsikkoURLOsoitteesta(String url) {
+        try {
+            Document sivusto = Jsoup.connect(url).get();
+            return sivusto.title();
+        } catch (Exception e) {
+            return "epaonnistunut";
+        }		
     }
 
     public boolean sivustoOnOlemassa(String osoite) {

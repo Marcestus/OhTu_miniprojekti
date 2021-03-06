@@ -149,4 +149,23 @@ public class LukuvinkkipalveluTest {
     public void testEiLisaaAutomaattisiaTagejaKunNiitaEiOle() {
         assertTrue(testiPalvelu.lisaaTagitURLPerusteella("https://www.helsinki.fi/").isEmpty());
     }
+
+    @Test
+    public void testNormalisoiUrl() {
+    }
+
+    @Test
+    public void testGetOtsikkoURLOsoitteesta() {
+        assertEquals("Google", testiPalvelu.getOtsikkoURLOsoitteesta("https://www.google.com"));
+        assertEquals("University of Helsinki", testiPalvelu.getOtsikkoURLOsoitteesta("https://www.helsinki.fi"));
+        assertEquals("The Free MMORPG - RuneScape - Online Fantasy RPG", testiPalvelu.getOtsikkoURLOsoitteesta("https://www.runescape.com"));
+    }
+
+    @Test
+    public void testSivustoOnOlemassa() {
+        assertTrue(testiPalvelu.sivustoOnOlemassa("https://www.helsinki.com"));
+        assertFalse(testiPalvelu.sivustoOnOlemassa("https://www.enuskoettataasolemassa.com"));
+    }
+
+    
 }

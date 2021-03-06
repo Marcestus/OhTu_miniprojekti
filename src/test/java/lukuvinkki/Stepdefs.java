@@ -39,6 +39,7 @@ public class Stepdefs {
     public void lukuvinkkiLisattyOnnistuneesti(String otsikko) {
         syotteet.add(otsikko);
         syotteet.add("url.fi");
+        syotteet.add("");
         syotteet.add("tag1");
         syotteet.add("tag2");
         syotteet.add("");
@@ -49,6 +50,7 @@ public class Stepdefs {
         syotteet.add("otsikkoTesti");
         syotteet.add(url);
         syotteet.add("google.com");
+        syotteet.add(""); // ei haeta valmisotsikkoa
         syotteet.add("tag1");
         syotteet.add("tag2");
         syotteet.add("");
@@ -58,6 +60,7 @@ public class Stepdefs {
     public void lukuvinkkiLisattyKolmellaTagilla(String tag1, String tag2, String tag3) {
         syotteet.add("otsikkoTesti");
         syotteet.add("google.com");
+        syotteet.add(""); // ei haeta valmisotsikkoa
         syotteet.add(tag1);
         syotteet.add(tag2);
         syotteet.add(tag3);
@@ -68,10 +71,43 @@ public class Stepdefs {
     public void lukuvinkkiParameterillaJaUseallaTagilla(String otsikko, String url, String tag1, String tag2, String tag3) {
         syotteet.add(otsikko);
         syotteet.add(url);
+        syotteet.add(""); // ei haeta valmisotsikkoa
         syotteet.add(tag1);
         syotteet.add(tag2);
         syotteet.add(tag3);
         syotteet.add("");
+    }
+    
+    @When("lukuvinkki lisatty url {string} ja komennolla hae valmis otsikko {string}")
+    public void lukuvinkinLisaysHakemallaOtsikkoURL(String url, String hakuKomento) {
+        syotteet.add("aiemminSyotettyOtsikko");
+        syotteet.add(url);
+        syotteet.add(hakuKomento); 
+        syotteet.add("");
+    }
+    
+    @When("lukuvinkki lisatty otsikolla {string}, url {string}, tageilla {string}, {string}, {string} ja komennolla hae valmis otsikko {string}")
+    public void lukuvinkinLisaysHakemallaOtsikkoURL(String omaOtsikko, String url, String tag1, String tag2, String tag3, String komento) {
+        syotteet.add(omaOtsikko);
+        syotteet.add(url);
+        syotteet.add(komento); 
+        syotteet.add(tag1);
+        syotteet.add(tag2);
+        syotteet.add(tag3);
+        syotteet.add("");
+    }
+    
+    @Then("Ohjelman tulostus sisältää {string} sivuston haetun otsikon {string}")
+    public void ohjelmanTulostuksessaHaettuOtsikko(String url, String haettuOtsikko) {
+        io = new StubIO(syotteet);
+        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
+        tietokanta.otaYhteysTietokantaan();
+        ui = new Kayttoliittyma(io, tietokanta);
+        ui.kayttoliittymaStart();
+        
+        assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + haettuOtsikko + "\n" +
+                "Url: " + url + "\n" +
+                "Tagit: -\nlisätty onnistuneesti tietokantaan!"));
     }
 
     @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")
