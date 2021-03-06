@@ -39,6 +39,7 @@ public class Stepdefs {
     public void lukuvinkkiLisattyOnnistuneesti(String otsikko) {
         syotteet.add(otsikko);
         syotteet.add("url.fi");
+        syotteet.add("");
         syotteet.add("tag1");
         syotteet.add("tag2");
         syotteet.add("");
@@ -49,6 +50,7 @@ public class Stepdefs {
         syotteet.add("otsikkoTesti");
         syotteet.add(url);
         syotteet.add("google.com");
+        syotteet.add(""); // ei haeta valmisotsikkoa
         syotteet.add("tag1");
         syotteet.add("tag2");
         syotteet.add("");
@@ -58,6 +60,7 @@ public class Stepdefs {
     public void lukuvinkkiLisattyKolmellaTagilla(String tag1, String tag2, String tag3) {
         syotteet.add("otsikkoTesti");
         syotteet.add("google.com");
+        syotteet.add(""); // ei haeta valmisotsikkoa
         syotteet.add(tag1);
         syotteet.add(tag2);
         syotteet.add(tag3);
@@ -68,6 +71,7 @@ public class Stepdefs {
     public void lukuvinkkiParameterillaJaUseallaTagilla(String otsikko, String url, String tag1, String tag2, String tag3) {
         syotteet.add(otsikko);
         syotteet.add(url);
+        syotteet.add(""); // ei haeta valmisotsikkoa
         syotteet.add(tag1);
         syotteet.add(tag2);
         syotteet.add(tag3);
