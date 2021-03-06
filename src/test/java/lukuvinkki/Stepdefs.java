@@ -77,6 +77,38 @@ public class Stepdefs {
         syotteet.add(tag3);
         syotteet.add("");
     }
+    
+    @When("lukuvinkki lisatty url {string} ja komennolla hae valmis otsikko {string}")
+    public void lukuvinkinLisaysHakemallaOtsikkoURL(String url, String hakuKomento) {
+        syotteet.add("aiemminSyotettyOtsikko");
+        syotteet.add(url);
+        syotteet.add(hakuKomento); 
+        syotteet.add("");
+    }
+    
+    @When("lukuvinkki lisatty otsikolla {string}, url {string}, tageilla {string}, {string}, {string} ja komennolla hae valmis otsikko {string}")
+    public void lukuvinkinLisaysHakemallaOtsikkoURL(String omaOtsikko, String url, String tag1, String tag2, String tag3, String komento) {
+        syotteet.add(omaOtsikko);
+        syotteet.add(url);
+        syotteet.add(komento); 
+        syotteet.add(tag1);
+        syotteet.add(tag2);
+        syotteet.add(tag3);
+        syotteet.add("");
+    }
+    
+    @Then("Ohjelman tulostus sisältää {string} sivuston haetun otsikon {string}")
+    public void ohjelmanTulostuksessaHaettuOtsikko(String url, String haettuOtsikko) {
+        io = new StubIO(syotteet);
+        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
+        tietokanta.otaYhteysTietokantaan();
+        ui = new Kayttoliittyma(io, tietokanta);
+        ui.kayttoliittymaStart();
+        
+        assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + haettuOtsikko + "\n" +
+                "Url: " + url + "\n" +
+                "Tagit: -\nlisätty onnistuneesti tietokantaan!"));
+    }
 
     @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")
     public void ohjelmanTulostusVastaa(String otsikko, String url, String tag1, String tag2, String tag3) {

@@ -19,3 +19,18 @@ Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
         Given komento lisaa valittu
         When  lukuvinkki lisatty kolmella "tag1" "tag2" "tag3" tagilla
         Then  ohjelman tulostus sisaltaa "Tagit: tag1, tag2, tag3" tekstin
+
+    Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
+        Given komento lisaa valittu
+        When  lukuvinkki lisatty url "www.google.com" ja komennolla hae valmis otsikko "y"
+        Then  Ohjelman tulostus sisältää "https://www.google.com" sivuston haetun otsikon "Google"
+
+    Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
+        Given komento lisaa valittu
+        When  lukuvinkki lisatty url "www.facebook.com" ja komennolla hae valmis otsikko "y"
+        Then  Ohjelman tulostus sisältää "https://www.facebook.com" sivuston haetun otsikon "Facebook – kirjaudu sisään tai rekisteröidy"
+
+    Scenario: kayttaja voi valita, etta valmista otsikkoa ei haeta url-osoitteesta
+        Given komento lisaa valittu
+        When  lukuvinkki lisatty otsikolla "omaOtsikko", url "www.google.com", tageilla "tag1", "tag2", "tag3" ja komennolla hae valmis otsikko ""
+        Then  ohjelman tulostus oikein parametreilla otsikko "omaOtsikko", URL "https://www.google.com", tagit "tag1", "tag2", "tag3"
