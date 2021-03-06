@@ -34,7 +34,7 @@ public class Stepdefs {
     public void komentoLisaaValittu() {
         syotteet.add("1");
     }
-    
+
     @When("lukuvinkki otsikolla {string} lisatty")
     public void lukuvinkkiLisattyOnnistuneesti(String otsikko) {
         syotteet.add(otsikko);
@@ -43,26 +43,27 @@ public class Stepdefs {
         syotteet.add("tag2");
         syotteet.add("");
     }
-    
+
     @When("lukuvinkki epavalidilla URL-osoitteella {string} lisatty")
     public void lukuvinkkiLisattyEpavalidillaURL(String url) {
         syotteet.add("otsikkoTesti");
         syotteet.add(url);
+        syotteet.add("google.com");
         syotteet.add("tag1");
         syotteet.add("tag2");
         syotteet.add("");
     }
-    
+
     @When("lukuvinkki lisatty kolmella {string} {string} {string} tagilla")
     public void lukuvinkkiLisattyKolmellaTagilla(String tag1, String tag2, String tag3) {
         syotteet.add("otsikkoTesti");
-        syotteet.add("oikeaaUrl.io");
+        syotteet.add("google.com");
         syotteet.add(tag1);
         syotteet.add(tag2);
         syotteet.add(tag3);
         syotteet.add("");
     }
-    
+
     @When("lukuvinkki otsikolla {string}, URL {string}, tageilla {string}, {string}, {string} lisatty")
     public void lukuvinkkiParameterillaJaUseallaTagilla(String otsikko, String url, String tag1, String tag2, String tag3) {
         syotteet.add(otsikko);
@@ -72,7 +73,7 @@ public class Stepdefs {
         syotteet.add(tag3);
         syotteet.add("");
     }
-    
+
     @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")
     public void ohjelmanTulostusVastaa(String otsikko, String url, String tag1, String tag2, String tag3) {
         io = new StubIO(syotteet);
@@ -80,12 +81,12 @@ public class Stepdefs {
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
-        
+
         assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + otsikko + "\n" +
-                                            "Url: " + url + "\n" + 
-                                            "Tagit: " + tag1 + ", " + tag2 + ", " + tag3 + "\nlisätty onnistuneesti tietokantaan!"));
+                "Url: " + url + "\n" +
+                "Tagit: " + tag1 + ", " + tag2 + ", " + tag3 + "\nlisätty onnistuneesti tietokantaan!"));
     }
-    
+
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         io = new StubIO(syotteet);
@@ -93,13 +94,11 @@ public class Stepdefs {
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
-        
-        boolean loytykoHaettavaTekstiOsa = io.getPrints().stream()
-                                                            .anyMatch(x -> x.contains(teksti));
-                       
-        assertTrue(loytykoHaettavaTekstiOsa);        
+
+        boolean loytykoHaettavaTekstiOsa = io.getPrints()
+                .stream()
+                .anyMatch(x -> x.contains(teksti));
+
+        assertTrue(loytykoHaettavaTekstiOsa);
     }
-    
-    
-    
 }
