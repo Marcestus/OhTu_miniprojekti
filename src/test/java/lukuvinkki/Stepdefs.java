@@ -34,6 +34,11 @@ public class Stepdefs {
     public void komentoLisaaValittu() {
         syotteet.add("1");
     }
+    
+    @Given("komento hae valittu")
+    public void komentoHaeValittu() {
+        syotteet.add("3");
+    }
 
     @When("lukuvinkki otsikolla {string} lisatty")
     public void lukuvinkkiLisattyOnnistuneesti(String otsikko) {
@@ -97,13 +102,18 @@ public class Stepdefs {
         syotteet.add("");
     }
     
+    @When("lukuvinkki otsikolla {string}, URL {string} ja ilman tageja lisatty")
+    public void lukuvinkkiIlmanTagejaLisatty(String otsikko, String url) {
+        syotteet.add(otsikko);
+        syotteet.add(url);
+        syotteet.add(""); 
+        syotteet.add("");
+    }
+    
+    
     @Then("Ohjelman tulostus sisältää {string} sivuston haetun otsikon {string}")
     public void ohjelmanTulostuksessaHaettuOtsikko(String url, String haettuOtsikko) {
-        io = new StubIO(syotteet);
-        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
-        tietokanta.otaYhteysTietokantaan();
-        ui = new Kayttoliittyma(io, tietokanta);
-        ui.kayttoliittymaStart();
+        alustaStubTulostuksetJaKaynnistaOhjelma();
         
         String printtaus = String.join("", io.getPrints());
         assertTrue(printtaus.contains(url));
@@ -112,11 +122,7 @@ public class Stepdefs {
 
     @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")
     public void ohjelmanTulostusVastaa(String otsikko, String url, String tag1, String tag2, String tag3) {
-        io = new StubIO(syotteet);
-        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
-        tietokanta.otaYhteysTietokantaan();
-        ui = new Kayttoliittyma(io, tietokanta);
-        ui.kayttoliittymaStart();
+        alustaStubTulostuksetJaKaynnistaOhjelma();
 
         assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + otsikko + "\n" +
                 "Url: " + url + "\n" +
@@ -125,16 +131,35 @@ public class Stepdefs {
 
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
-        io = new StubIO(syotteet);
-        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
-        tietokanta.otaYhteysTietokantaan();
-        ui = new Kayttoliittyma(io, tietokanta);
-        ui.kayttoliittymaStart();
+        alustaStubTulostuksetJaKaynnistaOhjelma();
 
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
                 .anyMatch(x -> x.contains(teksti));
 
         assertTrue(loytykoHaettavaTekstiOsa);
+    }
+    
+    @Then("ohjelman tulostus listaa luodun vinkin otsikolla {string}, url {string}, tagit {string}")
+    public void ohjelmanTulostusOikein(String otsikko, String url, String tagit) {
+       alustaStubTulostuksetJaKaynnistaOhjelma();
+        
+        boolean alustusTekstiLoytyy = io.getPrints()
+                                        .contains("Tietokannassa olevat lukuvinkit:");
+        assertTrue(alustusTekstiLoytyy);
+        
+        boolean lisattyLukuvinkkiLoytyy = io.getPrints()
+                                        .contains("Otsikko: " + otsikko + "\n"
+                                                + "Url: " + url + "\n"
+                                                + "Tagit: " + tagit+ "\n");    
+        assertTrue(lisattyLukuvinkkiLoytyy);
+    }
+    
+    public void alustaStubTulostuksetJaKaynnistaOhjelma() {
+        io = new StubIO(syotteet);
+        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
+        tietokanta.otaYhteysTietokantaan();
+        ui = new Kayttoliittyma(io, tietokanta);
+        ui.kayttoliittymaStart();
     }
 }

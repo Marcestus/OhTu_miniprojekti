@@ -152,6 +152,9 @@ public class LukuvinkkipalveluTest {
 
     @Test
     public void testNormalisoiUrl() {
+        assertEquals("https://www.google.com", testiPalvelu.normalisoiUrl("google.com"));
+        assertEquals("https://www.google.com", testiPalvelu.normalisoiUrl("www.google.com"));
+        assertEquals("https://www.google.com", testiPalvelu.normalisoiUrl("https://www.google.com"));
     }
 
     @Test
@@ -166,6 +169,17 @@ public class LukuvinkkipalveluTest {
         assertTrue(testiPalvelu.sivustoOnOlemassa("https://www.helsinki.com"));
         assertFalse(testiPalvelu.sivustoOnOlemassa("https://www.enuskoettataasolemassa.com"));
     }
+  
+    @Test
+    public void testLisaaOsoitteenAlkuJosTarpeen() {
+        assertEquals("www.google.com", testiPalvelu.lisaaOsoitteenAlkuJosTarpeen("google.com"));
+        assertEquals("www.google.com", testiPalvelu.lisaaOsoitteenAlkuJosTarpeen("www.google.com"));
+    }
 
+    @Test
+    public void testLisataankoURLprotokolla() {
+        assertTrue(testiPalvelu.lisataankoURLprotokolla("www.google.com"));
+        assertFalse(testiPalvelu.lisataankoURLprotokolla("https://www.google.com"));
+    }
     
 }

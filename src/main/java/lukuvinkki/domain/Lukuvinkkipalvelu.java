@@ -47,10 +47,16 @@ public class Lukuvinkkipalvelu {
     }
 
     public String normalisoiUrl(String url) {
-        // Alustavasti url:n alkuun lisätään https:// jos sitä ei valmiiksi löydy
-        // Jatkossa paremmat validoinnit
-        // Esim. jos url ei sisällä www. tai jos url käyttää http:// -> https:// sijasta jne.
-        return !url.contains("https://") ? ("https://" + url) : (url);
+        url = lisaaOsoitteenAlkuJosTarpeen(url);
+        return lisataankoURLprotokolla(url) ? ("https://" + url) : (url);
+    }
+    
+    public String lisaaOsoitteenAlkuJosTarpeen(String url) {
+        return !url.contains("www") ? ("www." + url) : url;
+    }
+    
+    public boolean lisataankoURLprotokolla(String url) {
+        return !url.contains("https://") && !url.contains("http://");
     }
     
     public String getOtsikkoURLOsoitteesta(String url) {
