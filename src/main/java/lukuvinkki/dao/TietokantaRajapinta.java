@@ -8,4 +8,5 @@ public interface TietokantaRajapinta {
     boolean lisaaUusiLukuvinkki(Lukuvinkki lukuvinkki);
     boolean otaYhteysTietokantaan();
     List<Lukuvinkki> haeKaikkiLukuvinkit();
+    boolean poistaLukuvinkki(int poistettavanID);
 }

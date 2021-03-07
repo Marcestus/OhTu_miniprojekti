@@ -32,8 +32,7 @@ public class Kayttoliittyma {
                 case "2":
 
                     //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
-
-                    io.print("Tästä voi ohjelman tulevassa versiossa poistaa tallennettuja lukuvinkkejä");
+                    poistaLukuvinkki();
                     break;
                 case "3":
                     haeLukuvunkit();
@@ -92,7 +91,7 @@ public class Kayttoliittyma {
             io.print("Anna uusi tagi: ");
             String tagit = io.syote();
 
-            if (tagit.isEmpty())  {
+            if (tagit.isEmpty()) {
                 break;
             } else if (tags.contains(tagit)) {
                 continue;
@@ -107,7 +106,7 @@ public class Kayttoliittyma {
     private String muodostaOtsikko() {
         while (true) {
             String otsikko = io.syote();
-                        
+
             if (otsikko.length() > 3) {
                 return otsikko;
             } else {
@@ -116,7 +115,7 @@ public class Kayttoliittyma {
             }
         }
     }
-    
+
     private String muodostaUrl() {
         while (true) {
             String url = palvelu.normalisoiUrl(io.syote());
@@ -128,7 +127,7 @@ public class Kayttoliittyma {
             }
         }
     }
-    
+
     private String asetaValmisOtsikkoJosTarpeen(String aiemminSyotettyOtsikko, String syote, String url) {
         if (syote.equals("y")) {
             String haettuOtsikko = palvelu.getOtsikkoURLOsoitteesta(url);
@@ -140,7 +139,7 @@ public class Kayttoliittyma {
                 io.print("Käytämme aiemmin syöttämääsi otsikkoa.");
             }
         }
-        
+
         return aiemminSyotettyOtsikko;
     }
 
@@ -152,12 +151,12 @@ public class Kayttoliittyma {
 
         io.print("Anna lukuvinkin url: ");
         String url = muodostaUrl();
-        
+
         io.print("Haluatko korvata aiemmin syötetyn otsikon hakemalla sivuston otsikon?\n"
                 + "(Syöta 'y' mikäli kyllä, muuten paina Enter)");
         String valmisOtsikkoKomento = io.syote();
         otsikko = asetaValmisOtsikkoJosTarpeen(otsikko, valmisOtsikkoKomento, url);
-        
+
         io.print("Anna tagit lukuvinkille: ");
         io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
         List<String> tagit = muodostaTagit(url);
@@ -168,6 +167,61 @@ public class Kayttoliittyma {
             io.print("Uusi lukuvinkki:\n" + lukuvinkki.toString() + "\nlisätty onnistuneesti tietokantaan!");
         } else {
             io.print("Virheelliset arvot lukuvinkissä, muutoksia ei tehty.");
+        }
+    }
+
+    public void poistaLukuvinkki() {
+        io.print("Komento (poista lukuvinkki) valittu \n");
+
+        io.print("Syötä u, jos haluat poistaa lukuvinkin url:n perusteella\n"
+                + "Syötä o, jos haluat poistaa lukuvinkin otsikon perusteella");
+
+        String poistettava = io.syote();
+        if (poistettava.equals("u")) {
+            urlPoistoKyselyt();
+        }
+        else if (poistettava.equals("o")) {
+            otsikkoPoistoKyselyt();
+        } else {
+            io.print("Virheellinen syöte!");
+        }
+    }
+
+    public void urlPoistoKyselyt() {
+        int poistoID = -1;
+        io.print("Syötä poistettavan lukuvinkin url:");
+        String url = io.syote();
+        if (palvelu.haeLukuvinkkiUrlPerusteella(url) != -1) {
+            io.print("Poistetaanko " + url + " ?\n kyllä: syötä k\n ei: paina enter");
+            String poisto = io.syote();
+            if (poisto.equals("k")) {
+                if (palvelu.poistaLukuvinkki(poistoID)) {
+                    io.print("Poistaminen onnistui");
+                } else {
+                    io.print("Poistaminen ei onnistunut");
+                }
+            }
+        } else {
+            io.print("syöttämääsi url-osoitetta ei ole tietokannassa");
+        }
+    }
+
+    public void otsikkoPoistoKyselyt() {
+        int poistoID = -1;
+        io.print("Syötä poistettavan lukuvinkin otsikko:");
+        String otsikko = io.syote();
+        if (palvelu.haeLukuvinkkiOtsikonPerusteella(otsikko) != -1) {
+            io.print("Poistetaanko " + otsikko + " ?\n kyllä: syötä k\n ei: paina enter");
+            String poisto = io.syote();
+            if (poisto.equals("k")) {
+                if (palvelu.poistaLukuvinkki(poistoID)) {
+                    io.print("Poistaminen onnistui");
+                } else {
+                    io.print("Poistaminen ei onnistunut");
+                }
+            }
+        } else {
+            io.print("syöttämääsi otsikkoa ei ole tietokannassa");
         }
     }
 
