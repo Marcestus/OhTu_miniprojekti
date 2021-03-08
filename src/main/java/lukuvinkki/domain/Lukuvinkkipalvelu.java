@@ -139,30 +139,29 @@ public class Lukuvinkkipalvelu {
         return returnList;
     }
 
-    public int haeLukuvinkkiUrlPerusteella(String url) {
+    public Lukuvinkki haeLukuvinkkiUrlPerusteella(String url) {
         List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
 
         for (Lukuvinkki lukuvinkki : vinkit) {
             if (lukuvinkki.getUrl().equals(url)) {
 
-                return lukuvinkki.getID();
+                return lukuvinkki;
             }
 
         }
-        return -1;
+        return new Lukuvinkki("", "", "", -1);
     }
 
-    public int haeLukuvinkkiOtsikonPerusteella(String otsikko) {
+    public Lukuvinkki haeLukuvinkkiOtsikonPerusteella(String otsikko) {
         List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
         
-
         for (Lukuvinkki lukuvinkki : vinkit) {
             if (lukuvinkki.getOtsikko().equals(otsikko)) {
-                return lukuvinkki.getID();
+                return lukuvinkki;
             }
 
         }
-        return -1;
+        return new Lukuvinkki("", "", "", -1);
     }
 
 }
