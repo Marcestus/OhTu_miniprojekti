@@ -153,7 +153,7 @@ public class Kayttoliittyma {
         String url = muodostaUrl();
 
         io.print("Haluatko korvata aiemmin syötetyn otsikon hakemalla sivuston otsikon?\n"
-                + "(Syöta 'y' mikäli kyllä, muuten paina Enter)");
+                + "(Syötä 'k' mikäli kyllä, muuten paina Enter)");
         String valmisOtsikkoKomento = io.syote();
         otsikko = asetaValmisOtsikkoJosTarpeen(otsikko, valmisOtsikkoKomento, url);
 
