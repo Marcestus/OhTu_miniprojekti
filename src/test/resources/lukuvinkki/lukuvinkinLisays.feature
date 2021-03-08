@@ -22,12 +22,12 @@ Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
 
     Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
         Given komento lisaa valittu
-        When  lukuvinkki lisatty url "www.google.com" ja komennolla hae valmis otsikko "y"
+        When  lukuvinkki lisatty url "www.google.com" ja komennolla hae valmis otsikko "k"
         Then  Ohjelman tulostus sisältää "https://www.google.com" sivuston haetun otsikon "Google"
 
     Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
         Given komento lisaa valittu
-        When  lukuvinkki lisatty url "www.facebook.com" ja komennolla hae valmis otsikko "y"
+        When  lukuvinkki lisatty url "www.facebook.com" ja komennolla hae valmis otsikko "k"
         Then  Ohjelman tulostus sisältää "https://www.facebook.com" sivuston haetun otsikon "Facebook"
 
     Scenario: kayttaja voi valita, etta valmista otsikkoa ei haeta url-osoitteesta
