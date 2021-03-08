@@ -35,14 +35,33 @@ public class Stepdefs {
         syotteet.add("1");
     }
     
-    @Given("komento poisto valittu")
+    @Given("komento poisto otsikolla valittu")
     public void komentoPoistoValittu() {
         syotteet.add("2");
+        syotteet.add("o");
+    }
+    
+    @Given("komento poisto url valittu")
+    public void komentoURLValittu() {
+        syotteet.add("2");
+        syotteet.add("u");
     }
     
     @Given("komento hae valittu")
     public void komentoHaeValittu() {
         syotteet.add("3");
+    }
+    
+    @When("lukuvinkin poistoon annettu url {string} ja poisto vahvistus {string}")
+    public void lukuvinkkiPoistettuOikeellaURL(String url, String vahvistus) {
+        syotteet.add(url);
+        syotteet.add(vahvistus);
+    }
+    
+    @When("lukuvinkin poistoon annettu otsikko {string} ja poisto vahvistus {string}")
+    public void lukuvinkkiPoistettuOikeellaOtsikolla(String otsikko, String vahvistus) {
+        syotteet.add(otsikko);
+        syotteet.add(vahvistus);
     }
     
     @When("lukuvinkki otsikolla {string} lisatty")
@@ -115,7 +134,6 @@ public class Stepdefs {
         syotteet.add("");
     }
     
-    
     @Then("Ohjelman tulostus sisältää {string} sivuston haetun otsikon {string}")
     public void ohjelmanTulostuksessaHaettuOtsikko(String url, String haettuOtsikko) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
@@ -158,6 +176,27 @@ public class Stepdefs {
                                                 + "Url: " + url + "\n"
                                                 + "Tagit: " + tagit+ "\n");    
         assertTrue(lisattyLukuvinkkiLoytyy);
+    }
+    
+    @Then("ohjelman tulostus sisaltaa {string} tekstin ja lukuvinkin oikea tiedot {string} ja {string}")
+    public void ohjelmaTulostusSisaltaaTekstinJaLukuvinkinTiedot(String teksti, String otsikko, String url) {
+        alustaStubTulostuksetJaKaynnistaOhjelma();
+
+        boolean loytykoHaettavaTekstiOsa = io.getPrints()
+                .stream()
+                .anyMatch(x -> x.contains(teksti));
+        
+        boolean loytykoOtsikko = io.getPrints()
+                .stream()
+                .anyMatch(x -> x.contains(otsikko));
+        
+        boolean loytykoURL = io.getPrints()
+                .stream()
+                .anyMatch(x -> x.contains(url));
+
+        assertTrue(loytykoHaettavaTekstiOsa);
+        assertTrue(loytykoOtsikko);
+        assertTrue(loytykoURL);
     }
     
     public void alustaStubTulostuksetJaKaynnistaOhjelma() {

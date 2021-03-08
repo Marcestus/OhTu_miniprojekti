@@ -30,8 +30,6 @@ public class Kayttoliittyma {
                     lisaaLukuvinkki();
                     break;
                 case "2":
-
-                    //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
                     poistaLukuvinkki();
                     break;
                 case "3":
@@ -202,6 +200,8 @@ public class Kayttoliittyma {
                 } else {
                     io.print("Poistaminen ei onnistunut");
                 }
+            } else {
+                io.print("Lukuvinkkiä ei poisteta.");
             }
         } else {
             io.print("syöttämääsi url-osoitetta ei ole tietokannassa");
@@ -224,6 +224,8 @@ public class Kayttoliittyma {
                 } else {
                     io.print("Poistaminen ei onnistunut");
                 }
+            } else {
+                io.print("Lukuvinkkiä ei poistettu.\n");
             }
         } else {
             io.print("syöttämääsi url-osoitetta ei ole tietokannassa");
