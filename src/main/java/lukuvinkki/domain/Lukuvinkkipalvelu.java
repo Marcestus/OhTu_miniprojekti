@@ -149,6 +149,7 @@ public class Lukuvinkkipalvelu {
 
     public int haeLukuvinkkiOtsikonPerusteella(String otsikko) {
         List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+        
 
         for (Lukuvinkki lukuvinkki : vinkit) {
             if (lukuvinkki.getOtsikko().equals(otsikko)) {

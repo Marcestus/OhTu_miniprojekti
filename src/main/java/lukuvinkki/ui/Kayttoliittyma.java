@@ -179,8 +179,7 @@ public class Kayttoliittyma {
         String poistettava = io.syote();
         if (poistettava.equals("u")) {
             urlPoistoKyselyt();
-        }
-        else if (poistettava.equals("o")) {
+        } else if (poistettava.equals("o")) {
             otsikkoPoistoKyselyt();
         } else {
             io.print("Virheellinen syöte!");
