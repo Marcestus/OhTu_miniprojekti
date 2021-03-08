@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import lukuvinkki.dao.TietokantaRajapinta;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -58,14 +57,14 @@ public class Lukuvinkkipalvelu {
     public boolean lisataankoURLprotokolla(String url) {
         return !url.contains("https://") && !url.contains("http://");
     }
-    
+
     public String getOtsikkoURLOsoitteesta(String url) {
         try {
             Document sivusto = Jsoup.connect(url).get();
             return sivusto.title();
         } catch (Exception e) {
             return "epaonnistunut";
-        }		
+        }
     }
 
     public boolean sivustoOnOlemassa(String osoite) {
@@ -115,11 +114,10 @@ public class Lukuvinkkipalvelu {
         return this.urlinMukaisetTagit;
     }
 
-    public void poistaLukuvinkki() {
+    public boolean poistaLukuvinkki(int id) {
+        return tietokanta.poistaLukuvinkki(id);
 
         //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
-
-        io.print("Komento (poista lukuvinkki) valittu \n");
     }
 
     public List<Lukuvinkki> haeLukuvunkit() {
@@ -141,4 +139,31 @@ public class Lukuvinkkipalvelu {
         }
         return returnList;
     }
+
+    public int haeLukuvinkkiUrlPerusteella(String url) {
+        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+
+        for (Lukuvinkki lukuvinkki : vinkit) {
+            if (lukuvinkki.getUrl().equals(url)) {
+
+                return lukuvinkki.getID();
+            }
+
+        }
+        return -1;
+    }
+
+    public int haeLukuvinkkiOtsikonPerusteella(String otsikko) {
+        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+        
+
+        for (Lukuvinkki lukuvinkki : vinkit) {
+            if (lukuvinkki.getOtsikko().equals(otsikko)) {
+                return lukuvinkki.getID();
+            }
+
+        }
+        return -1;
+    }
+
 }
