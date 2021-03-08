@@ -52,7 +52,7 @@ public class Lukuvinkkipalvelu {
     }
     
     public String lisaaOsoitteenAlkuJosTarpeen(String url) {
-        return !url.contains("www") ? ("www." + url) : url;
+        return !url.contains("www.") ? ("www." + url) : url;
     }
     
     public boolean lisataankoURLprotokolla(String url) {
@@ -99,7 +99,6 @@ public class Lukuvinkkipalvelu {
                 break;
             }
         }
-
         return tags;
     }
 

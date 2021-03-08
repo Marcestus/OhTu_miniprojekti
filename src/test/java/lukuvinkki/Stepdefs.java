@@ -35,11 +35,16 @@ public class Stepdefs {
         syotteet.add("1");
     }
     
+    @Given("komento poisto valittu")
+    public void komentoPoistoValittu() {
+        syotteet.add("2");
+    }
+    
     @Given("komento hae valittu")
     public void komentoHaeValittu() {
         syotteet.add("3");
     }
-
+    
     @When("lukuvinkki otsikolla {string} lisatty")
     public void lukuvinkkiLisattyOnnistuneesti(String otsikko) {
         syotteet.add(otsikko);
