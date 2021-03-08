@@ -187,12 +187,13 @@ public class Kayttoliittyma {
     }
 
     public void urlPoistoKyselyt() {
-        int poistoID = -1;
         io.print("Syötä poistettavan lukuvinkin url:");
         String url = io.syote();
-        if (palvelu.haeLukuvinkkiUrlPerusteella(url) != -1) {
+        int poistoID = palvelu.haeLukuvinkkiUrlPerusteella(url);
+        if (poistoID != -1) {
             io.print("Poistetaanko " + url + " ?\n kyllä: syötä k\n ei: paina enter");
             String poisto = io.syote();
+            palvelu.haeLukuvinkkiUrlPerusteella(url);
             if (poisto.equals("k")) {
                 if (palvelu.poistaLukuvinkki(poistoID)) {
                     io.print("Poistaminen onnistui");
@@ -206,10 +207,10 @@ public class Kayttoliittyma {
     }
 
     public void otsikkoPoistoKyselyt() {
-        int poistoID = -1;
         io.print("Syötä poistettavan lukuvinkin otsikko:");
         String otsikko = io.syote();
-        if (palvelu.haeLukuvinkkiOtsikonPerusteella(otsikko) != -1) {
+        int poistoID = palvelu.haeLukuvinkkiOtsikonPerusteella(otsikko); 
+        if (poistoID != -1) {
             io.print("Poistetaanko " + otsikko + " ?\n kyllä: syötä k\n ei: paina enter");
             String poisto = io.syote();
             if (poisto.equals("k")) {
