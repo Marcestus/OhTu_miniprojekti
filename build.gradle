@@ -18,6 +18,7 @@ dependencies {
 	implementation 'org.xerial:sqlite-jdbc:3.8.11'
     implementation 'org.jsoup:jsoup:1.11.1'
 	compile 'org.xerial:sqlite-jdbc:3.8.11'
+	compile 'org.jsoup:jsoup:1.11.1'
 	testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
 	testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
 	testCompile 'junit:junit:' + junitVersion
