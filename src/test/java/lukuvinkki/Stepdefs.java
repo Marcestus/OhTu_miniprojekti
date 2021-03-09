@@ -165,7 +165,7 @@ public class Stepdefs {
     
     @Then("ohjelman tulostus listaa luodun vinkin otsikolla {string}, url {string}, tagit {string}")
     public void ohjelmanTulostusOikein(String otsikko, String url, String tagit) {
-       alustaStubTulostuksetJaKaynnistaOhjelma();
+        alustaStubTulostuksetJaKaynnistaOhjelma();
         
         boolean alustusTekstiLoytyy = io.getPrints()
                                         .contains("Tietokannassa olevat lukuvinkit:");
@@ -174,7 +174,7 @@ public class Stepdefs {
         boolean lisattyLukuvinkkiLoytyy = io.getPrints()
                                         .contains("Otsikko: " + otsikko + "\n"
                                                 + "Url: " + url + "\n"
-                                                + "Tagit: " + tagit+ "\n");    
+                                                + "Tagit: " + tagit + "\n");    
         assertTrue(lisattyLukuvinkkiLoytyy);
     }
     
