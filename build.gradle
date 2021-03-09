@@ -5,6 +5,8 @@ plugins {
 	id 'checkstyle'
 }
 
+mainClassName = 'lukuvinkki.Main'
+
 repositories {
 	jcenter()
 }
@@ -16,7 +18,7 @@ project.ext {
 
 dependencies {
 	implementation 'org.xerial:sqlite-jdbc:3.8.11'
-        implementation 'org.jsoup:jsoup:1.11.1'
+    implementation 'org.jsoup:jsoup:1.11.1'
 	testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
 	testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
 	testCompile 'junit:junit:' + junitVersion
@@ -27,12 +29,17 @@ test {
 	systemProperties System.getProperties()
 }
 
-application {
-	mainClass = 'lukuvinkki.Main'
-}
-
 run {
 	standardInput = System.in
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'lukuvinkki.Main'
+	}
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory () ? it : zipTree(it) }
+	}
 }
 
 jacocoTestReport {
