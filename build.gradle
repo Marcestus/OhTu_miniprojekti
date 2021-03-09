@@ -5,6 +5,8 @@ plugins {
 	id 'checkstyle'
 }
 
+mainClassName = 'lukuvinkki.Main'
+
 repositories {
 	jcenter()
 }
@@ -27,10 +29,6 @@ dependencies {
 test {
 	testLogging.showStandardStreams = true
 	systemProperties System.getProperties()
-}
-
-application {
-	mainClass = 'lukuvinkki.Main'
 }
 
 run {
