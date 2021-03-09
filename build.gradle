@@ -16,7 +16,8 @@ project.ext {
 
 dependencies {
 	implementation 'org.xerial:sqlite-jdbc:3.8.11'
-        implementation 'org.jsoup:jsoup:1.11.1'
+    implementation 'org.jsoup:jsoup:1.11.1'
+	compile 'org.xerial:sqlite-jdbc:3.8.11'
 	testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
 	testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
 	testCompile 'junit:junit:' + junitVersion
@@ -33,6 +34,15 @@ application {
 
 run {
 	standardInput = System.in
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': 'lukuvinkki.Main'
+	}
+	from {
+		configurations.compile.collect { it.isDirectory () ? it : zipTree(it) }
+	}
 }
 
 jacocoTestReport {
