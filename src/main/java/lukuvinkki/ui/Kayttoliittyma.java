@@ -36,19 +36,19 @@ public class Kayttoliittyma {
                     haeLukuvunkit();
                     break;
                 case "4":
-                    io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä");
+                    io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä.");
                     break;
                 case "5":
-                    io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä");
+                    io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä.");
                     break;
                 case "6":
                     haeLukuvinkitTaginPerusteella();
                     break;
                 case "-1":
-                    System.out.println("Ohjelma sulkeutuu");
+                    System.out.println("Ohjelma sulkeutuu...");
                     break loop;
                 default:
-                    io.print("Virheellinen komento");
+                    io.print("Virheellinen komento.");
                     break;
             }
         }
@@ -204,7 +204,7 @@ public class Kayttoliittyma {
                 io.print("Lukuvinkkiä ei poisteta.");
             }
         } else {
-            io.print("syöttämääsi url-osoitetta ei ole tietokannassa");
+            io.print("Syöttämääsi url-osoitetta ei ole tietokannassa.");
         }
     }
 
@@ -228,7 +228,7 @@ public class Kayttoliittyma {
                 io.print("Lukuvinkkiä ei poistettu.\n");
             }
         } else {
-            io.print("syöttämääsi url-osoitetta ei ole tietokannassa");
+            io.print("Syöttämääsi otsikkoa ei ole tietokannassa.");
         }
     }
 
