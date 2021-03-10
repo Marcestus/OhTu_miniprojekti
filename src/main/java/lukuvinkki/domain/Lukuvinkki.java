@@ -10,16 +10,18 @@ public class Lukuvinkki {
     private String otsikko, url, tagitString;
     private int id;
     private List<String> tagit;
+    private boolean luettu;
 
     public Lukuvinkki(String otsikko, String url, String tagitString) {
-        this(otsikko, url, tagitString, 0);
+        this(otsikko, url, tagitString, 0, false);
     }
 
-    public Lukuvinkki(String otsikko, String url, String tagitString, int id) {
+    public Lukuvinkki(String otsikko, String url, String tagitString, int id, boolean luettu) {
         this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
         this.id = id;
+        this.luettu = luettu;
         alustaTagitLista(this.tagitString);
     }
     
@@ -49,6 +51,10 @@ public class Lukuvinkki {
 
     public int getID() {
         return this.id;
+    }
+
+    public boolean getLuettu() {
+        return this.luettu;
     }
 
     // Tietokantahallinta lisää tällä hetkellä tagit tekstimuodossa pilkulla erotettuna
@@ -83,7 +89,7 @@ public class Lukuvinkki {
 
     @Override
     public String toString() {
-        String teksti = "Otsikko: %s\nUrl: %s\nTagit: %s";
-        return String.format(teksti, this.otsikko, this.url, getTagitString());
+        String teksti = "Otsikko: %s\nUrl: %s\nTagit: %s\nLuettu: %s";
+        return String.format(teksti, this.otsikko, this.url, getTagitString(), this.luettu);
     }
 }

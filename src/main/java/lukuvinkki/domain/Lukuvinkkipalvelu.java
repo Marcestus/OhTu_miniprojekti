@@ -149,7 +149,7 @@ public class Lukuvinkkipalvelu {
             }
 
         }
-        return new Lukuvinkki("", "", "", -1);
+        return new Lukuvinkki("", "", "", -1, false);
     }
 
     public Lukuvinkki haeLukuvinkkiOtsikonPerusteella(String otsikko) {
@@ -161,7 +161,7 @@ public class Lukuvinkkipalvelu {
             }
 
         }
-        return new Lukuvinkki("", "", "", -1);
+        return new Lukuvinkki("", "", "", -1, false);
     }
 
 }

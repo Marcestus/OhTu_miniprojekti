@@ -32,7 +32,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     }
 
     public boolean lisaaUusiLukuvinkki(Lukuvinkki lukuvinkki) {
-        String addKasky = "INSERT INTO lukuvinkki (otsikko, url, tagit) VALUES (?, ?, ?);";
+        String addKasky = "INSERT INTO lukuvinkki (otsikko, url, tagit, luettu) VALUES (?, ?, ?, 0);";
 
         try {
             this.connection = DriverManager.getConnection(this.tiedostonURL);
@@ -49,11 +49,11 @@ public class Tietokantahallinta implements TietokantaRajapinta {
             io.print("ERROR: " + error.getMessage());
             return false;
         }
-  
+
     }
 
     public List<Lukuvinkki> haeKaikkiLukuvinkit() {
-        String hakuKasky = "SELECT id, otsikko, url, tagit FROM lukuvinkki;";
+        String hakuKasky = "SELECT id, otsikko, url, tagit, luettu FROM lukuvinkki;";
 
         List<Lukuvinkki> lukuvinkit = new ArrayList<>();
 
@@ -66,8 +66,9 @@ public class Tietokantahallinta implements TietokantaRajapinta {
                 String otsikko = result.getString(2);
                 String url = result.getString(3);
                 String tagit = result.getString(4);
+                boolean luettu = result.getBoolean(5);
                 
-                lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit, id));
+                lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit, id, luettu));
             }
             this.connection.close();
         } catch (SQLException error) {
@@ -95,9 +96,27 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         
     }
 
+    public boolean asetaLuetuksi(int muutettavanID) {
+        String kasky = "UPDATE lukuvinkki SET luettu = 1 WHERE id = ?;";
+
+        try {
+            this.connection = DriverManager.getConnection(this.tiedostonURL);
+            PreparedStatement stmt = connection.prepareStatement(kasky);
+            stmt.setInt(1, muutettavanID);
+            stmt.executeUpdate();
+            this.connection.close();
+
+            return true;
+        } catch (SQLException error) {
+            io.print("ERROR: " + error.getMessage());
+            return false;
+        }
+
+    }
+
     private boolean alustaTietokanta() {
 
-        String createTableKasky = "CREATE TABLE IF NOT EXISTS lukuvinkki (id integer PRIMARY KEY, otsikko text, url text, tagit text);";
+        String createTableKasky = "CREATE TABLE IF NOT EXISTS lukuvinkki (id integer PRIMARY KEY, otsikko text, url text, tagit text, luettu integer);";
 
         try {
             this.connection = DriverManager.getConnection(this.tiedostonURL);
