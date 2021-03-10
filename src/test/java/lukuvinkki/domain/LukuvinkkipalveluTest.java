@@ -15,7 +15,7 @@ public class LukuvinkkipalveluTest {
     @Before
     public void setUp() {
         testiIO = new KonsoliIO();
-        testiTietokanta = new Tietokantahallinta("testi.db", testiIO);
+        testiTietokanta = new Tietokantahallinta("./testi.db", testiIO);
         testiTietokanta.otaYhteysTietokantaan();
         testiPalvelu = new Lukuvinkkipalvelu(testiIO, testiTietokanta);
         
@@ -48,7 +48,7 @@ public class LukuvinkkipalveluTest {
     
     @After
     public void poistaTestiDatabase() {
-        testiTietokanta.poistaTestiTietokanta("testi.db");
+        testiTietokanta.poistaTestiTietokanta("./testi.db");
     }
     
     @Test
