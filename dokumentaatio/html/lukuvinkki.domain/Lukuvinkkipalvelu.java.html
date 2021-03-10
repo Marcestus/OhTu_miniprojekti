@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Lukuvinkkipalvelu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lukuvinkki</a> &gt; <a href="index.source.html" class="el_package">lukuvinkki.domain</a> &gt; <span class="el_source">Lukuvinkkipalvelu.java</span></div><h1>Lukuvinkkipalvelu.java</h1><pre class="source lang-java linenums">package lukuvinkki.domain;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import lukuvinkki.dao.TietokantaRajapinta;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+public class Lukuvinkkipalvelu {
+
+    IORajapinta io;
+    TietokantaRajapinta tietokanta;
+    private HashMap&lt;String, String&gt; urlinMukaisetTagit;
+
+<span class="fc" id="L24">    public Lukuvinkkipalvelu(IORajapinta io, TietokantaRajapinta tietokanta) {</span>
+<span class="fc" id="L25">        this.io = io;</span>
+<span class="fc" id="L26">        this.tietokanta = tietokanta;</span>
+<span class="fc" id="L27">        alustaUrlinMukaisetTagit();</span>
+<span class="fc" id="L28">    }</span>
+
+    public boolean kelvollisetArvot(Lukuvinkki lukuvinkki) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        return lukuvinkki.getOtsikko().length() &gt; 3</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">                &amp;&amp; lukuvinkki.getUrl().length() &gt; 3</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">                &amp;&amp; onkoUrlMuotoValidi(lukuvinkki.getUrl());</span>
+    }
+
+    public boolean onkoUrlMuotoValidi(String url) {
+<span class="fc" id="L37">        String[] paatteet = {&quot;.fi&quot;, &quot;.com&quot;, &quot;.io&quot;, &quot;.org&quot;, &quot;.net&quot;};</span>
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        for (String paate : paatteet) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (url.contains(paate)) {</span>
+<span class="fc" id="L41">                return true;</span>
+            }
+        }
+
+<span class="fc" id="L45">        return false;</span>
+    }
+
+    public String normalisoiUrl(String url) {
+<span class="fc" id="L49">        url = lisaaOsoitteenAlkuJosTarpeen(url);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        return lisataankoURLprotokolla(url) ? (&quot;https://&quot; + url) : (url);</span>
+    }
+    
+    public String lisaaOsoitteenAlkuJosTarpeen(String url) {
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        return !url.contains(&quot;www.&quot;) ? (&quot;www.&quot; + url) : url;</span>
+    }
+    
+    public boolean lisataankoURLprotokolla(String url) {
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">        return !url.contains(&quot;https://&quot;) &amp;&amp; !url.contains(&quot;http://&quot;);</span>
+    }
+
+    public String getOtsikkoURLOsoitteesta(String url) {
+        try {
+<span class="fc" id="L63">            Document sivusto = Jsoup.connect(url).get();</span>
+<span class="fc" id="L64">            return sivusto.title();</span>
+<span class="nc" id="L65">        } catch (Exception e) {</span>
+<span class="nc" id="L66">            return &quot;epaonnistunut&quot;;</span>
+        }
+    }
+
+    public boolean sivustoOnOlemassa(String osoite) {
+        try {
+<span class="fc" id="L72">            URL url = new URL(osoite);</span>
+<span class="fc" id="L73">            HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span>
+<span class="fc" id="L74">            connection.setRequestMethod(&quot;GET&quot;);</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            return connection.getResponseCode() == 200;</span>
+<span class="fc" id="L76">        } catch (Exception error) {</span>
+<span class="fc" id="L77">            return false;</span>
+        }
+    }
+
+    public boolean lisaaLukuvinkki(String otsikko, String url, List&lt;String&gt; tagit) {
+        try {
+<span class="fc" id="L83">            Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, &quot;&quot;);</span>
+<span class="fc" id="L84">            lukuvinkki.setTagit(tagit);</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">            return kelvollisetArvot(lukuvinkki) &amp;&amp; tietokanta.lisaaUusiLukuvinkki(lukuvinkki);</span>
+<span class="nc" id="L86">        } catch (Exception error) {</span>
+<span class="nc" id="L87">            io.print(&quot;Error: &quot; + error.getMessage());</span>
+<span class="nc" id="L88">            return false;</span>
+        }
+    }
+
+    public ArrayList&lt;String&gt; lisaaTagitURLPerusteella(String url) {
+<span class="fc" id="L93">        ArrayList&lt;String&gt; tags = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (String verrattavaURL : this.urlinMukaisetTagit.keySet()) {</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (url.contains(verrattavaURL)) {</span>
+<span class="fc" id="L97">                tags.add(urlinMukaisetTagit.get(verrattavaURL));</span>
+<span class="fc" id="L98">                break;</span>
+            }
+<span class="fc" id="L100">        }</span>
+<span class="fc" id="L101">        return tags;</span>
+    }
+
+    private void alustaUrlinMukaisetTagit() {
+<span class="fc" id="L105">        this.urlinMukaisetTagit = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L106">        this.urlinMukaisetTagit.put(&quot;https://www.medium.com/&quot;, &quot;blogi&quot;);</span>
+<span class="fc" id="L107">        this.urlinMukaisetTagit.put(&quot;https://www.youtube.com/&quot;, &quot;video&quot;);</span>
+<span class="fc" id="L108">        this.urlinMukaisetTagit.put(&quot;https://dl.acm.org/&quot;, &quot;julkaisu&quot;);</span>
+<span class="fc" id="L109">        this.urlinMukaisetTagit.put(&quot;https://ieeexplore.ieee.org/&quot;, &quot;julkaisu&quot;);</span>
+<span class="fc" id="L110">    }</span>
+
+    public HashMap&lt;String, String&gt; getUrlinMukaisetTagitTesteihin() {
+<span class="nc" id="L113">        return this.urlinMukaisetTagit;</span>
+    }
+
+    public boolean poistaLukuvinkki(int id) {
+<span class="fc" id="L117">        return tietokanta.poistaLukuvinkki(id);</span>
+
+        //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä &quot;poistaLukuvinkki(int poistettavanID)&quot;
+    }
+
+    public List&lt;Lukuvinkki&gt; haeLukuvunkit() {
+<span class="fc" id="L123">        return tietokanta.haeKaikkiLukuvinkit();</span>
+    }
+
+    public List&lt;Lukuvinkki&gt; haeLukuvinkitTaginPerusteella(List&lt;String&gt; kysytytTagit) {
+<span class="fc" id="L127">        List&lt;Lukuvinkki&gt; vinkit = tietokanta.haeKaikkiLukuvinkit();</span>
+
+<span class="fc" id="L129">        List&lt;Lukuvinkki&gt; returnList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        for (Lukuvinkki lukuvinkki : vinkit) {</span>
+<span class="fc" id="L131">            String lukuvinkinTagit = lukuvinkki.getTagitString();</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">            for (String tagi : kysytytTagit) {</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">                if (lukuvinkinTagit.contains(tagi)) {</span>
+<span class="fc" id="L134">                    returnList.add(lukuvinkki);</span>
+<span class="fc" id="L135">                    break;</span>
+                }
+<span class="fc" id="L137">            }</span>
+<span class="fc" id="L138">        }</span>
+<span class="fc" id="L139">        return returnList;</span>
+    }
+
+    public Lukuvinkki haeLukuvinkkiUrlPerusteella(String url) {
+<span class="fc" id="L143">        List&lt;Lukuvinkki&gt; vinkit = tietokanta.haeKaikkiLukuvinkit();</span>
+
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">        for (Lukuvinkki lukuvinkki : vinkit) {</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">            if (lukuvinkki.getUrl().equals(url)) {</span>
+
+<span class="fc" id="L148">                return lukuvinkki;</span>
+            }
+
+<span class="nc" id="L151">        }</span>
+<span class="nc" id="L152">        return new Lukuvinkki(&quot;&quot;, &quot;&quot;, &quot;&quot;, -1);</span>
+    }
+
+    public Lukuvinkki haeLukuvinkkiOtsikonPerusteella(String otsikko) {
+<span class="fc" id="L156">        List&lt;Lukuvinkki&gt; vinkit = tietokanta.haeKaikkiLukuvinkit();</span>
+        
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        for (Lukuvinkki lukuvinkki : vinkit) {</span>
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">            if (lukuvinkki.getOtsikko().equals(otsikko)) {</span>
+<span class="fc" id="L160">                return lukuvinkki;</span>
+            }
+
+<span class="nc" id="L163">        }</span>
+<span class="nc" id="L164">        return new Lukuvinkki(&quot;&quot;, &quot;&quot;, &quot;&quot;, -1);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
