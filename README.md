@@ -12,7 +12,7 @@ User story katsotaan valmiiksi, kun se täyttää seuraavat vaatimukset:
 
 - User storylle on määritelty hyväksymiskriteerit, jotka on dokumentoitu sekä product backlogissa että [Cucumber-testaustyökalun featureinä](https://github.com/Marcestus/OhTu_miniprojekti/tree/main/src/test/resources/lukuvinkki).
 
-- User storyn toteuttavaa koodia testataan kohtuullisella tasolla: ei-triviaalin koodin testikattavuuden tulee olla vähintään 70 %.
+- User storyn toteuttavaa koodia testataan kohtuullisella tasolla: ei-triviaalin koodin testikattavuuden tulee olla vähintään 80 %.
 
 - Testaus toteutetaan niin yksikkö-, integraatio- kuin järjestelmätasolla. Järjestelmätason testaus toteutetaan Cucumberilla.
 
