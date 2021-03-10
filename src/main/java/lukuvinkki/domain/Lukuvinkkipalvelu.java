@@ -4,6 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import lukuvinkki.dao.TietokantaRajapinta;
 import org.jsoup.Jsoup;
@@ -97,10 +98,10 @@ public class Lukuvinkkipalvelu {
 
     private void alustaUrlinMukaisetTagit() {
         this.urlinMukaisetTagit = new HashMap<>();
-        this.urlinMukaisetTagit.put("https://www.medium.com/", "blogi");
-        this.urlinMukaisetTagit.put("https://www.youtube.com/", "video");
-        this.urlinMukaisetTagit.put("https://dl.acm.org/", "julkaisu");
-        this.urlinMukaisetTagit.put("https://ieeexplore.ieee.org/", "julkaisu");
+        this.urlinMukaisetTagit.put("medium", "blogi");
+        this.urlinMukaisetTagit.put("youtube", "video");
+        this.urlinMukaisetTagit.put("dl.acm.org", "julkaisu");
+        this.urlinMukaisetTagit.put("ieeexplore.ieee.org", "julkaisu");
     }
 
     public HashMap<String, String> getUrlinMukaisetTagitTesteihin() {
@@ -133,29 +134,26 @@ public class Lukuvinkkipalvelu {
         return returnList;
     }
 
-    public Lukuvinkki haeLukuvinkkiUrlPerusteella(String url) {
-        ArrayList<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
-
-        for (Lukuvinkki lukuvinkki : vinkit) {
-            if (lukuvinkki.getUrl().equals(url)) {
-
+    public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
+        for (Lukuvinkki lukuvinkki : tietokanta.haeKaikkiLukuvinkit()) {
+            if (loytyykoHakuSyoteVinkista(lukuvinkki, onkoURLPerusteella, hakuSyote)) {
                 return lukuvinkki;
             }
-
         }
-        return new Lukuvinkki("", "", "", -1);
-    }
-
-    public Lukuvinkki haeLukuvinkkiOtsikonPerusteella(String otsikko) {
-        ArrayList<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
         
-        for (Lukuvinkki lukuvinkki : vinkit) {
-            if (lukuvinkki.getOtsikko().equals(otsikko)) {
-                return lukuvinkki;
-            }
-
-        }
-        return new Lukuvinkki("", "", "", -1);
+        return null;
     }
-
+    
+    public boolean loytyykoHakuSyoteVinkista(Lukuvinkki lukuvinkki, boolean onkoURLPerusteella, String syote) {
+        if (onkoURLPerusteella) {
+            if (lukuvinkki.getUrl().contains(syote)) {
+                return true;
+            }
+        } else {
+            if (lukuvinkki.getOtsikko().contains(syote)) {
+                return true;
+            }   
+        }
+        return false;
+    }
 }

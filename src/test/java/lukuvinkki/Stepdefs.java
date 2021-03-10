@@ -154,6 +154,8 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
+        System.out.println(io.getPrints());
+                
 
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
