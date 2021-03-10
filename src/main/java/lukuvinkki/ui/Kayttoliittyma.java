@@ -1,8 +1,6 @@
 package lukuvinkki.ui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import lukuvinkki.dao.*;
 import lukuvinkki.domain.*;
 
@@ -57,15 +55,15 @@ public class Kayttoliittyma {
     public void haeLukuvinkitTaginPerusteella() {
         io.print("Komento (hae lukuvinkit tägeillä) valittu \n");
         io.print("Anna tägit haulle \n");
-        List<String> tagit = muodostaTagit("");
-        List<Lukuvinkki> vinkit = palvelu.haeLukuvinkitTaginPerusteella(tagit);
+        ArrayList<String> tagit = muodostaTagit("");
+        ArrayList<Lukuvinkki> vinkit = palvelu.haeLukuvinkitTaginPerusteella(tagit);
         tulostaLukuvinkit(vinkit);
     }
 
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
 
-        List<Lukuvinkki> vinkit = palvelu.haeLukuvunkit();
+        ArrayList<Lukuvinkki> vinkit = palvelu.haeLukuvunkit();
 
         if (vinkit.isEmpty()) {
             io.print("Tietokannassa ei lukuvinkkejä!");
@@ -76,7 +74,7 @@ public class Kayttoliittyma {
         tulostaLukuvinkit(vinkit);
     }
 
-    public void tulostaLukuvinkit(List<Lukuvinkki> vinkit) {
+    public void tulostaLukuvinkit(ArrayList<Lukuvinkki> vinkit) {
         for (Lukuvinkki lukuvinkki : vinkit) {
             io.print(lukuvinkki.toString() + "\n");
         }
@@ -157,7 +155,7 @@ public class Kayttoliittyma {
 
         io.print("Anna tagit lukuvinkille: ");
         io.print("(paina Enter, jos et tahdo lisätä omia tagejä.)");
-        List<String> tagit = muodostaTagit(url);
+        ArrayList<String> tagit = muodostaTagit(url);
 
         if (palvelu.lisaaLukuvinkki(otsikko, url, tagit)) {
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");

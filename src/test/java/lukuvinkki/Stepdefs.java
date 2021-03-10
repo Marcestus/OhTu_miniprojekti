@@ -6,7 +6,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.ArrayList;
-import java.util.List;
 import lukuvinkki.dao.Tietokantahallinta;
 import lukuvinkki.domain.StubIO;
 import lukuvinkki.ui.Kayttoliittyma;
@@ -14,8 +13,8 @@ import lukuvinkki.ui.Kayttoliittyma;
 import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
-       
-    private List<String> syotteet;
+
+    private ArrayList<String> syotteet;
     private StubIO io;
     private Kayttoliittyma ui;
     private Tietokantahallinta tietokanta;
@@ -27,7 +26,7 @@ public class Stepdefs {
     
     @After 
     public void poistaTestiTietokanta() {
-        tietokanta.poistaTestiTietokanta("cucemberTesti.db");
+        tietokanta.poistaTestiTietokanta("./cucumberTesti.db");
     }
     
     @Given("komento lisaa valittu")
@@ -201,7 +200,7 @@ public class Stepdefs {
     
     public void alustaStubTulostuksetJaKaynnistaOhjelma() {
         io = new StubIO(syotteet);
-        tietokanta = new Tietokantahallinta("cucemberTesti.db", io);
+        tietokanta = new Tietokantahallinta("./cucumberTesti.db", io);
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();

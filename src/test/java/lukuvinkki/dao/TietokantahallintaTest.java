@@ -16,13 +16,13 @@ public class TietokantahallintaTest {
     @Before
     public void setUp() {
         testiIO = new KonsoliIO();
-        testiTietokanta = new Tietokantahallinta("tietokantaTesti.db", testiIO);
+        testiTietokanta = new Tietokantahallinta("./tietokantaTesti.db", testiIO);
         testiTietokanta.otaYhteysTietokantaan();
     }
     
     @After
     public void poistaTestiTietokanta() {
-        testiTietokanta.poistaTestiTietokanta("tietokantaTesti.db");
+        testiTietokanta.poistaTestiTietokanta("./tietokantaTesti.db");
     }
   
     @Test

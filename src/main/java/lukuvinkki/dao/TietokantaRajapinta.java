@@ -2,11 +2,11 @@ package lukuvinkki.dao;
 
 import lukuvinkki.domain.Lukuvinkki;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface TietokantaRajapinta {
     boolean lisaaUusiLukuvinkki(Lukuvinkki lukuvinkki);
     boolean otaYhteysTietokantaan();
-    List<Lukuvinkki> haeKaikkiLukuvinkit();
+    ArrayList<Lukuvinkki> haeKaikkiLukuvinkit();
     boolean poistaLukuvinkki(int poistettavanID);
 }

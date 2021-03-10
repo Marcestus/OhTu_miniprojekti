@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import lukuvinkki.domain.*;
 
@@ -52,10 +51,10 @@ public class Tietokantahallinta implements TietokantaRajapinta {
   
     }
 
-    public List<Lukuvinkki> haeKaikkiLukuvinkit() {
+    public ArrayList<Lukuvinkki> haeKaikkiLukuvinkit() {
         String hakuKasky = "SELECT id, otsikko, url, tagit FROM lukuvinkki;";
 
-        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+        ArrayList<Lukuvinkki> lukuvinkit = new ArrayList<>();
 
         try {
             this.connection = DriverManager.getConnection(this.tiedostonURL);

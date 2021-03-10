@@ -5,7 +5,7 @@ plugins {
 	id 'checkstyle'
 }
 
-mainClassName = 'lukuvinkki.Main'
+mainClassName = 'lukuvinkki.paaohjelma.Main'
 
 repositories {
 	jcenter()
@@ -35,7 +35,7 @@ run {
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'lukuvinkki.Main'
+		attributes 'Main-Class': 'lukuvinkki.paaohjelma.Main'
 	}
 	from {
 		configurations.runtimeClasspath.collect { it.isDirectory () ? it : zipTree(it) }
@@ -47,8 +47,15 @@ jacocoTestReport {
 		xml.enabled true
 		html.enabled true
 	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it,
+				exclude: ['lukuvinkki/paaohjelma/**', 'lukuvinkki/ui/**'])
+		}))
+	}
 }
 
 tasks.withType(Checkstyle) {
 	exclude 'src/main/lukuvinkki.ui/Kayttoliittyma.java'
+	exclude 'src/main/lukuvinkki.paaohjelma/Main.java'
 }

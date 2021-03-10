@@ -1,15 +1,9 @@
 package lukuvinkki.domain;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import lukuvinkki.dao.TietokantaRajapinta;
 import org.jsoup.Jsoup;
@@ -78,7 +72,7 @@ public class Lukuvinkkipalvelu {
         }
     }
 
-    public boolean lisaaLukuvinkki(String otsikko, String url, List<String> tagit) {
+    public boolean lisaaLukuvinkki(String otsikko, String url, ArrayList<String> tagit) {
         try {
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
             lukuvinkki.setTagit(tagit);
@@ -119,14 +113,14 @@ public class Lukuvinkkipalvelu {
         //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
     }
 
-    public List<Lukuvinkki> haeLukuvunkit() {
+    public ArrayList<Lukuvinkki> haeLukuvunkit() {
         return tietokanta.haeKaikkiLukuvinkit();
     }
 
-    public List<Lukuvinkki> haeLukuvinkitTaginPerusteella(List<String> kysytytTagit) {
-        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+    public ArrayList<Lukuvinkki> haeLukuvinkitTaginPerusteella(ArrayList<String> kysytytTagit) {
+        ArrayList<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
 
-        List<Lukuvinkki> returnList = new ArrayList<>();
+        ArrayList<Lukuvinkki> returnList = new ArrayList<>();
         for (Lukuvinkki lukuvinkki : vinkit) {
             String lukuvinkinTagit = lukuvinkki.getTagitString();
             for (String tagi : kysytytTagit) {
@@ -140,7 +134,7 @@ public class Lukuvinkkipalvelu {
     }
 
     public Lukuvinkki haeLukuvinkkiUrlPerusteella(String url) {
-        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+        ArrayList<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
 
         for (Lukuvinkki lukuvinkki : vinkit) {
             if (lukuvinkki.getUrl().equals(url)) {
@@ -153,7 +147,7 @@ public class Lukuvinkkipalvelu {
     }
 
     public Lukuvinkki haeLukuvinkkiOtsikonPerusteella(String otsikko) {
-        List<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
+        ArrayList<Lukuvinkki> vinkit = tietokanta.haeKaikkiLukuvinkit();
         
         for (Lukuvinkki lukuvinkki : vinkit) {
             if (lukuvinkki.getOtsikko().equals(otsikko)) {

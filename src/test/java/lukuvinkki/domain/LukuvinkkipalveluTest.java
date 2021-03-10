@@ -2,11 +2,11 @@ package lukuvinkki.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import lukuvinkki.dao.Tietokantahallinta;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("serial")
 public class LukuvinkkipalveluTest {
     KonsoliIO testiIO;
     Tietokantahallinta testiTietokanta;
@@ -15,7 +15,7 @@ public class LukuvinkkipalveluTest {
     @Before
     public void setUp() {
         testiIO = new KonsoliIO();
-        testiTietokanta = new Tietokantahallinta("testi.db", testiIO);
+        testiTietokanta = new Tietokantahallinta("./testi.db", testiIO);
         testiTietokanta.otaYhteysTietokantaan();
         testiPalvelu = new Lukuvinkkipalvelu(testiIO, testiTietokanta);
         
@@ -48,12 +48,12 @@ public class LukuvinkkipalveluTest {
     
     @After
     public void poistaTestiDatabase() {
-        testiTietokanta.poistaTestiTietokanta("testi.db");
+        testiTietokanta.poistaTestiTietokanta("./testi.db");
     }
     
     @Test
     public void testHaeLukuvinkitTaginPerusteellaKunTagiOlemassaYhdessaVinkissa() {
-        List<String> kysytytTagit = new ArrayList<String>() {
+        ArrayList<String> kysytytTagit = new ArrayList<String>() {
             {
                 add("tagi1vinkki1");
                 add("samattagit");
@@ -65,7 +65,7 @@ public class LukuvinkkipalveluTest {
     
     @Test
     public void testHaeLukuvinkitTaginPerusteellaKunTagiOlemassaUseammassaVinkissa() {
-        List<String> kysytytTagit = new ArrayList<String>() {
+        ArrayList<String> kysytytTagit = new ArrayList<String>() {
             {
                 add("tagi1vinkki1");
             }
@@ -75,7 +75,7 @@ public class LukuvinkkipalveluTest {
     
     @Test
     public void testHaeLukuvinkitTaginPerusteellaPalauttaaTyhjanListanKunVinkkiaVastaavallaTagillaEiLoydy() {
-        List<String> kysytytTagit = new ArrayList<String>() {
+        ArrayList<String> kysytytTagit = new ArrayList<String>() {
             {
                 add("tammostaeiole");
             }

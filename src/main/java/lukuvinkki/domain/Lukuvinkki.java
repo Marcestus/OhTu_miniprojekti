@@ -3,13 +3,12 @@ package lukuvinkki.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Lukuvinkki {
 
     private String otsikko, url, tagitString;
     private int id;
-    private List<String> tagit;
+    private ArrayList<String> tagit;
 
     public Lukuvinkki(String otsikko, String url, String tagitString) {
         this(otsikko, url, tagitString, 0);
@@ -43,7 +42,7 @@ public class Lukuvinkki {
         this.url = url;
     }
 
-    public List<String> getTagit() {
+    public ArrayList<String> getTagit() {
         return tagit;
     }
 
@@ -73,7 +72,7 @@ public class Lukuvinkki {
         this.tagitString = tagit;
     }
 
-    public void setTagit(List<String> tagit) {
+    public void setTagit(ArrayList<String> tagit) {
         this.tagit = tagit;
     }
     

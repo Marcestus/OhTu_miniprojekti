@@ -9,7 +9,7 @@ build/
 lukuvinkkikirjasto.db
 .vscode/
 testi.db
-cucemberTesti.db
+cucumberTesti.db
 nbproject/
 tietokantaTesti.db
 tietokantaTesti.db-journal
