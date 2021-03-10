@@ -1,21 +1,20 @@
 package lukuvinkki.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StubIO implements IORajapinta {
 
-    private List<String> syotteet;
+    private ArrayList<String> syotteet;
     private ArrayList<String> tulostukset;
     private int index;
 
-    public StubIO(List<String> syotteet) {
+    public StubIO(ArrayList<String> syotteet) {
         this.syotteet = syotteet;
         this.tulostukset = new ArrayList<>();
         index = 0;
     }
 
-    public List<String> getPrints() {
+    public ArrayList<String> getPrints() {
         return tulostukset;
     }
 

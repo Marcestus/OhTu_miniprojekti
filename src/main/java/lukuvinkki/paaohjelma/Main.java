@@ -1,4 +1,4 @@
-package lukuvinkki;
+package lukuvinkki.paaohjelma;
 
 import lukuvinkki.domain.*;
 import lukuvinkki.ui.*;
