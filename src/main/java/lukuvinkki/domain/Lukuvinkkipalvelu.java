@@ -89,6 +89,11 @@ public class Lukuvinkkipalvelu {
         }
     }
 
+    // Metodilla lisätään Export tietokantaan kaikki lukuvinkit, mitä käyttäjän omasta tietokannasta on saatu haeKaikkiLukuvinkit() metodilla
+    public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
+        return tietokanta.lisaaLukuvinkitListasta(lukuvinkit);
+    }
+
     public ArrayList<String> lisaaTagitURLPerusteella(String url) {
         ArrayList<String> tags = new ArrayList<>();
 

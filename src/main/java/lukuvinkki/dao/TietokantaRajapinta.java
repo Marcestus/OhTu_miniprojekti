@@ -2,6 +2,7 @@ package lukuvinkki.dao;
 
 import lukuvinkki.domain.Lukuvinkki;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface TietokantaRajapinta {
@@ -9,4 +10,5 @@ public interface TietokantaRajapinta {
     boolean otaYhteysTietokantaan();
     List<Lukuvinkki> haeKaikkiLukuvinkit();
     boolean poistaLukuvinkki(int poistettavanID);
+    boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit);
 }

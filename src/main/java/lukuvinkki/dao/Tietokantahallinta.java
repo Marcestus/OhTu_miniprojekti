@@ -23,7 +23,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     public Tietokantahallinta(String tiedosto, IORajapinta io) {
 
         this.io = io;
-        this.tiedostonURL = "jdbc:sqlite:./" + tiedosto;     
+        this.tiedostonURL = "jdbc:sqlite:" + tiedosto;     
 
     }
 
@@ -51,6 +51,17 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         }
 
     }
+
+    public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
+
+        for(Lukuvinkki lukuvinkki : lukuvinkit) {
+            if (!lisaaUusiLukuvinkki(lukuvinkki)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public List<Lukuvinkki> haeKaikkiLukuvinkit() {
         String hakuKasky = "SELECT id, otsikko, url, tagit, luettu FROM lukuvinkki;";

@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         IORajapinta io = new KonsoliIO();
-        TietokantaRajapinta tietokanta = new Tietokantahallinta("lukuvinkkikirjasto.db", io);
+        TietokantaRajapinta tietokanta = new Tietokantahallinta("./lukuvinkkikirjasto.db", io);
         
         if (!tietokanta.otaYhteysTietokantaan()) {
             io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
