@@ -138,5 +138,45 @@ public class LukuvinkkipalveluTest {
         assertTrue(testiPalvelu.lisataankoURLprotokolla("www.google.com"));
         assertFalse(testiPalvelu.lisataankoURLprotokolla("https://www.google.com"));
     }
+
+    @Test
+    public void testHaeLukuvinkkiSyotteenPerusteellaOnnistuu() {
+        Lukuvinkki testiVinkki = testiPalvelu.haeLukuvinkkiSyotteenPerusteella("testiVinkki1", false);
+        
+        assertEquals("testiVinkki1", testiVinkki.getOtsikko());
+        assertEquals("https://www.google.com/", testiVinkki.getUrl());
+        assertEquals("tagi1vinkki1, samattagit", testiVinkki.getTagitString());
+        
+        testiVinkki = testiPalvelu.haeLukuvinkkiSyotteenPerusteella("www.testivinkki3.com", true);
+        
+        assertEquals("testiVinkki3", testiVinkki.getOtsikko());
+        assertEquals("https://www.testivinkki3.com/", testiVinkki.getUrl());
+        assertEquals("tagi1vinkki3, tagi2vinkki3", testiVinkki.getTagitString());
+    }
+    
+    @Test
+    public void testHaeLukuvinkkiSyotteenPerusteellaEpaonnistuu() {
+        Lukuvinkki testiVinkki = testiPalvelu.haeLukuvinkkiSyotteenPerusteella("eiolemassaOtsikkoa", false);
+        assertEquals(null, testiVinkki);
+        
+        testiVinkki = testiPalvelu.haeLukuvinkkiSyotteenPerusteella("www.eiolemassa.com", true);
+        assertEquals(null, testiVinkki);
+    }
+
+    @Test
+    public void testLoytyykoHakuSyoteVinkistaOnnistuu() {
+        Lukuvinkki testiVinkki = new Lukuvinkki("testaja", "www.paljon.com", "");
+        
+        assertTrue(testiPalvelu.loytyykoHakuSyoteVinkista(testiVinkki, false, "test"));
+        assertTrue(testiPalvelu.loytyykoHakuSyoteVinkista(testiVinkki, true, "paljon"));
+    }
+    
+    @Test
+    public void testLoytyykoHakuSyoteVinkistaEpaonnistuu() {
+        Lukuvinkki testiVinkki = new Lukuvinkki("testaja", "www.paljon.com", "");
+        
+        assertFalse(testiPalvelu.loytyykoHakuSyoteVinkista(testiVinkki, false, "eiooOtsikossa"));
+        assertFalse(testiPalvelu.loytyykoHakuSyoteVinkista(testiVinkki, true, "eiooURLssa"));
+    }
     
 }
