@@ -47,5 +47,5 @@ public class TiedostopalveluTest {
     @Test
     public void testOnkoTiedostoOlemassaEpaonnistuu() {
         assertFalse(testiTiedostoPalvelu.onkoTiedostoOlemassa("error40404040"));
-    }
+    } 
 }
