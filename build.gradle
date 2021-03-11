@@ -1,61 +1,61 @@
 plugins {
-	id 'java'
-	id 'jacoco'
-	id 'application'
-	id 'checkstyle'
+    id 'java'
+    id 'jacoco'
+    id 'application'
+    id 'checkstyle'
 }
 
 mainClassName = 'lukuvinkki.paaohjelma.Main'
 
 repositories {
-	jcenter()
+    jcenter()
 }
 
 project.ext {
-	cucumberVersion = '6.8.1'
-	junitVersion = '4.13'
+    cucumberVersion = '6.8.1'
+    junitVersion = '4.13'
 }
 
 dependencies {
-	implementation 'org.xerial:sqlite-jdbc:3.8.11'
+    implementation 'org.xerial:sqlite-jdbc:3.8.11'
     implementation 'org.jsoup:jsoup:1.11.1'
-	testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
-	testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
-	testCompile 'junit:junit:' + junitVersion
+    testCompile 'io.cucumber:cucumber-java:' + cucumberVersion
+    testCompile 'io.cucumber:cucumber-junit:' + cucumberVersion
+    testCompile 'junit:junit:' + junitVersion
 }
 
 test {
-	testLogging.showStandardStreams = true
-	systemProperties System.getProperties()
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
 
 run {
-	standardInput = System.in
+    standardInput = System.in
 }
 
 jar {
-	manifest {
-		attributes 'Main-Class': 'lukuvinkki.paaohjelma.Main'
-	}
-	from {
-		configurations.runtimeClasspath.collect { it.isDirectory () ? it : zipTree(it) }
-	}
+    manifest {
+        attributes 'Main-Class': 'lukuvinkki.paaohjelma.Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory () ? it : zipTree(it) }
+    }
 }
 
 jacocoTestReport {
-	reports {
-		xml.enabled true
-		html.enabled true
-	}
-	afterEvaluate {
-		classDirectories.setFrom(files(classDirectories.files.collect {
-			fileTree(dir: it,
-				exclude: ['lukuvinkki/paaohjelma/**', 'lukuvinkki/ui/**'])
-		}))
-	}
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+                fileTree(dir: it,
+                        exclude: ['lukuvinkki/paaohjelma/**', 'lukuvinkki/ui/**'])
+        }))
+    }
 }
 
 tasks.withType(Checkstyle) {
-	exclude 'src/main/lukuvinkki.ui/Kayttoliittyma.java'
-	exclude 'src/main/lukuvinkki.paaohjelma/Main.java'
+    exclude 'src/main/lukuvinkki.ui/Kayttoliittyma.java'
+    exclude 'src/main/lukuvinkki.paaohjelma/Main.java'
 }

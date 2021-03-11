@@ -21,38 +21,13 @@ public class Lukuvinkkipalvelu {
         this.tietokanta = tietokanta;
         alustaUrlinMukaisetTagit();
     }
-
-    public String normalisoiOsoite(String url) {
-        url = lisaaOsoitteenAlkuJosTarpeen(url);
-        return lisataankoURLprotokolla(url) ? ("https://" + url) : (url);
-    }
     
-    public String lisaaOsoitteenAlkuJosTarpeen(String url) {
-        return !url.startsWith("http") && !url.contains("www.") ? ("www." + url) : url;
-    }
-    
-    public boolean lisataankoURLprotokolla(String url) {
-        return !url.contains("https://") && !url.contains("http://");
-    }
-
-    public String getOtsikkoURLOsoitteesta(String url) {
-        try {
-            Document sivusto = Jsoup.connect(url).get();
-            return sivusto.title();
-        } catch (Exception e) {
-            return "epaonnistunut";
-        }
-    }
-
-    public boolean sivustoOnOlemassa(String osoite) {
-        try {
-            URL url = new URL(osoite);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            return connection.getResponseCode() == 200;
-        } catch (Exception error) {
-            return false;
-        }
+    private void alustaUrlinMukaisetTagit() {
+        this.urlinMukaisetTagit = new HashMap<>();
+        this.urlinMukaisetTagit.put("medium", "blogi");
+        this.urlinMukaisetTagit.put("youtube", "video");
+        this.urlinMukaisetTagit.put("dl.acm.org", "julkaisu");
+        this.urlinMukaisetTagit.put("ieeexplore.ieee.org", "julkaisu");
     }
 
     public boolean lisaaLukuvinkki(String otsikko, String url, ArrayList<String> tagit) {
@@ -76,14 +51,6 @@ public class Lukuvinkkipalvelu {
             }
         }
         return tags;
-    }
-
-    private void alustaUrlinMukaisetTagit() {
-        this.urlinMukaisetTagit = new HashMap<>();
-        this.urlinMukaisetTagit.put("medium", "blogi");
-        this.urlinMukaisetTagit.put("youtube", "video");
-        this.urlinMukaisetTagit.put("dl.acm.org", "julkaisu");
-        this.urlinMukaisetTagit.put("ieeexplore.ieee.org", "julkaisu");
     }
 
     public HashMap<String, String> getUrlinMukaisetTagitTesteihin() {
