@@ -115,7 +115,7 @@ public class Kayttoliittyma {
 
     private String muodostaUrl() {
         while (true) {
-            String url = palvelu.normalisoiUrl(io.syote());
+            String url = palvelu.normalisoiOsoite(io.syote());
             if (palvelu.sivustoOnOlemassa(url)) {
                 return url;
             } else {

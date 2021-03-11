@@ -22,31 +22,13 @@ public class Lukuvinkkipalvelu {
         alustaUrlinMukaisetTagit();
     }
 
-    public boolean kelvollisetArvot(Lukuvinkki lukuvinkki) {
-        return lukuvinkki.getOtsikko().length() > 3
-                && lukuvinkki.getUrl().length() > 3
-                && onkoUrlMuotoValidi(lukuvinkki.getUrl());
-    }
-
-    public boolean onkoUrlMuotoValidi(String url) {
-        String[] paatteet = {".fi", ".com", ".io", ".org", ".net"};
-
-        for (String paate : paatteet) {
-            if (url.contains(paate)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public String normalisoiUrl(String url) {
+    public String normalisoiOsoite(String url) {
         url = lisaaOsoitteenAlkuJosTarpeen(url);
         return lisataankoURLprotokolla(url) ? ("https://" + url) : (url);
     }
     
     public String lisaaOsoitteenAlkuJosTarpeen(String url) {
-        return !url.contains("www.") ? ("www." + url) : url;
+        return !url.startsWith("http") && !url.contains("www.") ? ("www." + url) : url;
     }
     
     public boolean lisataankoURLprotokolla(String url) {
@@ -77,7 +59,7 @@ public class Lukuvinkkipalvelu {
         try {
             Lukuvinkki lukuvinkki = new Lukuvinkki(otsikko, url, "");
             lukuvinkki.setTagit(tagit);
-            return kelvollisetArvot(lukuvinkki) && tietokanta.lisaaUusiLukuvinkki(lukuvinkki);
+            return tietokanta.lisaaUusiLukuvinkki(lukuvinkki);
         } catch (Exception error) {
             io.print("Error: " + error.getMessage());
             return false;
