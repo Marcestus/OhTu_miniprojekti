@@ -1,7 +1,6 @@
 package lukuvinkki.ui;
 
 import java.util.ArrayList;
-import java.util.Optional;
 import lukuvinkki.dao.*;
 import lukuvinkki.domain.*;
 
@@ -10,11 +9,13 @@ public class Kayttoliittyma {
     private IORajapinta io;
     private Lukuvinkkipalvelu palvelu;
     private TietokantaRajapinta tietokanta;
+    private Tiedostopalvelu tiedostopalvelu;
 
     public Kayttoliittyma(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
         this.tietokanta = tietokanta;
         this.palvelu = new Lukuvinkkipalvelu(this.io, this.tietokanta);
+        this.tiedostopalvelu = new Tiedostopalvelu();
     }
 
     public void kayttoliittymaStart() {
@@ -35,7 +36,7 @@ public class Kayttoliittyma {
                     haeLukuvunkit();
                     break;
                 case "4":
-                    io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä.");
+                    tuoTiedosto();
                     break;
                 case "5":
                     io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä.");
@@ -50,6 +51,18 @@ public class Kayttoliittyma {
                     io.print("Virheellinen komento.");
                     break;
             }
+        }
+    }
+    
+    public void tuoTiedosto() {
+        io.print("Komento (tuo tiedosto) valittu \n");
+        io.print("Anna tiedoston polku.");
+        String tiedostonPolku = io.syote();
+        
+        if (tiedostopalvelu.onkoTiedostoOlemassa(tiedostonPolku)) {
+            System.out.println("Tiedosto löytyi.");
+        } else {
+            System.out.println("Tiedostoa ei löytynyt.");
         }
     }
 
@@ -230,7 +243,7 @@ public class Kayttoliittyma {
         io.print("1 - lisää lukuvinkki");
         io.print("2 - poista lukuvinkki");
         io.print("3 - hae lukuvinkit");
-        io.print("4 - selaa lukuvinkkejä");
+        io.print("4 - tuo tiedosto");
         io.print("5 - muokkaa lukuvinkkejä");
         io.print("6 - hae lukuvinkit tägeillä");
         io.print("-1 - lopeta ohjelma");
