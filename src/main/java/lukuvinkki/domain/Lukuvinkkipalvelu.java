@@ -107,7 +107,7 @@ public class Lukuvinkkipalvelu {
         
         return null;
     }
-    
+    //testi
     public boolean loytyykoHakuSyoteVinkista(Lukuvinkki lukuvinkki, boolean onkoURLPerusteella, String syote) {
         if (onkoURLPerusteella) {
            return lukuvinkki.getUrl().contains(syote);
