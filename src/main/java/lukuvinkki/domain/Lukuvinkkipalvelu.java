@@ -112,9 +112,9 @@ public class Lukuvinkkipalvelu {
 
     public boolean loytyykoHakuSyoteVinkista(Lukuvinkki lukuvinkki, boolean onkoURLPerusteella, String syote) {
         if (onkoURLPerusteella) {
-           return lukuvinkki.getUrl().contains(syote);
+            return lukuvinkki.getUrl().contains(syote);
         } else {
-           return lukuvinkki.getOtsikko().contains(syote);
+            return lukuvinkki.getOtsikko().contains(syote);
         }
     }
 }
