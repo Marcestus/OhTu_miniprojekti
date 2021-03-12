@@ -60,4 +60,11 @@ public class TietokantahallintaTest {
         testiTietokanta.poistaLukuvinkki(1);
         assertTrue(testiTietokanta.haeKaikkiLukuvinkit().isEmpty());
     }
+    
+    @Test
+    public void asetaLuetuksiTest() {
+        testiTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("muutettava", "google.fi", "testiTagi"));
+        testiTietokanta.asetaLuetuksi(1);
+        assertTrue(testiTietokanta.haeKaikkiLukuvinkit().get(0).getLuettu());
+    }
 }

@@ -22,36 +22,35 @@ public class LukuvinkkiTest {
 
     @Test
     public void testToString() {
-        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: tagTest";
+        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: tagTest\nLuettu: false";
         assertEquals(testiString, lukuvinkki.toString());
         
         lukuvinkki.lisaaTagi("toinenTagi");
         
-        String testiString2 = "Otsikko: testi\nUrl: urlTesti\nTagit: tagTest, toinenTagi";
+        String testiString2 = "Otsikko: testi\nUrl: urlTesti\nTagit: tagTest, toinenTagi\nLuettu: false";
         assertEquals(testiString2, lukuvinkki.toString());
     }
     
     @Test
     public void lukuvinkinLuontiIlmanTagiaTest() {
         Lukuvinkki vinkkiIlmanTagia = new Lukuvinkki("testi", "urlTesti", "");
-        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: -";
+        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: -\nLuettu: false";
         assertEquals(testiString, vinkkiIlmanTagia.toString());
     }
-    
     
     @Test
     public void lukuvinkinLuontiIlmanTagiaJaLisaaminenTest() {
         Lukuvinkki vinkkiIlmanTagia = new Lukuvinkki("testi", "urlTesti", "");
         vinkkiIlmanTagia.lisaaTagi("ekaTagiTyhjanJalkeen");
         
-        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen";
+        String testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen\nLuettu: false";
         assertEquals(testiString, vinkkiIlmanTagia.toString());
         
         vinkkiIlmanTagia.lisaaTagi("tokaTagi");
         vinkkiIlmanTagia.lisaaTagi("kolmasTagi");
         vinkkiIlmanTagia.lisaaTagi("neljasTagi");
         
-        testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen, tokaTagi, kolmasTagi, neljasTagi";
+        testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen, tokaTagi, kolmasTagi, neljasTagi\nLuettu: false";
         assertEquals(testiString, vinkkiIlmanTagia.toString());
     }   
 }

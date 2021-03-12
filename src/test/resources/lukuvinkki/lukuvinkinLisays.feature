@@ -8,7 +8,7 @@ Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
     Scenario: kayttaja voi lisata uuden lukuvinkin usealla tagilla
         Given komento lisaa valittu
         When  lukuvinkki otsikolla "otsikkoTesti", URL "google.com", tageilla "tag1", "tag2", "tag3" lisatty
-        Then  ohjelman tulostus oikein parametreilla otsikko "otsikkoTesti", URL "https://www.google.com", tagit "tag1", "tag2", "tag3"
+        Then  ohjelman tulostus oikein parametreilla otsikko "otsikkoTesti", URL "https://www.google.com", tagit "tag1", "tag2", "tag3", luettu "false"
 
     Scenario: kayttaja ei voi lisata lukuvinkkia epavalidilla url-osoitteella
         Given komento lisaa valittu
@@ -33,4 +33,4 @@ Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
     Scenario: kayttaja voi valita, etta valmista otsikkoa ei haeta url-osoitteesta
         Given komento lisaa valittu
         When  lukuvinkki lisatty otsikolla "omaOtsikko", url "www.google.com", tageilla "tag1", "tag2", "tag3" ja komennolla hae valmis otsikko ""
-        Then  ohjelman tulostus oikein parametreilla otsikko "omaOtsikko", URL "https://www.google.com", tagit "tag1", "tag2", "tag3"
+        Then  ohjelman tulostus oikein parametreilla otsikko "omaOtsikko", URL "https://www.google.com", tagit "tag1", "tag2", "tag3", luettu "false"

@@ -46,9 +46,10 @@ public class Stepdefs {
         syotteet.add("u");
     }
     
-    @Given("komento hae valittu")
-    public void komentoHaeValittu() {
+    @Given("komento hae valittu ja listaus syotteella {string}")
+    public void komentoHaeValittu(String listausSyote) {
         syotteet.add("3");
+        syotteet.add(listausSyote);
     }
     
     @When("lukuvinkin poistoon annettu url {string} ja poisto vahvistus {string}")
@@ -142,13 +143,15 @@ public class Stepdefs {
         assertTrue(printtaus.contains(haettuOtsikko));
     }
 
-    @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}")
-    public void ohjelmanTulostusVastaa(String otsikko, String url, String tag1, String tag2, String tag3) {
+    @Then("ohjelman tulostus oikein parametreilla otsikko {string}, URL {string}, tagit {string}, {string}, {string}, luettu {string}")
+    public void ohjelmanTulostusVastaa(String otsikko, String url, String tag1, String tag2, String tag3, String luettu) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
 
         assertTrue(io.getPrints().contains("Uusi lukuvinkki:\n" + "Otsikko: " + otsikko + "\n" +
                 "Url: " + url + "\n" +
-                "Tagit: " + tag1 + ", " + tag2 + ", " + tag3 + "\nlisätty onnistuneesti tietokantaan!"));
+                "Tagit: " + tag1 + ", " + tag2 + ", " + tag3 + "\n" + 
+                "Luettu: " + luettu + "\n" +
+                "lisätty onnistuneesti tietokantaan!"));
     }
 
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
@@ -162,8 +165,8 @@ public class Stepdefs {
         assertTrue(loytykoHaettavaTekstiOsa);
     }
     
-    @Then("ohjelman tulostus listaa luodun vinkin otsikolla {string}, url {string}, tagit {string}")
-    public void ohjelmanTulostusOikein(String otsikko, String url, String tagit) {
+    @Then("ohjelman tulostus listaa luodun vinkin otsikolla {string}, url {string}, tagit {string}, luettu {string}")
+    public void ohjelmanTulostusOikein(String otsikko, String url, String tagit, String luettu) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
         
         boolean alustusTekstiLoytyy = io.getPrints()
@@ -173,7 +176,8 @@ public class Stepdefs {
         boolean lisattyLukuvinkkiLoytyy = io.getPrints()
                                         .contains("Otsikko: " + otsikko + "\n"
                                                 + "Url: " + url + "\n"
-                                                + "Tagit: " + tagit + "\n");    
+                                                + "Tagit: " + tagit + "\n"
+                                                + "Luettu: " + luettu + "\n");   
         assertTrue(lisattyLukuvinkkiLoytyy);
     }
     

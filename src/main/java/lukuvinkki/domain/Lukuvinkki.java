@@ -15,7 +15,8 @@ public class Lukuvinkki {
         this(otsikko, url, tagitString, 0, false);
     }
 
-    public Lukuvinkki(String otsikko, String url, String tagitString, int id, boolean luettu) {        this.otsikko = otsikko;
+    public Lukuvinkki(String otsikko, String url, String tagitString, int id, boolean luettu) {        
+        this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
         this.id = id;
@@ -23,12 +24,12 @@ public class Lukuvinkki {
         alustaTagitLista(this.tagitString);
     }
 
-    public boolean getLuettu() {
-        return this.luettu;
-    }
-
     public void alustaTagitLista(String tag) {
         this.tagit = tag.isEmpty() ? new ArrayList<>() : new ArrayList<>(Arrays.asList(tag));
+    }
+        
+    public boolean getLuettu() {
+        return this.luettu;
     }
     
     public String getOtsikko() {

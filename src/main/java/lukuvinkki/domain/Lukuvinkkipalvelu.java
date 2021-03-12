@@ -86,16 +86,18 @@ public class Lukuvinkkipalvelu {
             case "1":
                 return haeLukuvunkit();
             case "2":
-                return haeLukuvunkit().stream()
-                        .filter(l -> !l.getLuettu())
-                        .collect(Collectors.toList());
+                return haeLukuvinkitLuetunStatuksenPerusteella(false);
             case "3":
-                return haeLukuvunkit().stream()
-                        .filter(l -> l.getLuettu())
-                        .collect(Collectors.toList());
+                return haeLukuvinkitLuetunStatuksenPerusteella(true);
             default:
                 return new ArrayList<>();
         }
+    }
+    
+    public List<Lukuvinkki> haeLukuvinkitLuetunStatuksenPerusteella(boolean onkoLuettu) {
+        return haeLukuvunkit().stream()
+                    .filter(l -> l.getLuettu() == onkoLuettu)
+                    .collect(Collectors.toList());
     }
 
     public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
@@ -107,7 +109,7 @@ public class Lukuvinkkipalvelu {
         
         return null;
     }
-    //testi
+
     public boolean loytyykoHakuSyoteVinkista(Lukuvinkki lukuvinkki, boolean onkoURLPerusteella, String syote) {
         if (onkoURLPerusteella) {
            return lukuvinkki.getUrl().contains(syote);
