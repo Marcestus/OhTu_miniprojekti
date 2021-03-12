@@ -108,7 +108,6 @@ public class Tietokantahallinta implements TietokantaRajapinta {
             io.print("ERROR: " + error.getMessage());
             return false;
         }
-        
     }
 
     private boolean alustaTietokanta() {

@@ -80,13 +80,22 @@ public class Kayttoliittyma {
 
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
+        String valinta;
+        
+        while (true) {
+            io.print("Valitse 1: Hae kaikki");
+            io.print("Valitse 2: Hae lukemattomat");
+            io.print("Valitse 3: Hae luetut");
+            valinta = io.syote();
+            
+            if (valinta.matches("[123]")) {
+                break;
+            }
+            
+            System.out.println("Virheellinen valinta. Valitse komento väliltä 1-3");
+        }
 
-        io.print("Valitse 1: Hae kaikki");
-        io.print("Valitse 2: Hae vain lukemattomat");
-        io.print("Valitse 3: Hae vain luetut");
-        String syote = io.syote();
-
-        List<Lukuvinkki> vinkit = palvelu.haeLukuvinkitSyotteenPerusteella(syote);
+        List<Lukuvinkki> vinkit = palvelu.haeLukuvinkitSyotteenPerusteella(valinta);
 
         if (vinkit.isEmpty()) {
             io.print("Tietokannassa ei lukuvinkkejä!");

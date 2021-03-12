@@ -2,6 +2,7 @@ package lukuvinkki.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import lukuvinkki.dao.Tietokantahallinta;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -144,5 +145,37 @@ public class LukuvinkkipalveluTest {
         assertFalse(testiPalvelu.loytyykoHakuSyoteVinkista(testiVinkki, false, "eiooOtsikossa"));
         assertFalse(testiPalvelu.loytyykoHakuSyoteVinkista(testiVinkki, true, "eiooURLssa"));
     }
+
+    @Test
+    public void testHaeLukuvinkitSyotteenPerusteella() {
+        List<Lukuvinkki> kaikkiLukuvinkit = testiPalvelu.haeLukuvinkitSyotteenPerusteella("1");
+        List<Lukuvinkki> lukemattomatLukuvinkit = testiPalvelu.haeLukuvinkitSyotteenPerusteella("2");
+        List<Lukuvinkki> luetutLukuvinkit = testiPalvelu.haeLukuvinkitSyotteenPerusteella("3");
+        
+        assertEquals(4, kaikkiLukuvinkit.size());
+        assertEquals(4, lukemattomatLukuvinkit.size());
+        assertEquals(0, luetutLukuvinkit.size());
+        
+        testiTietokanta.asetaLuetuksi(1);
+        testiTietokanta.asetaLuetuksi(2);
+        
+        lukemattomatLukuvinkit = testiPalvelu.haeLukuvinkitSyotteenPerusteella("2");
+        luetutLukuvinkit = testiPalvelu.haeLukuvinkitSyotteenPerusteella("3");
+        
+        assertEquals(2, lukemattomatLukuvinkit.size());
+        assertEquals(2, luetutLukuvinkit.size());
+        
+        assertEquals(0, testiPalvelu.haeLukuvinkitSyotteenPerusteella("vaaraKomento").size());
+    }
     
+    @Test
+    public void haeLukuvinkitLuetunStatuksenPerusteella() {
+        assertEquals(4, testiPalvelu.haeLukuvinkitLuetunStatuksenPerusteella(false).size());
+        assertEquals(0, testiPalvelu.haeLukuvinkitLuetunStatuksenPerusteella(true).size());
+        
+        testiTietokanta.asetaLuetuksi(1);
+        
+        assertEquals(3, testiPalvelu.haeLukuvinkitLuetunStatuksenPerusteella(false).size());
+        assertEquals(1, testiPalvelu.haeLukuvinkitLuetunStatuksenPerusteella(true).size());
+    }
 }

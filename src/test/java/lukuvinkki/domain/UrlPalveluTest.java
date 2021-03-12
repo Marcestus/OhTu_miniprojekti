@@ -30,6 +30,8 @@ public class UrlPalveluTest {
     public void testSivustoOnOlemassa() {
         assertTrue(testiUrlPalvelu.sivustoOnOlemassa("https://www.helsinki.com"));
         assertFalse(testiUrlPalvelu.sivustoOnOlemassa("https://www.enuskoettataasolemassa.com"));
+        assertFalse(testiUrlPalvelu.sivustoOnOlemassa("https://www.facebook.fi"));
+
     }
   
     @Test
@@ -44,6 +46,7 @@ public class UrlPalveluTest {
     public void testLisataankoURLprotokolla() {
         assertTrue(testiUrlPalvelu.lisataankoURLprotokolla("www.google.com"));
         assertFalse(testiUrlPalvelu.lisataankoURLprotokolla("https://www.google.com"));
+        assertFalse(testiUrlPalvelu.lisataankoURLprotokolla("http://www.google.com"));
     }
     
 }
