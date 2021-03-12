@@ -9,19 +9,24 @@ public class Lukuvinkki {
     private String otsikko, url, tagitString;
     private int id;
     private ArrayList<String> tagit;
+    private boolean luettu;
 
     public Lukuvinkki(String otsikko, String url, String tagitString) {
-        this(otsikko, url, tagitString, 0);
+        this(otsikko, url, tagitString, 0, false);
     }
 
-    public Lukuvinkki(String otsikko, String url, String tagitString, int id) {
-        this.otsikko = otsikko;
+    public Lukuvinkki(String otsikko, String url, String tagitString, int id, boolean luettu) {        this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
         this.id = id;
+        this.luettu = luettu;
         alustaTagitLista(this.tagitString);
     }
-    
+
+    public boolean getLuettu() {
+        return this.luettu;
+    }
+
     public void alustaTagitLista(String tag) {
         this.tagit = tag.isEmpty() ? new ArrayList<>() : new ArrayList<>(Arrays.asList(tag));
     }
@@ -82,7 +87,7 @@ public class Lukuvinkki {
 
     @Override
     public String toString() {
-        String teksti = "Otsikko: %s\nUrl: %s\nTagit: %s";
-        return String.format(teksti, this.otsikko, this.url, getTagitString());
+        String teksti = "Otsikko: %s\nUrl: %s\nTagit: %s\nLuettu: %s";
+        return String.format(teksti, this.otsikko, this.url, getTagitString(), this.luettu);
     }
 }

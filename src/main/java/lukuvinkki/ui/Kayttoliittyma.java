@@ -1,6 +1,8 @@
 package lukuvinkki.ui;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import lukuvinkki.dao.*;
 import lukuvinkki.domain.*;
 
@@ -79,7 +81,12 @@ public class Kayttoliittyma {
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
 
-        ArrayList<Lukuvinkki> vinkit = palvelu.haeLukuvunkit();
+        io.print("Valitse 1: Hae kaikki");
+        io.print("Valitse 2: Hae vain lukemattomat");
+        io.print("Valitse 3: Hae vain luetut");
+        String syote = io.syote();
+
+        List<Lukuvinkki> vinkit = palvelu.haeLukuvinkitSyotteenPerusteella(syote);
 
         if (vinkit.isEmpty()) {
             io.print("Tietokannassa ei lukuvinkkejä!");
@@ -90,7 +97,7 @@ public class Kayttoliittyma {
         tulostaLukuvinkit(vinkit);
     }
 
-    public void tulostaLukuvinkit(ArrayList<Lukuvinkki> vinkit) {
+    public void tulostaLukuvinkit(List<Lukuvinkki> vinkit) {
         for (Lukuvinkki lukuvinkki : vinkit) {
             io.print(lukuvinkki.toString() + "\n");
         }

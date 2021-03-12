@@ -4,11 +4,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lukuvinkki.dao.TietokantaRajapinta;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 public class Lukuvinkkipalvelu {
 
@@ -81,6 +80,24 @@ public class Lukuvinkkipalvelu {
         return returnList;
     }
 
+
+    public List<Lukuvinkki> haeLukuvinkitSyotteenPerusteella(String syote) {
+        switch (syote) {
+            case "1":
+                return haeLukuvunkit();
+            case "2":
+                return haeLukuvunkit().stream()
+                        .filter(l -> !l.getLuettu())
+                        .collect(Collectors.toList());
+            case "3":
+                return haeLukuvunkit().stream()
+                        .filter(l -> l.getLuettu())
+                        .collect(Collectors.toList());
+            default:
+                return new ArrayList<>();
+        }
+    }
+
     public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
         for (Lukuvinkki lukuvinkki : tietokanta.haeKaikkiLukuvinkit()) {
             if (loytyykoHakuSyoteVinkista(lukuvinkki, onkoURLPerusteella, hakuSyote)) {
@@ -93,14 +110,9 @@ public class Lukuvinkkipalvelu {
     
     public boolean loytyykoHakuSyoteVinkista(Lukuvinkki lukuvinkki, boolean onkoURLPerusteella, String syote) {
         if (onkoURLPerusteella) {
-            if (lukuvinkki.getUrl().contains(syote)) {
-                return true;
-            }
+           return lukuvinkki.getUrl().contains(syote);
         } else {
-            if (lukuvinkki.getOtsikko().contains(syote)) {
-                return true;
-            }   
+           return lukuvinkki.getOtsikko().contains(syote);
         }
-        return false;
     }
 }
