@@ -106,40 +106,6 @@ public class LukuvinkkipalveluTest {
     }
 
     @Test
-    public void testNormalisoiUrl() {
-        assertEquals("https://www.google.com", testiPalvelu.normalisoiOsoite("google.com"));
-        assertEquals("https://www.google.com", testiPalvelu.normalisoiOsoite("www.google.com"));
-        assertEquals("https://www.google.com", testiPalvelu.normalisoiOsoite("https://www.google.com"));
-    }
-
-    @Test
-    public void testGetOtsikkoURLOsoitteesta() {
-        assertEquals("Google", testiPalvelu.getOtsikkoURLOsoitteesta("https://www.google.com"));
-        assertEquals("University of Helsinki", testiPalvelu.getOtsikkoURLOsoitteesta("https://www.helsinki.fi"));
-        assertEquals("The Free MMORPG - RuneScape - Online Fantasy RPG", testiPalvelu.getOtsikkoURLOsoitteesta("https://www.runescape.com"));
-    }
-
-    @Test
-    public void testSivustoOnOlemassa() {
-        assertTrue(testiPalvelu.sivustoOnOlemassa("https://www.helsinki.com"));
-        assertFalse(testiPalvelu.sivustoOnOlemassa("https://www.enuskoettataasolemassa.com"));
-    }
-  
-    @Test
-    public void testLisaaOsoitteenAlkuJosTarpeen() {
-        assertEquals("www.google.com", testiPalvelu.lisaaOsoitteenAlkuJosTarpeen("google.com"));
-        assertEquals("www.google.com", testiPalvelu.lisaaOsoitteenAlkuJosTarpeen("www.google.com"));
-        assertEquals("https://google.com", testiPalvelu.lisaaOsoitteenAlkuJosTarpeen("https://google.com"));
-        assertEquals("http://google.com", testiPalvelu.lisaaOsoitteenAlkuJosTarpeen("http://google.com"));
-    }
-
-    @Test
-    public void testLisataankoURLprotokolla() {
-        assertTrue(testiPalvelu.lisataankoURLprotokolla("www.google.com"));
-        assertFalse(testiPalvelu.lisataankoURLprotokolla("https://www.google.com"));
-    }
-
-    @Test
     public void testHaeLukuvinkkiSyotteenPerusteellaOnnistuu() {
         Lukuvinkki testiVinkki = testiPalvelu.haeLukuvinkkiSyotteenPerusteella("testiVinkki1", false);
         

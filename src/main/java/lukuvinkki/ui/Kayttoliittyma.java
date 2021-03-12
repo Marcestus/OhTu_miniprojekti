@@ -10,12 +10,14 @@ public class Kayttoliittyma {
     private Lukuvinkkipalvelu palvelu;
     private TietokantaRajapinta tietokanta;
     private Tiedostopalvelu tiedostopalvelu;
+    private UrlPalvelu urlPalvelu;
 
     public Kayttoliittyma(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
         this.tietokanta = tietokanta;
         this.palvelu = new Lukuvinkkipalvelu(this.io, this.tietokanta);
         this.tiedostopalvelu = new Tiedostopalvelu();
+        this.urlPalvelu = new UrlPalvelu();
     }
 
     public void kayttoliittymaStart() {
@@ -128,8 +130,8 @@ public class Kayttoliittyma {
 
     private String muodostaUrl() {
         while (true) {
-            String url = palvelu.normalisoiOsoite(io.syote());
-            if (palvelu.sivustoOnOlemassa(url)) {
+            String url = urlPalvelu.normalisoiOsoite(io.syote());
+            if (urlPalvelu.sivustoOnOlemassa(url)) {
                 return url;
             } else {
                 io.print("Virhe: Osoitteella ei löytynyt sisältöä");
@@ -140,7 +142,7 @@ public class Kayttoliittyma {
 
     private String asetaValmisOtsikkoJosTarpeen(String aiemminSyotettyOtsikko, String syote, String url) {
         if (syote.equals("k")) {
-            String haettuOtsikko = palvelu.getOtsikkoURLOsoitteesta(url);
+            String haettuOtsikko = urlPalvelu.getOtsikkoURLOsoitteesta(url);
             if (!haettuOtsikko.equals("epaonnistunut")) {
                 io.print("Otsikko '" + haettuOtsikko + "' haettu onnistuneesti!");
                 return haettuOtsikko;
