@@ -164,6 +164,8 @@ public class LukuvinkkipalveluTest {
         
         assertEquals(2, lukemattomatLukuvinkit.size());
         assertEquals(2, luetutLukuvinkit.size());
+        
+        assertEquals(0, testiPalvelu.haeLukuvinkitSyotteenPerusteella("vaaraKomento").size());
     }
     
     @Test
