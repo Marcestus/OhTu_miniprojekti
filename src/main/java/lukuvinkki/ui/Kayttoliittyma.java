@@ -43,7 +43,7 @@ public class Kayttoliittyma {
                     tuoTiedosto();
                     break;
                 case "5":
-                    io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä.");
+                    kaynnistaLukuvinkinAsetusLuetuksi();
                     break;
                 case "6":
                     haeLukuvinkitTaginPerusteella();
@@ -55,6 +55,43 @@ public class Kayttoliittyma {
                     io.print("Virheellinen komento.");
                     break;
             }
+        }
+    }
+    
+    public void kaynnistaLukuvinkinAsetusLuetuksi() {
+        io.print("Komento (aseta lukuvinkki luetuksi) valittu \n");
+        io.print("Syötä lukuvinkin otsikko, jonka haluat merkata luetuksi.");
+        String lukuvinkinOtsikko = io.syote();
+        Lukuvinkki haettuLukuvinkki = palvelu.haeLukuvinkkiSyotteenPerusteella(lukuvinkinOtsikko, false);
+        
+        asetaLukuvinkkiLuetuksiJosTarpeen(haettuLukuvinkki);
+    }
+    
+    public void asetaLukuvinkkiLuetuksiJosTarpeen(Lukuvinkki lukuvinkkiLuetuksi) {
+        if (lukuvinkkiLuetuksi != null) {
+            io.print("\nHaluatko merkata lukuvinkin:");
+            io.print(lukuvinkkiLuetuksi.toString() + "\n");
+            io.print("luetuksi? (Syötä 'k' mikäli kyllä, muuten paina Enter)");
+            String vahvistus = io.syote();
+            vahvistaAsetus(vahvistus, lukuvinkkiLuetuksi);
+        } else {
+            io.print("Kyseisellä otsikolla ei löytynyt lukuvinkkiä tietokannasta.");
+        }
+    }
+    
+    public void vahvistaAsetus(String vahvistus, Lukuvinkki lukuvinkkiLuetuksi) {
+        if (vahvistus.equals("k")) {
+            suoritaAsetus(lukuvinkkiLuetuksi.getID());
+        } else {
+            io.print("Lukuvinkkiä ei merkattu luetuksi.\n");
+        }
+    }
+    
+    public void suoritaAsetus(int lukuvinkinID) {
+        if (palvelu.asetaLukuvinkkiLuetuksi(lukuvinkinID)) {
+            io.print("Lukuvinkki asetettu onnistuneesti luetuksi!\n");
+        } else {
+            io.print("Lukuvinkin luetuksi asetuksessa tapahtui virhe.\n");
         }
     }
     
@@ -205,7 +242,7 @@ public class Kayttoliittyma {
 
         String poistoKomento = io.syote();
         if (onkoPoistoSyoteValidi(poistoKomento)) {
-            boolean onkoURLPerusteella = onkoURLPerusteella(poistoKomento);
+            boolean onkoURLPerusteella = poistoKomento.equals("u") ? true : false;
             aloitaPoisto(onkoURLPerusteella);
         } else {
             io.print("Virheellinen syöte!");
@@ -214,10 +251,6 @@ public class Kayttoliittyma {
     
     public boolean onkoPoistoSyoteValidi(String komento) {
         return komento.equals("u") || komento.equals("o");
-    }
-    
-    public boolean onkoURLPerusteella(String komento) {
-        return komento.equals("u");
     }
     
     public void aloitaPoisto(boolean onkoURLPerusteella) {
@@ -262,7 +295,7 @@ public class Kayttoliittyma {
         io.print("2 - poista lukuvinkki");
         io.print("3 - hae lukuvinkit");
         io.print("4 - tuo tiedosto");
-        io.print("5 - muokkaa lukuvinkkejä");
+        io.print("5 - aseta lukuvinkki luetuksi");
         io.print("6 - hae lukuvinkit tägeillä");
         io.print("-1 - lopeta ohjelma");
     }
