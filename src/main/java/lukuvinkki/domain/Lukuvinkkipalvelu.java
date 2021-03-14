@@ -59,6 +59,10 @@ public class Lukuvinkkipalvelu {
     public boolean poistaLukuvinkki(int id) {
         return tietokanta.poistaLukuvinkki(id);
     }
+    
+    public boolean asetaLukuvinkkiLuetuksi(int id) {
+        return tietokanta.asetaLuetuksi(id);
+    }
 
     public ArrayList<Lukuvinkki> haeLukuvunkit() {
         return tietokanta.haeKaikkiLukuvinkit();
