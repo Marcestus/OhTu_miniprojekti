@@ -63,10 +63,10 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     }
 
 
-    public List<Lukuvinkki> haeKaikkiLukuvinkit() {
+    public ArrayList<Lukuvinkki> haeKaikkiLukuvinkit() {
         String hakuKasky = "SELECT id, otsikko, url, tagit, luettu FROM lukuvinkki;";
 
-        List<Lukuvinkki> lukuvinkit = new ArrayList<>();
+        ArrayList<Lukuvinkki> lukuvinkit = new ArrayList<>();
 
         try {
             this.connection = DriverManager.getConnection(this.tiedostonURL);

@@ -1,7 +1,9 @@
 package lukuvinkki.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import lukuvinkki.dao.*;
 import lukuvinkki.domain.*;
@@ -39,7 +41,7 @@ public class Kayttoliittyma {
                     io.print("Tästä voi ohjelman tulevassa versiossa selailla tallennettuja lukuvinkkejä.");
                     break;
                 case "5":
-                    io.print("Tästä voi ohjelman tulevassa versiossa muokata tallennettuja lukuvinkkejä.");
+                    vieTiedosto();
                     break;
                 case "6":
                     haeLukuvinkitTaginPerusteella();
@@ -52,6 +54,21 @@ public class Kayttoliittyma {
                     break;
             }
         }
+    }
+
+    public void vieTiedosto() {
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        io.print("Komento (vie tiedosto) valittu \n");
+        Tietokantahallinta exportTietokanta = new Tietokantahallinta(timeStamp + "-lukuvinkkikirjasto.db", io);
+        Lukuvinkkipalvelu exportPalvelu = new Lukuvinkkipalvelu(io, exportTietokanta);
+
+        ArrayList<Lukuvinkki> exportattavatLukuvinkit = palvelu.haeLukuvunkit();
+        if (exportPalvelu.lisaaLukuvinkitListasta(exportattavatLukuvinkit)) {
+            io.print("Export-tiedoston luonti onnistui");
+        } else {
+            io.print("Export-tiedoston luonti ei onnistunut");
+        }
+
     }
 
     public void haeLukuvinkitTaginPerusteella() {
@@ -188,12 +205,12 @@ public class Kayttoliittyma {
         io.print("Syötä poistettavan lukuvinkin url:");
         String url = io.syote();
         Lukuvinkki poistettavaLukuvinkki = palvelu.haeLukuvinkkiUrlPerusteella(url);
-        
+
         if (poistettavaLukuvinkki.getID() != -1) {
             io.print("\n" + poistettavaLukuvinkki.toString() + "\n");
             io.print("Poistetaanko lukuvinkki? \n kyllä: syötä k\n ei: paina enter");
             String poisto = io.syote();
-            
+
             if (poisto.equals("k")) {
                 if (palvelu.poistaLukuvinkki(poistettavaLukuvinkki.getID())) {
                     io.print("Lukuvinkin poistaminen onnistui");
@@ -212,12 +229,12 @@ public class Kayttoliittyma {
         io.print("Syötä poistettavan lukuvinkin otsikko:");
         String otsikko = io.syote();
         Lukuvinkki poistettavaLukuvinkki = palvelu.haeLukuvinkkiOtsikonPerusteella(otsikko);
-        
+
         if (poistettavaLukuvinkki.getID() != -1) {
             io.print("\n" + poistettavaLukuvinkki.toString() + "\n");
             io.print("Poistetaanko lukuvinkki? \n kyllä: syötä k\n ei: paina enter");
             String poisto = io.syote();
-            
+
             if (poisto.equals("k")) {
                 if (palvelu.poistaLukuvinkki(poistettavaLukuvinkki.getID())) {
                     io.print("Lukuvinkin poistaminen onnistui");
@@ -238,7 +255,7 @@ public class Kayttoliittyma {
         io.print("2 - poista lukuvinkki");
         io.print("3 - hae lukuvinkit");
         io.print("4 - selaa lukuvinkkejä");
-        io.print("5 - muokkaa lukuvinkkejä");
+        io.print("5 - vie tiedosto");
         io.print("6 - hae lukuvinkit tägeillä");
         io.print("-1 - lopeta ohjelma");
     }

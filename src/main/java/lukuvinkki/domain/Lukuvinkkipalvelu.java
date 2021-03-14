@@ -124,7 +124,7 @@ public class Lukuvinkkipalvelu {
         //Tietokantahallinta.java -tiedostossa on nyt rakennettu tietokantakäsky tälle, nimellä "poistaLukuvinkki(int poistettavanID)"
     }
 
-    public List<Lukuvinkki> haeLukuvunkit() {
+    public ArrayList<Lukuvinkki> haeLukuvunkit() {
         return tietokanta.haeKaikkiLukuvinkit();
     }
 
