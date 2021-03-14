@@ -71,16 +71,27 @@ public class Kayttoliittyma {
         if (lukuvinkkiLuetuksi != null) {
             io.print("\nHaluatko merkata lukuvinkin:");
             io.print(lukuvinkkiLuetuksi.toString() + "\n");
-            io.print("luetuksi? (Syötä 'k' mikäli kyllä, muuten paina Enter");
+            io.print("luetuksi? (Syötä 'k' mikäli kyllä, muuten paina Enter)");
             String vahvistus = io.syote();
-            
-            if (!vahvistus.isEmpty()) {
-                if (palvelu.asetaLukuvinkkiLuetuksi(lukuvinkkiLuetuksi.getID())) {
-                    io.print("Lukuvinkki asetettu onnistuneesti luetuksi!\n");
-                }
-            } 
+            vahvistaAsetus(vahvistus, lukuvinkkiLuetuksi);
         } else {
             io.print("Kyseisellä otsikolla ei löytynyt lukuvinkkiä tietokannasta.");
+        }
+    }
+    
+    public void vahvistaAsetus(String vahvistus, Lukuvinkki lukuvinkkiLuetuksi) {
+        if (vahvistus.equals("k")) {
+            suoritaAsetus(lukuvinkkiLuetuksi.getID());
+        } else {
+            io.print("Lukuvinkkiä ei merkattu luetuksi.\n");
+        }
+    }
+    
+    public void suoritaAsetus(int lukuvinkinID) {
+        if (palvelu.asetaLukuvinkkiLuetuksi(lukuvinkinID)) {
+            io.print("Lukuvinkki asetettu onnistuneesti luetuksi!\n");
+        } else {
+            io.print("Lukuvinkin luetuksi asetuksessa tapahtui virhe.\n");
         }
     }
     
