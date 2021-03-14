@@ -20,7 +20,7 @@ public class Lukuvinkkipalvelu {
         this.tietokanta = tietokanta;
         alustaUrlinMukaisetTagit();
     }
-    
+
     private void alustaUrlinMukaisetTagit() {
         this.urlinMukaisetTagit = new HashMap<>();
         this.urlinMukaisetTagit.put("medium", "blogi");
@@ -38,6 +38,15 @@ public class Lukuvinkkipalvelu {
             io.print("Error: " + error.getMessage());
             return false;
         }
+    }
+
+    public boolean lisaaKaikkiLukuvinkit(ArrayList<Lukuvinkki> vinkit) {
+        for (Lukuvinkki lukuvinkki : vinkit) {
+            if (!(lisaaLukuvinkki(lukuvinkki.getOtsikko(), lukuvinkki.getUrl(), lukuvinkki.getTagit()))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public ArrayList<String> lisaaTagitURLPerusteella(String url) {
@@ -80,7 +89,6 @@ public class Lukuvinkkipalvelu {
         return returnList;
     }
 
-
     public List<Lukuvinkki> haeLukuvinkitSyotteenPerusteella(String syote) {
         switch (syote) {
             case "1":
@@ -93,11 +101,11 @@ public class Lukuvinkkipalvelu {
                 return new ArrayList<>();
         }
     }
-    
+
     public List<Lukuvinkki> haeLukuvinkitLuetunStatuksenPerusteella(boolean onkoLuettu) {
         return haeLukuvunkit().stream()
-                    .filter(l -> l.getLuettu() == onkoLuettu)
-                    .collect(Collectors.toList());
+                .filter(l -> l.getLuettu() == onkoLuettu)
+                .collect(Collectors.toList());
     }
 
     public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
@@ -106,7 +114,7 @@ public class Lukuvinkkipalvelu {
                 return lukuvinkki;
             }
         }
-        
+
         return null;
     }
 
