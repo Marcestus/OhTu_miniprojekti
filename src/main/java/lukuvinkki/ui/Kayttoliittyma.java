@@ -60,6 +60,11 @@ public class Kayttoliittyma {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
         io.print("Komento (vie tiedosto) valittu \n");
         Tietokantahallinta exportTietokanta = new Tietokantahallinta(timeStamp + "-lukuvinkkikirjasto.db", io);
+        if (!exportTietokanta.otaYhteysTietokantaan()) {
+            io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
+
+            return;
+        }
         Lukuvinkkipalvelu exportPalvelu = new Lukuvinkkipalvelu(io, exportTietokanta);
 
         ArrayList<Lukuvinkki> exportattavatLukuvinkit = palvelu.haeLukuvunkit();
