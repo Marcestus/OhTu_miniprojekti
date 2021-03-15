@@ -30,7 +30,7 @@ public class Kayttoliittyma {
         tulostaKomennot();
         loop:
         while (true) {
-            io.print("Anna komento: ");
+            io.print("Anna komento:");
             String vastaus = io.syote();
             switch (vastaus) {
                 case "1":
@@ -78,6 +78,7 @@ public class Kayttoliittyma {
             io.print("\nHaluatko merkata lukuvinkin:");
             io.print(lukuvinkkiLuetuksi.toString() + "\n");
             io.print("luetuksi? (Syötä 'k' mikäli kyllä, muuten paina Enter)");
+            
             String vahvistus = io.syote();
             vahvistaAsetus(vahvistus, lukuvinkkiLuetuksi);
         } else {
@@ -139,7 +140,6 @@ public class Kayttoliittyma {
         Tietokantahallinta exportTietokanta = new Tietokantahallinta(timeStamp + "-lukuvinkkikirjasto.db", io);
         if (!exportTietokanta.otaYhteysTietokantaan()) {
             io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
-
             return;
         }
         Lukuvinkkipalvelu exportPalvelu = new Lukuvinkkipalvelu(io, exportTietokanta);
@@ -283,8 +283,8 @@ public class Kayttoliittyma {
 
     public void poistaLukuvinkki() {
         io.print("Komento (poista lukuvinkki) valittu.");
-        io.print("Syötä u, jos haluat poistaa lukuvinkin url:n perusteella");
-        io.print("Syötä o, jos haluat poistaa lukuvinkin otsikon perusteella");
+        io.print("Syötä 'u', jos haluat poistaa lukuvinkin url:n perusteella");
+        io.print("Syötä 'o', jos haluat poistaa lukuvinkin otsikon perusteella");
 
         String poistoKomento = io.syote();
         if (onkoPoistoSyoteValidi(poistoKomento)) {
@@ -313,7 +313,7 @@ public class Kayttoliittyma {
         if (poistettavaLukuvinkki != null) {
             io.print("\n" + poistettavaLukuvinkki + "\n");
             io.print("Poistetaanko kyseinen lukuvinkki?");
-            io.print(" kyllä: syötä k");
+            io.print(" kyllä: syötä 'k'");
             io.print(" ei: paina enter");
             String poistoVahvistus = io.syote();
 
