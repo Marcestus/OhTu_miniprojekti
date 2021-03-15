@@ -64,7 +64,7 @@ public class Kayttoliittyma {
     
     public void kaynnistaLukuvinkinAsetusLuetuksi() {
         io.print("Komento (aseta lukuvinkki luetuksi) valittu \n");
-        io.print("Syötä lukuvinkin otsikko, jonka haluat merkata luetuksi.");
+        io.print("Syötä lukuvinkin otsikko, jonka haluat merkata luetuksi:");
         String lukuvinkinOtsikko = io.syote();
         Lukuvinkki haettuLukuvinkki = palvelu.haeLukuvinkkiSyotteenPerusteella(lukuvinkinOtsikko, false);
         
@@ -128,7 +128,6 @@ public class Kayttoliittyma {
         } else {
             io.print("Tiedoston lisäys ei onnistunut.");
         }
-
     }
 
     public void vieTiedosto() {
@@ -143,9 +142,9 @@ public class Kayttoliittyma {
 
         ArrayList<Lukuvinkki> exportattavatLukuvinkit = palvelu.haeLukuvunkit();
         if (exportPalvelu.lisaaLukuvinkitListasta(exportattavatLukuvinkit)) {
-            io.print("Export-tiedoston luonti onnistui");
+            io.print("Export-tiedoston luonti onnistui!");
         } else {
-            io.print("Export-tiedoston luonti ei onnistunut");
+            io.print("Export-tiedoston luonti ei onnistunut.");
         }
 
     }
