@@ -16,7 +16,7 @@ public class Kayttoliittyma {
     private Tiedostopalvelu tiedostopalvelu;
     private UrlPalvelu urlPalvelu;
 
-    // test
+
     public Kayttoliittyma(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
         this.tietokanta = tietokanta;
@@ -50,9 +50,6 @@ public class Kayttoliittyma {
                     vieTiedosto();
                     break;
                 case "6":
-                    haeLukuvinkitTaginPerusteella();
-                    break;
-                case "7":
                     kaynnistaLukuvinkinAsetusLuetuksi();
                     break;
                 case "-1":
@@ -121,7 +118,6 @@ public class Kayttoliittyma {
         Tietokantahallinta importTietokanta = new Tietokantahallinta(tiedostonPolku, io);
         if (!importTietokanta.otaYhteysTietokantaan()) {
             io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
-
             return;
         }
         Lukuvinkkipalvelu importPalvelu = new Lukuvinkkipalvelu(io, importTietokanta);
@@ -154,33 +150,36 @@ public class Kayttoliittyma {
 
     }
 
-    public void haeLukuvinkitTaginPerusteella() {
+    public List<Lukuvinkki> haeLukuvinkitTagienPerusteella() {
         io.print("Komento (hae lukuvinkit tägeillä) valittu \n");
-        io.print("Anna tägit haulle \n");
+        io.print("Anna tagit haulle, (Painamalla Enter voit lopettaa tagien syöttämisen) \n");
         ArrayList<String> tagit = muodostaTagit("");
-        ArrayList<Lukuvinkki> vinkit = palvelu.haeLukuvinkitTaginPerusteella(tagit);
-        tulostaLukuvinkit(vinkit);
+        return palvelu.haeLukuvinkitTaginPerusteella(tagit);
     }
 
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
-        String valinta;
+        String syote;
 
         while (true) {
             io.print("Valitse 1: Hae kaikki");
             io.print("Valitse 2: Hae lukemattomat");
             io.print("Valitse 3: Hae luetut");
-            valinta = io.syote();
+            io.print("Valitse 4: Hae tagien perusteella");
 
-            if (valinta.matches("[123]")) {
+            syote = io.syote();
+
+            if (syote.matches("[1234]")) {
                 break;
             }
 
-            System.out.println("Virheellinen valinta. Valitse komento väliltä 1-3");
+            System.out.println("Virheellinen valinta. Valitse komento väliltä 1-4");
         }
 
-        List<Lukuvinkki> vinkit = palvelu.haeLukuvinkitSyotteenPerusteella(valinta);
-
+        List<Lukuvinkki> vinkit = syote.equals("4")
+                ? haeLukuvinkitTagienPerusteella()
+                : palvelu.haeLukuvinkitSyotteenPerusteella(syote);
+        
         if (vinkit.isEmpty()) {
             io.print("Tietokannassa ei lukuvinkkejä!");
             return;
@@ -289,7 +288,7 @@ public class Kayttoliittyma {
 
         String poistoKomento = io.syote();
         if (onkoPoistoSyoteValidi(poistoKomento)) {
-            boolean onkoURLPerusteella = poistoKomento.equals("u") ? true : false;
+            boolean onkoURLPerusteella = poistoKomento.equals("u");
             aloitaPoisto(onkoURLPerusteella);
         } else {
             io.print("Virheellinen syöte!");
@@ -343,8 +342,7 @@ public class Kayttoliittyma {
         io.print("3 - hae lukuvinkit");
         io.print("4 - tuo tiedosto");
         io.print("5 - vie tiedosto");
-        io.print("6 - hae lukuvinkit tägeillä");
-        io.print("7 - aseta lukuvinkki luetuksi");
+        io.print("6 - aseta lukuvinkki luetuksi");
         io.print("-1 - lopeta ohjelma");
     }
 }
