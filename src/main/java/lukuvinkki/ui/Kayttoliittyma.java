@@ -105,12 +105,32 @@ public class Kayttoliittyma {
         io.print("Komento (tuo tiedosto) valittu \n");
         io.print("Anna tiedoston polku.");
         String tiedostonPolku = io.syote();
-        
+
         if (tiedostopalvelu.onkoTiedostoOlemassa(tiedostonPolku)) {
             System.out.println("Tiedosto löytyi.");
+            yhdistaImportTiedosto(tiedostonPolku);
         } else {
             System.out.println("Tiedostoa ei löytynyt.");
         }
+
+    }
+
+    public void yhdistaImportTiedosto(String tiedostonPolku) {
+        Tietokantahallinta importTietokanta = new Tietokantahallinta(tiedostonPolku, io);
+        if (!importTietokanta.otaYhteysTietokantaan()) {
+            io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
+
+            return;
+        }
+        Lukuvinkkipalvelu importPalvelu = new Lukuvinkkipalvelu(io, importTietokanta);
+
+        ArrayList<Lukuvinkki> importattavatLukuvinkit = importPalvelu.haeLukuvunkit();
+        if (palvelu.lisaaKaikkiLukuvinkit(importattavatLukuvinkit)) {
+            io.print("Tiedoston sisältö lisätty onnistuneesti lukuvinkkikirjastoon.");
+        } else {
+            io.print("Tiedoston lisäys ei onnistunut.");
+        }
+
     }
 
     public void vieTiedosto() {
@@ -144,17 +164,17 @@ public class Kayttoliittyma {
     public void haeLukuvunkit() {
         io.print("Komento (hae lukuvinkit) valittu \n");
         String valinta;
-        
+
         while (true) {
             io.print("Valitse 1: Hae kaikki");
             io.print("Valitse 2: Hae lukemattomat");
             io.print("Valitse 3: Hae luetut");
             valinta = io.syote();
-            
+
             if (valinta.matches("[123]")) {
                 break;
             }
-            
+
             System.out.println("Virheellinen valinta. Valitse komento väliltä 1-3");
         }
 
@@ -274,21 +294,21 @@ public class Kayttoliittyma {
             io.print("Virheellinen syöte!");
         }
     }
-    
+
     public boolean onkoPoistoSyoteValidi(String komento) {
         return komento.equals("u") || komento.equals("o");
     }
-    
+
     public void aloitaPoisto(boolean onkoURLPerusteella) {
         String perusteella = onkoURLPerusteella ? "url" : "otsikko";
         io.print("Syötä poistettavan lukuvinkin " + perusteella + ":");
-        
+
         String hakuSyote = io.syote();
         Lukuvinkki poistettavaLukuvinkki = palvelu.haeLukuvinkkiSyotteenPerusteella(hakuSyote, onkoURLPerusteella);
-        
+
         vahvistaPoisto(poistettavaLukuvinkki);
     }
-    
+
     public void vahvistaPoisto(Lukuvinkki poistettavaLukuvinkki) {
         if (poistettavaLukuvinkki != null) {
             io.print("\n" + poistettavaLukuvinkki + "\n");
@@ -296,13 +316,13 @@ public class Kayttoliittyma {
             io.print(" kyllä: syötä k");
             io.print(" ei: paina enter");
             String poistoVahvistus = io.syote();
-            
+
             suoritaPoistoJosTarpeen(poistoVahvistus, poistettavaLukuvinkki.getID());
         } else {
             io.print("Syöttämääsi hakusyötettä ei ole tietokannassa.");
         }
     }
-    
+
     public void suoritaPoistoJosTarpeen(String poistoVahvistus, int poistettavanLukuvinkinID) {
         if (poistoVahvistus.equals("k")) {
             if (palvelu.poistaLukuvinkki(poistettavanLukuvinkinID)) {

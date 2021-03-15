@@ -20,7 +20,7 @@ public class Lukuvinkkipalvelu {
         this.tietokanta = tietokanta;
         alustaUrlinMukaisetTagit();
     }
-    
+
     private void alustaUrlinMukaisetTagit() {
         this.urlinMukaisetTagit = new HashMap<>();
         this.urlinMukaisetTagit.put("medium", "blogi");
@@ -40,7 +40,15 @@ public class Lukuvinkkipalvelu {
         }
     }
 
-    // Metodilla lisätään Export tietokantaan kaikki lukuvinkit, mitä käyttäjän omasta tietokannasta on saatu haeKaikkiLukuvinkit() metodilla
+    public boolean lisaaKaikkiLukuvinkit(ArrayList<Lukuvinkki> vinkit) {
+        for (Lukuvinkki lukuvinkki : vinkit) {
+            if (!(this.tietokanta.lisaaUusiLukuvinkki(lukuvinkki))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
         return tietokanta.lisaaLukuvinkitListasta(lukuvinkit);
     }
@@ -89,7 +97,6 @@ public class Lukuvinkkipalvelu {
         return returnList;
     }
 
-
     public List<Lukuvinkki> haeLukuvinkitSyotteenPerusteella(String syote) {
         switch (syote) {
             case "1":
@@ -102,11 +109,11 @@ public class Lukuvinkkipalvelu {
                 return new ArrayList<>();
         }
     }
-    
+
     public List<Lukuvinkki> haeLukuvinkitLuetunStatuksenPerusteella(boolean onkoLuettu) {
         return haeLukuvunkit().stream()
-                    .filter(l -> l.getLuettu() == onkoLuettu)
-                    .collect(Collectors.toList());
+                .filter(l -> l.getLuettu() == onkoLuettu)
+                .collect(Collectors.toList());
     }
 
     public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
