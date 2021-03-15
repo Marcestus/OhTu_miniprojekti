@@ -70,10 +70,10 @@ public class Stepdefs {
     public void komentoMerkkaaLuetuksiValittu() {
         syotteet.add("6");
     }
-        
+    
     @Given("Import-tiedosto alustettu polulla {string} ja {string} lukuvinkilla")
     public void alustaImportTiedosto(String polku, String lisattavienMaara) {
-        StubIO tyhjaIO = new StubIO(new ArrayList());
+        StubIO tyhjaIO = new StubIO(new ArrayList<>());
         importTietokantaPalvelu = new Tietokantahallinta(polku, tyhjaIO);
         importTietokantaPalvelu.otaYhteysTietokantaan();
         int maara = Integer.valueOf(lisattavienMaara);
