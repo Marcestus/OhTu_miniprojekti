@@ -61,7 +61,7 @@ public class Stepdefs {
     
     @Given("komento merkkaa luetuksi valittu")
     public void komentoMerkkaaLuetuksiValittu() {
-        syotteet.add("7");
+        syotteet.add("6");
     }
         
     @Given("Import-tiedosto alustettu polulla {string} ja kahdella lukuvinkilla")
@@ -169,7 +169,7 @@ public class Stepdefs {
 
     @When("komento aseta lukuvinkki luetuksi valittu ja syötteenä {string}, {string}")
     public void asetaLukuvinkkiLuetuksi(String otsikko, String vastaus) {
-        syotteet.add("7");
+        syotteet.add("6");
         syotteet.add(otsikko);
         syotteet.add(vastaus);
     }
@@ -197,6 +197,8 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
+        
+        System.out.println(io.getPrints());
 
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
