@@ -42,7 +42,7 @@ public class Lukuvinkkipalvelu {
 
     public boolean lisaaKaikkiLukuvinkit(ArrayList<Lukuvinkki> vinkit) {
         for (Lukuvinkki lukuvinkki : vinkit) {
-            if (!(lisaaLukuvinkki(lukuvinkki.getOtsikko(), lukuvinkki.getUrl(), lukuvinkki.getTagit()))) {
+            if (!(this.tietokanta.lisaaUusiLukuvinkki(lukuvinkki))) {
                 return false;
             }
         }
