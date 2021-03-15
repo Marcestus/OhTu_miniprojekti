@@ -53,6 +53,17 @@ public class Stepdefs {
         syotteet.add(listausSyote);
     }
     
+    @Given("komento merkkaa luetuksi valittu")
+    public void komentoMerkkaaLuetuksiValittu() {
+        syotteet.add("7");
+    }
+    
+    @When("lukuvinkin luetuksi merkkaamiseen annettu otsikko {string} ja varmistus {string} annettu")
+    public void lukuvinkinMerkkaamiseenKomento(String otsikko, String vahvistus) {
+        syotteet.add(otsikko);
+        syotteet.add(vahvistus);
+    }
+    
     @When("lukuvinkin poistoon annettu url {string} ja poisto vahvistus {string}")
     public void lukuvinkkiPoistettuOikeellaURL(String url, String vahvistus) {
         syotteet.add(url);

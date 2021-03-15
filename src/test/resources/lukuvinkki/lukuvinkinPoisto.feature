@@ -20,3 +20,17 @@ Feature: Ohjelman kayttajana voin poistaa lukuvinkin
         And   komento poisto otsikolla valittu
         And   lukuvinkin poistoon annettu otsikko "otsikkoTesti" ja poisto vahvistus ""
         Then  ohjelman tulostus sisaltaa "Lukuvinkin poistaminen keskeytetty." tekstin
+
+    Scenario: kayttaja voi poistaa lukuvinkin osaotsikon perusteella
+        Given komento lisaa valittu
+        When  lukuvinkki otsikolla "osaOtsikko", URL "runescape.com" ja ilman tageja lisatty
+        And   komento poisto otsikolla valittu
+        And   lukuvinkin poistoon annettu otsikko "osa" ja poisto vahvistus "k"
+        Then  ohjelman tulostus sisaltaa "Lukuvinkki poistettu onnistuneesti!" tekstin ja lukuvinkin oikea tiedot "osaOtsikko" ja "https://www.runescape.com"
+
+    Scenario: kayttaja voi poistaa lukuvinkin osaURLin perusteella
+        Given komento lisaa valittu
+        When  lukuvinkki otsikolla "osaOtsikko", URL "helsinki.fi" ja ilman tageja lisatty
+        And   komento poisto url valittu
+        And   lukuvinkin poistoon annettu url "helsinki" ja poisto vahvistus "k"
+        Then  ohjelman tulostus sisaltaa "Lukuvinkki poistettu onnistuneesti!" tekstin ja lukuvinkin oikea tiedot "osaOtsikko" ja "https://www.helsinki.fi"
