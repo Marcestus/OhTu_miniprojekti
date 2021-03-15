@@ -12,6 +12,7 @@ import lukuvinkki.domain.Lukuvinkki;
 import lukuvinkki.domain.StubIO;
 import lukuvinkki.ui.Kayttoliittyma;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
@@ -19,7 +20,7 @@ public class Stepdefs {
     private ArrayList<String> syotteet;
     private StubIO io;
     private Kayttoliittyma ui;
-    private Tietokantahallinta tietokanta;
+    private Tietokantahallinta tietokanta, importTietokantaPalvelu;
 
     @Before
     public void setup() {
@@ -64,20 +65,22 @@ public class Stepdefs {
         syotteet.add("6");
     }
         
-    @Given("Import-tiedosto alustettu polulla {string} ja kahdella lukuvinkilla")
-    public void alustaImportTiedosto(String polku) {
+    @Given("Import-tiedosto alustettu polulla {string} ja {string} lukuvinkilla")
+    public void alustaImportTiedosto(String polku, String lisattavienMaara) {
         StubIO tyhjaIO = new StubIO(new ArrayList());
-        Tietokantahallinta importTietokanta = new Tietokantahallinta(polku, tyhjaIO);
-        importTietokanta.otaYhteysTietokantaan();
-        importTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("testi", "www.google.com","tag1"));
-        importTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("testi2", "www.google.com","tag1"));
+        importTietokantaPalvelu = new Tietokantahallinta(polku, tyhjaIO);
+        importTietokantaPalvelu.otaYhteysTietokantaan();
+        int maara = Integer.valueOf(lisattavienMaara);
+        
+        for (int i = 1; i <= maara; i++) {
+            importTietokantaPalvelu.lisaaUusiLukuvinkki(new Lukuvinkki("testi" + i, "www.google.com","tag1"));
+        }
     }
     
-    @When("tiedoston tuontiin anettu {string} polku")
+    @When("tiedoston tuontiin annettu {string} polku")
     public void tiedostoTuontiinPolku(String polku) {
         syotteet.add(polku);
     }
-    
     
     @When("lukuvinkin luetuksi merkkaamiseen annettu otsikko {string} ja varmistus {string} annettu")
     public void lukuvinkinMerkkaamiseenKomento(String otsikko, String vahvistus) {
@@ -242,6 +245,19 @@ public class Stepdefs {
         assertTrue(loytykoHaettavaTekstiOsa);
         assertTrue(loytykoOtsikko);
         assertTrue(loytykoURL);
+    }
+    
+    @Then("ohjelman tulostus sisaltaa tekstin {string} ja tietokannan koko {string} oikea")
+    public void importtauksessaOikeaLopputulema(String teksti, String koko) {
+        alustaStubTulostuksetJaKaynnistaOhjelma();
+        
+        boolean loytykoHaettavaTekstiOsa = io.getPrints()
+                .stream()
+                .anyMatch(x -> x.contains(teksti));
+
+        assertTrue(loytykoHaettavaTekstiOsa);
+        assertEquals((int)Integer.valueOf(koko), tietokanta.haeKaikkiLukuvinkit().size());
+        importTietokantaPalvelu.poistaTestiTietokanta("./importTestiDatabase.db");
     }
     
     public void alustaStubTulostuksetJaKaynnistaOhjelma() {
