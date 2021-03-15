@@ -16,6 +16,7 @@ public class Kayttoliittyma {
     private Tiedostopalvelu tiedostopalvelu;
     private UrlPalvelu urlPalvelu;
 
+    // test
     public Kayttoliittyma(IORajapinta io, TietokantaRajapinta tietokanta) {
         this.io = io;
         this.tietokanta = tietokanta;
