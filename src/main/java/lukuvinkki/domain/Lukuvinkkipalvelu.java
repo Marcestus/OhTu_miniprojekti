@@ -49,6 +49,10 @@ public class Lukuvinkkipalvelu {
         return true;
     }
 
+    public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
+        return tietokanta.lisaaLukuvinkitListasta(lukuvinkit);
+    }
+
     public ArrayList<String> lisaaTagitURLPerusteella(String url) {
         ArrayList<String> tags = new ArrayList<>();
 
@@ -67,6 +71,10 @@ public class Lukuvinkkipalvelu {
 
     public boolean poistaLukuvinkki(int id) {
         return tietokanta.poistaLukuvinkki(id);
+    }
+    
+    public boolean asetaLukuvinkkiLuetuksi(int id) {
+        return tietokanta.asetaLuetuksi(id);
     }
 
     public ArrayList<Lukuvinkki> haeLukuvunkit() {
@@ -114,7 +122,6 @@ public class Lukuvinkkipalvelu {
                 return lukuvinkki;
             }
         }
-
         return null;
     }
 

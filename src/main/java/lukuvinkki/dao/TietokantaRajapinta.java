@@ -9,4 +9,6 @@ public interface TietokantaRajapinta {
     boolean otaYhteysTietokantaan();
     ArrayList<Lukuvinkki> haeKaikkiLukuvinkit();
     boolean poistaLukuvinkki(int poistettavanID);
+    boolean asetaLuetuksi(int muutettavanID);
+    boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit);
 }

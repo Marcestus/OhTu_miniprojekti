@@ -22,7 +22,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
     public Tietokantahallinta(String tiedosto, IORajapinta io) {
 
         this.io = io;
-        this.tiedostonURL = "jdbc:sqlite:./" + tiedosto;     
+        this.tiedostonURL = "jdbc:sqlite:" + tiedosto;     
 
     }
 
@@ -47,7 +47,17 @@ public class Tietokantahallinta implements TietokantaRajapinta {
             io.print("ERROR: " + error.getMessage());
             return false;
         }
-  
+
+    }
+
+    public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
+
+        for (Lukuvinkki lukuvinkki : lukuvinkit) {
+            if (!lisaaUusiLukuvinkki(lukuvinkki)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public ArrayList<Lukuvinkki> haeKaikkiLukuvinkit() {
@@ -64,7 +74,6 @@ public class Tietokantahallinta implements TietokantaRajapinta {
                 String url = result.getString(3);
                 String tagit = result.getString(4);
                 boolean luettu = result.getBoolean(5);
-
                 lukuvinkit.add(new Lukuvinkki(otsikko, url, tagit, id, luettu));
             }
             this.connection.close();
