@@ -53,7 +53,7 @@ public class Kayttoliittyma {
                     kaynnistaLukuvinkinAsetusLuetuksi();
                     break;
                 case "-1":
-                    System.out.println("Ohjelma sulkeutuu...");
+                    io.print("Ohjelma sulkeutuu...");
                     break loop;
                 default:
                     io.print("Virheellinen komento.");
@@ -106,10 +106,10 @@ public class Kayttoliittyma {
         String tiedostonPolku = io.syote();
 
         if (tiedostopalvelu.onkoTiedostoOlemassa(tiedostonPolku)) {
-            System.out.println("Tiedosto löytyi.");
+            io.print("Tiedosto löytyi.");
             yhdistaImportTiedosto(tiedostonPolku);
         } else {
-            System.out.println("Tiedostoa ei löytynyt.");
+            io.print("Tiedostoa ei löytynyt.");
         }
 
     }
@@ -173,7 +173,7 @@ public class Kayttoliittyma {
                 break;
             }
 
-            System.out.println("Virheellinen valinta. Valitse komento väliltä 1-4");
+            io.print("Virheellinen valinta. Valitse komento väliltä 1-4");
         }
 
         List<Lukuvinkki> vinkit = syote.equals("4")
