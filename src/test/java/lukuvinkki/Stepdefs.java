@@ -54,6 +54,12 @@ public class Stepdefs {
         syotteet.add("3");
         syotteet.add(listausSyote);
     }
+
+    @Given("haettavaksi tagiksi annettu {string}")
+    public void maaritteleHaettavatTagit(String tagi) {
+        syotteet.add(tagi);
+        syotteet.add("");
+    }
     
     @Given("komento tuo tiedosto valittu")
     public void komentoTuoTiedostoValittu() {
@@ -201,7 +207,6 @@ public class Stepdefs {
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
         
-        System.out.println(io.getPrints());
 
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
