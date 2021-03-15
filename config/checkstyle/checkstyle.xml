@@ -7,9 +7,13 @@
     <property name="localeCountry" value="EN"/>
     <property name="localeLanguage" value="en"/>
 
+    <module name="SuppressWarningsFilter" />
+
     <module name='TreeWalker'>
 
         <property name='tabWidth' value='4' />
+	
+	<module name="SuppressWarningsHolder" />
 
         <!-- Block Checks -->
         <module name='EmptyBlock' />

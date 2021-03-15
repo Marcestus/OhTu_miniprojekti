@@ -24,6 +24,7 @@ public class Kayttoliittyma {
         this.urlPalvelu = new UrlPalvelu();
     }
 
+    @SuppressWarnings("checkstyle:methodlength")
     public void kayttoliittymaStart() {
         io.print("Tervetuloa käyttämään lukuvinkkikirjastoa!");
         tulostaKomennot();

@@ -52,7 +52,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
 
     public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
 
-        for(Lukuvinkki lukuvinkki : lukuvinkit) {
+        for (Lukuvinkki lukuvinkki : lukuvinkit) {
             if (!lisaaUusiLukuvinkki(lukuvinkki)) {
                 return false;
             }
