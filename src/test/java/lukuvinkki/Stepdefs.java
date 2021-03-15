@@ -20,7 +20,7 @@ public class Stepdefs {
     private ArrayList<String> syotteet;
     private StubIO io;
     private Kayttoliittyma ui;
-    private Tietokantahallinta tietokanta;
+    private Tietokantahallinta tietokanta, importTietokantaPalvelu;
 
     @Before
     public void setup() {
@@ -68,7 +68,7 @@ public class Stepdefs {
     @Given("Import-tiedosto alustettu polulla {string} ja {string} lukuvinkilla")
     public void alustaImportTiedosto(String polku, String lisattavienMaara) {
         StubIO tyhjaIO = new StubIO(new ArrayList());
-        Tietokantahallinta importTietokantaPalvelu = new Tietokantahallinta(polku, tyhjaIO);
+        importTietokantaPalvelu = new Tietokantahallinta(polku, tyhjaIO);
         importTietokantaPalvelu.otaYhteysTietokantaan();
         int maara = Integer.valueOf(lisattavienMaara);
         
@@ -255,7 +255,7 @@ public class Stepdefs {
 
         assertTrue(loytykoHaettavaTekstiOsa);
         assertEquals((int)Integer.valueOf(koko), tietokanta.haeKaikkiLukuvinkit().size());
-        tietokanta.poistaTestiTietokanta("./importTestiDatabase.db");
+        importTietokantaPalvelu.poistaTestiTietokanta("./importTestiDatabase.db");
     }
     
     public void alustaStubTulostuksetJaKaynnistaOhjelma() {
