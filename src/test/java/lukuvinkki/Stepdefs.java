@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
 import lukuvinkki.dao.Tietokantahallinta;
+import lukuvinkki.domain.Lukuvinkki;
 import lukuvinkki.domain.StubIO;
 import lukuvinkki.ui.Kayttoliittyma;
 
@@ -46,11 +47,42 @@ public class Stepdefs {
         syotteet.add("2");
         syotteet.add("u");
     }
-    
+        
     @Given("komento hae valittu ja listaus syotteella {string}")
     public void komentoHaeValittu(String listausSyote) {
         syotteet.add("3");
         syotteet.add(listausSyote);
+    }
+    
+    @Given("komento tuo tiedosto valittu")
+    public void komentoTuoTiedostoValittu() {
+        syotteet.add("4");
+    }
+    
+    @Given("komento merkkaa luetuksi valittu")
+    public void komentoMerkkaaLuetuksiValittu() {
+        syotteet.add("7");
+    }
+        
+    @Given("Import-tiedosto alustettu polulla {string} ja kahdella lukuvinkilla")
+    public void alustaImportTiedosto(String polku) {
+        StubIO tyhjaIO = new StubIO(new ArrayList());
+        Tietokantahallinta importTietokanta = new Tietokantahallinta(polku, tyhjaIO);
+        importTietokanta.otaYhteysTietokantaan();
+        importTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("testi", "www.google.com","tag1"));
+        importTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("testi2", "www.google.com","tag1"));
+    }
+    
+    @When("tiedoston tuontiin anettu {string} polku")
+    public void tiedostoTuontiinPolku(String polku) {
+        syotteet.add(polku);
+    }
+    
+    
+    @When("lukuvinkin luetuksi merkkaamiseen annettu otsikko {string} ja varmistus {string} annettu")
+    public void lukuvinkinMerkkaamiseenKomento(String otsikko, String vahvistus) {
+        syotteet.add(otsikko);
+        syotteet.add(vahvistus);
     }
     
     @When("lukuvinkin poistoon annettu url {string} ja poisto vahvistus {string}")
@@ -126,13 +158,20 @@ public class Stepdefs {
         syotteet.add(tag3);
         syotteet.add("");
     }
-    
+
     @When("lukuvinkki otsikolla {string}, URL {string} ja ilman tageja lisatty")
     public void lukuvinkkiIlmanTagejaLisatty(String otsikko, String url) {
         syotteet.add(otsikko);
         syotteet.add(url);
         syotteet.add(""); 
         syotteet.add("");
+    }
+
+    @When("komento aseta lukuvinkki luetuksi valittu ja syötteenä {string}, {string}")
+    public void asetaLukuvinkkiLuetuksi(String otsikko, String vastaus) {
+        syotteet.add("7");
+        syotteet.add(otsikko);
+        syotteet.add(vastaus);
     }
     
     @Then("Ohjelman tulostus sisältää {string} sivuston haetun otsikon {string}")
@@ -158,7 +197,7 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
-               
+
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
                 .anyMatch(x -> x.contains(teksti));
@@ -178,7 +217,7 @@ public class Stepdefs {
                                         .contains("Otsikko: " + otsikko + "\n"
                                                 + "Url: " + url + "\n"
                                                 + "Tagit: " + tagit + "\n"
-                                                + "Luettu: " + luettu + "\n");   
+                                                + "Luettu: " + luettu + "\n"); 
         assertTrue(lisattyLukuvinkkiLoytyy);
     }
     
