@@ -13,3 +13,4 @@ cucumberTesti.db
 nbproject/
 tietokantaTesti.db
 tietokantaTesti.db-journal
+*.db

@@ -15,7 +15,7 @@ public class Lukuvinkki {
         this(otsikko, url, tagitString, 0, false);
     }
 
-    public Lukuvinkki(String otsikko, String url, String tagitString, int id, boolean luettu) {        
+    public Lukuvinkki(String otsikko, String url, String tagitString, int id, boolean luettu) {
         this.otsikko = otsikko;
         this.url = url;
         this.tagitString = tagitString;
@@ -56,7 +56,6 @@ public class Lukuvinkki {
         return this.id;
     }
 
-    // Tietokantahallinta lisää tällä hetkellä tagit tekstimuodossa pilkulla erotettuna
     public String getTagitString() {
         return tagit.isEmpty() ? "-" : muodostaTagitString();
     }

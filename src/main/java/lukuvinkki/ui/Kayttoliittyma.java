@@ -1,6 +1,8 @@
 package lukuvinkki.ui;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lukuvinkki.dao.*;
@@ -43,10 +45,13 @@ public class Kayttoliittyma {
                     tuoTiedosto();
                     break;
                 case "5":
-                    kaynnistaLukuvinkinAsetusLuetuksi();
+                    vieTiedosto();
                     break;
                 case "6":
                     haeLukuvinkitTaginPerusteella();
+                    break;
+                case "7":
+                    kaynnistaLukuvinkinAsetusLuetuksi();
                     break;
                 case "-1":
                     System.out.println("Ohjelma sulkeutuu...");
@@ -105,6 +110,26 @@ public class Kayttoliittyma {
         } else {
             System.out.println("Tiedostoa ei löytynyt.");
         }
+    }
+
+    public void vieTiedosto() {
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        io.print("Komento (vie tiedosto) valittu \n");
+        Tietokantahallinta exportTietokanta = new Tietokantahallinta(timeStamp + "-lukuvinkkikirjasto.db", io);
+        if (!exportTietokanta.otaYhteysTietokantaan()) {
+            io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
+
+            return;
+        }
+        Lukuvinkkipalvelu exportPalvelu = new Lukuvinkkipalvelu(io, exportTietokanta);
+
+        ArrayList<Lukuvinkki> exportattavatLukuvinkit = palvelu.haeLukuvunkit();
+        if (exportPalvelu.lisaaLukuvinkitListasta(exportattavatLukuvinkit)) {
+            io.print("Export-tiedoston luonti onnistui");
+        } else {
+            io.print("Export-tiedoston luonti ei onnistunut");
+        }
+
     }
 
     public void haeLukuvinkitTaginPerusteella() {
@@ -295,8 +320,9 @@ public class Kayttoliittyma {
         io.print("2 - poista lukuvinkki");
         io.print("3 - hae lukuvinkit");
         io.print("4 - tuo tiedosto");
-        io.print("5 - aseta lukuvinkki luetuksi");
+        io.print("5 - vie tiedosto");
         io.print("6 - hae lukuvinkit tägeillä");
+        io.print("7 - aseta lukuvinkki luetuksi");
         io.print("-1 - lopeta ohjelma");
     }
 }
