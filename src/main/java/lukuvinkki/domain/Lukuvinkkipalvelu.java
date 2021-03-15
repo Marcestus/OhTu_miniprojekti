@@ -36,16 +36,7 @@ public class Lukuvinkkipalvelu {
             io.print("Error: " + error.getMessage());
             return false;
         }
-    }
-
-    public boolean lisaaKaikkiLukuvinkit(ArrayList<Lukuvinkki> vinkit) {
-        for (Lukuvinkki lukuvinkki : vinkit) {
-            if (!(this.tietokanta.lisaaUusiLukuvinkki(lukuvinkki))) {
-                return false;
-            }
-        }
-        return true;
-    }
+    } 
 
     public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
         return tietokanta.lisaaLukuvinkitListasta(lukuvinkit);

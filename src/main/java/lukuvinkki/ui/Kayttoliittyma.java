@@ -123,7 +123,7 @@ public class Kayttoliittyma {
         Lukuvinkkipalvelu importPalvelu = new Lukuvinkkipalvelu(io, importTietokanta);
 
         ArrayList<Lukuvinkki> importattavatLukuvinkit = importPalvelu.haeLukuvunkit();
-        if (palvelu.lisaaKaikkiLukuvinkit(importattavatLukuvinkit)) {
+        if (palvelu.lisaaLukuvinkitListasta(importattavatLukuvinkit)) {
             io.print("Tiedoston sisältö lisätty onnistuneesti lukuvinkkikirjastoon.");
         } else {
             io.print("Tiedoston lisäys ei onnistunut.");
