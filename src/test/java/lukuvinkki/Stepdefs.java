@@ -126,13 +126,20 @@ public class Stepdefs {
         syotteet.add(tag3);
         syotteet.add("");
     }
-    
+
     @When("lukuvinkki otsikolla {string}, URL {string} ja ilman tageja lisatty")
     public void lukuvinkkiIlmanTagejaLisatty(String otsikko, String url) {
         syotteet.add(otsikko);
         syotteet.add(url);
         syotteet.add(""); 
         syotteet.add("");
+    }
+
+    @When("komento aseta lukuvinkki luetuksi valittu ja syötteenä {string}, {string}")
+    public void asetaLukuvinkkiLuetuksi(String otsikko, String vastaus) {
+        syotteet.add("7");
+        syotteet.add(otsikko);
+        syotteet.add(vastaus);
     }
     
     @Then("Ohjelman tulostus sisältää {string} sivuston haetun otsikon {string}")
@@ -158,7 +165,7 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
-               
+
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
                 .anyMatch(x -> x.contains(teksti));
@@ -178,7 +185,7 @@ public class Stepdefs {
                                         .contains("Otsikko: " + otsikko + "\n"
                                                 + "Url: " + url + "\n"
                                                 + "Tagit: " + tagit + "\n"
-                                                + "Luettu: " + luettu + "\n");   
+                                                + "Luettu: " + luettu + "\n"); 
         assertTrue(lisattyLukuvinkkiLoytyy);
     }
     
