@@ -96,7 +96,7 @@ public class Stepdefs {
     
     @When("lukuvinkin poistoon annettu otsikko {string} ja poisto vahvistus {string}")
     public void lukuvinkkiPoistettuOikeellaOtsikolla(String otsikko, String vahvistus) {
-        syotteet.add(otsikko);
+        syotteet.add(otsikko); 
         syotteet.add(vahvistus);
     }
     
