@@ -5,7 +5,7 @@ Feature: Käyttäjä voi lisätä vain toimivan URL lukuvinkkiin
         When  lukuvinkki epavalidilla URL-osoitteella "huonoURL.com" lisatty
         Then  ohjelman tulostus sisaltaa "Ole hyvä ja anna kelvollinen lukuvinkin url:" tekstin
 
-        Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
+    Scenario: kayttaja voi valita valmiin otsikon hakemalla sen url-osoitteesta
         Given komento lisaa valittu
         When  lukuvinkki lisatty url "www.google.com" ja komennolla hae valmis otsikko "k"
         Then  Ohjelman tulostus sisältää "https://www.google.com" sivuston haetun otsikon "Google"

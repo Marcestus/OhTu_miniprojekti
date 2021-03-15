@@ -103,7 +103,7 @@ public class Kayttoliittyma {
     
     public void tuoTiedosto() {
         io.print("Komento (tuo tiedosto) valittu \n");
-        io.print("Anna tiedoston polku.");
+        io.print("Anna tiedoston polku:");
         String tiedostonPolku = io.syote();
         
         if (tiedostopalvelu.onkoTiedostoOlemassa(tiedostonPolku)) {

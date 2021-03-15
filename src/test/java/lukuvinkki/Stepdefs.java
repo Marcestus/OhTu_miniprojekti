@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
 import lukuvinkki.dao.Tietokantahallinta;
+import lukuvinkki.domain.Lukuvinkki;
 import lukuvinkki.domain.StubIO;
 import lukuvinkki.ui.Kayttoliittyma;
 
@@ -46,17 +47,37 @@ public class Stepdefs {
         syotteet.add("2");
         syotteet.add("u");
     }
-    
+        
     @Given("komento hae valittu ja listaus syotteella {string}")
     public void komentoHaeValittu(String listausSyote) {
         syotteet.add("3");
         syotteet.add(listausSyote);
     }
     
+    @Given("komento tuo tiedosto valittu")
+    public void komentoTuoTiedostoValittu() {
+        syotteet.add("4");
+    }
+    
     @Given("komento merkkaa luetuksi valittu")
     public void komentoMerkkaaLuetuksiValittu() {
         syotteet.add("7");
     }
+        
+    @Given("Import-tiedosto alustettu polulla {string} ja kahdella lukuvinkilla")
+    public void alustaImportTiedosto(String polku) {
+        StubIO tyhjaIO = new StubIO(new ArrayList());
+        Tietokantahallinta importTietokanta = new Tietokantahallinta(polku, tyhjaIO);
+        importTietokanta.otaYhteysTietokantaan();
+        importTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("testi", "www.google.com","tag1"));
+        importTietokanta.lisaaUusiLukuvinkki(new Lukuvinkki("testi2", "www.google.com","tag1"));
+    }
+    
+    @When("tiedoston tuontiin anettu {string} polku")
+    public void tiedostoTuontiinPolku(String polku) {
+        syotteet.add(polku);
+    }
+    
     
     @When("lukuvinkin luetuksi merkkaamiseen annettu otsikko {string} ja varmistus {string} annettu")
     public void lukuvinkinMerkkaamiseenKomento(String otsikko, String vahvistus) {
