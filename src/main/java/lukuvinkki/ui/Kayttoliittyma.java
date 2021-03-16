@@ -137,9 +137,9 @@ public class Kayttoliittyma {
     }
 
     public void vieTiedosto() {
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        String exportNimi = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + "-lukuvinkkikirjasto.db";
         io.print("Komento (vie tiedosto) valittu \n");
-        Tietokantahallinta exportTietokanta = new Tietokantahallinta(timeStamp + "-lukuvinkkikirjasto.db", io);
+        Tietokantahallinta exportTietokanta = new Tietokantahallinta(exportNimi, io);
         if (!exportTietokanta.otaYhteysTietokantaan()) {
             io.print("Pahoittelut, tietokannassa on häiriö. Kokeile ohjelmaa uudestaan!");
             return;
@@ -149,6 +149,7 @@ public class Kayttoliittyma {
         ArrayList<Lukuvinkki> exportattavatLukuvinkit = palvelu.haeLukuvunkit();
         if (exportPalvelu.lisaaLukuvinkitListasta(exportattavatLukuvinkit)) {
             io.print("Export-tiedoston luonti onnistui!");
+            io.print("Tiedosto löytyy samasta hakemistosta missä .jar tiedosto löytyy. Tiedoston nimi: " + exportNimi);
         } else {
             io.print("Export-tiedoston luonti ei onnistunut.");
         }

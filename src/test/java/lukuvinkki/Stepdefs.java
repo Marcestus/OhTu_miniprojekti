@@ -217,6 +217,18 @@ public class Stepdefs {
 
         assertTrue(loytykoHaettavaTekstiOsa);
     }
+
+    @Then("ohjelman tulostus sisaltaa {string} ilmoituksen")
+    public void ohjelmaTulostusSisaltaaIlmoituksen(String teksti) {
+        alustaStubTulostuksetJaKaynnistaOhjelma();
+        boolean loytykoHaettavaTekstiOsa = io.getPrints()
+                .stream()
+                .anyMatch(x -> x.contains(teksti));
+
+        assertTrue(loytykoHaettavaTekstiOsa);
+        poistaExportTiedosto();
+        
+    }
     
     @Then("ohjelman tulostus listaa luodun vinkin otsikolla {string}, url {string}, tagit {string}, luettu {string}")
     public void ohjelmanTulostusOikein(String otsikko, String url, String tagit, String luettu) {
@@ -274,5 +286,17 @@ public class Stepdefs {
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
+    }
+
+    public void poistaExportTiedosto() {
+        for (String s : io.getPrints()) {
+            
+            if (s.contains("Tiedosto löytyy samasta hakemistosta")) {
+                String poistotiedosto = s.split(": ")[1];
+                Tietokantahallinta poisto = new Tietokantahallinta(poistotiedosto, io);
+                poisto.poistaTestiTietokanta(poistotiedosto);
+                break;
+            }
+        }
     }
 }
