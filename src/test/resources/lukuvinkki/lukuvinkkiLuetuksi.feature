@@ -1,4 +1,4 @@
-Feature: Ohjelman kayttajana voin lisata uuden lukuvinkin
+Feature: Ohjelman kayttajana voin merkita lukuvinkin luetuksi
 
     Scenario: kayttaja voi merkata lukuvinkin luetuksi
         Given komento lisaa valittu
