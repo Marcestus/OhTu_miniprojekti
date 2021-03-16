@@ -37,21 +37,26 @@ public class Stepdefs {
         syotteet.add("1");
     }
     
+    @Given("komento merkkaa luetuksi valittu")
+    public void komentoMerkkaaLuetuksiValittu() {
+        syotteet.add("2");
+    }
+    
     @Given("komento poisto otsikolla valittu")
     public void komentoPoistoValittu() {
-        syotteet.add("2");
+        syotteet.add("3");
         syotteet.add("o");
     }
     
     @Given("komento poisto url valittu")
     public void komentoURLValittu() {
-        syotteet.add("2");
+        syotteet.add("3");
         syotteet.add("u");
     }
         
     @Given("komento hae valittu ja listaus syotteella {string}")
     public void komentoHaeValittu(String listausSyote) {
-        syotteet.add("3");
+        syotteet.add("4");
         syotteet.add(listausSyote);
     }
 
@@ -63,16 +68,11 @@ public class Stepdefs {
     
     @Given("komento tuo tiedosto valittu")
     public void komentoTuoTiedostoValittu() {
-        syotteet.add("4");
+        syotteet.add("5");
     }
     
     @Given("komento vie tiedosto valittu")
     public void komentoVieTiedostoValittu() {
-        syotteet.add("5");
-    }
-    
-    @Given("komento merkkaa luetuksi valittu")
-    public void komentoMerkkaaLuetuksiValittu() {
         syotteet.add("6");
     }
     
@@ -183,7 +183,7 @@ public class Stepdefs {
 
     @When("komento aseta lukuvinkki luetuksi valittu ja syötteenä {string}, {string}")
     public void asetaLukuvinkkiLuetuksi(String otsikko, String vastaus) {
-        syotteet.add("6");
+        syotteet.add("2");
         syotteet.add(otsikko);
         syotteet.add(vastaus);
     }
