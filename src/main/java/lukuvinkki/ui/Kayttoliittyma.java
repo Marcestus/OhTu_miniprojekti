@@ -69,7 +69,7 @@ public class Kayttoliittyma {
         io.print("Komento (aseta lukuvinkki luetuksi) valittu \n");
         io.print("Syötä lukuvinkin otsikko, jonka haluat merkata luetuksi:");
         String lukuvinkinOtsikko = io.syote();
-        Lukuvinkki haettuLukuvinkki = palvelu.getLukematonLukuvinkkiOtsikonPerusteella(lukuvinkinOtsikko);
+        Lukuvinkki haettuLukuvinkki = palvelu.haeLukematonLukuvinkkiOtsikonPerusteella(lukuvinkinOtsikko);
         
         asetaLukuvinkkiLuetuksiJosTarpeen(haettuLukuvinkki);
     }

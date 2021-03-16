@@ -99,7 +99,7 @@ public class Lukuvinkkipalvelu {
         }
     }
     
-    public Lukuvinkki getLukematonLukuvinkkiOtsikonPerusteella(String otsikko) {
+    public Lukuvinkki haeLukematonLukuvinkkiOtsikonPerusteella(String otsikko) {
         for (Lukuvinkki lukematonVinkki : haeLukuvinkitSyotteenPerusteella("2")) {
             if (lukematonVinkki.getOtsikko().contains(otsikko)) {
                 return lukematonVinkki;
