@@ -31,9 +31,12 @@ public class Kayttoliittyma {
         tulostaKomennot();
         loop:
         while (true) {
-            io.print("Anna komento:");
+            io.print("Anna komento (Paina Enter jos haluat nähdä listauksen komennoista):");
             String vastaus = io.syote();
             switch (vastaus) {
+                case "":
+                    tulostaKomennot();
+                    break;
                 case "1":
                     lisaaLukuvinkki();
                     break;
@@ -123,7 +126,7 @@ public class Kayttoliittyma {
         Lukuvinkkipalvelu importPalvelu = new Lukuvinkkipalvelu(io, importTietokanta);
 
         ArrayList<Lukuvinkki> importattavatLukuvinkit = importPalvelu.haeLukuvunkit();
-        if (palvelu.lisaaKaikkiLukuvinkit(importattavatLukuvinkit)) {
+        if (palvelu.lisaaLukuvinkitListasta(importattavatLukuvinkit)) {
             io.print("Tiedoston sisältö lisätty onnistuneesti lukuvinkkikirjastoon.");
         } else {
             io.print("Tiedoston lisäys ei onnistunut.");
