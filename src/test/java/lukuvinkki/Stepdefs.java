@@ -54,6 +54,12 @@ public class Stepdefs {
         syotteet.add("3");
         syotteet.add(listausSyote);
     }
+
+    @Given("haettavaksi tagiksi annettu {string}")
+    public void maaritteleHaettavatTagit(String tagi) {
+        syotteet.add(tagi);
+        syotteet.add("");
+    }
     
     @Given("komento tuo tiedosto valittu")
     public void komentoTuoTiedostoValittu() {
@@ -69,10 +75,10 @@ public class Stepdefs {
     public void komentoMerkkaaLuetuksiValittu() {
         syotteet.add("6");
     }
-        
+    
     @Given("Import-tiedosto alustettu polulla {string} ja {string} lukuvinkilla")
     public void alustaImportTiedosto(String polku, String lisattavienMaara) {
-        StubIO tyhjaIO = new StubIO(new ArrayList());
+        StubIO tyhjaIO = new StubIO(new ArrayList<>());
         importTietokantaPalvelu = new Tietokantahallinta(polku, tyhjaIO);
         importTietokantaPalvelu.otaYhteysTietokantaan();
         int maara = Integer.valueOf(lisattavienMaara);
@@ -205,7 +211,6 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
-        
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
                 .anyMatch(x -> x.contains(teksti));
