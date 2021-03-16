@@ -13,6 +13,10 @@ public class UrlPalvelu {
     }
     
     public String lisaaOsoitteenAlkuJosTarpeen(String url) {
+        if (url.split("[.]").length >= 3) {
+            return url;
+        }
+        System.out.println("lisätään www");
         return !url.startsWith("http") && !url.contains("www.") ? ("www." + url) : url;
     }
     
