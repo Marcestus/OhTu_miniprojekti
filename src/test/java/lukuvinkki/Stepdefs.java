@@ -226,18 +226,7 @@ public class Stepdefs {
                 .anyMatch(x -> x.contains(teksti));
 
         assertTrue(loytykoHaettavaTekstiOsa);
-        int i = 0;
-        for (String s : io.getPrints()) {
-            
-            if (s.contains("Tiedosto löytyy samasta hakemistosta")) {
-                String poistotiedosto = s.split(": ")[1];
-                Tietokantahallinta poisto = new Tietokantahallinta(poistotiedosto, io);
-                poisto.poistaTestiTietokanta(poistotiedosto);
-                break;
-            }
-            i++;
-        }
-        
+        poistaExportTiedosto();
         
     }
     
@@ -297,5 +286,17 @@ public class Stepdefs {
         tietokanta.otaYhteysTietokantaan();
         ui = new Kayttoliittyma(io, tietokanta);
         ui.kayttoliittymaStart();
+    }
+
+    public void poistaExportTiedosto() {
+        for (String s : io.getPrints()) {
+            
+            if (s.contains("Tiedosto löytyy samasta hakemistosta")) {
+                String poistotiedosto = s.split(": ")[1];
+                Tietokantahallinta poisto = new Tietokantahallinta(poistotiedosto, io);
+                poisto.poistaTestiTietokanta(poistotiedosto);
+                break;
+            }
+        }
     }
 }
