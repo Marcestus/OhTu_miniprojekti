@@ -66,6 +66,11 @@ public class Stepdefs {
         syotteet.add("4");
     }
     
+    @Given("komento vie tiedosto valittu")
+    public void komentoVieTiedostoValittu() {
+        syotteet.add("5");
+    }
+    
     @Given("komento merkkaa luetuksi valittu")
     public void komentoMerkkaaLuetuksiValittu() {
         syotteet.add("6");
@@ -206,8 +211,6 @@ public class Stepdefs {
     @Then("ohjelman tulostus sisaltaa {string} tekstin")
     public void ohjelmaTulostusSisaltaaTekstin(String teksti) {
         alustaStubTulostuksetJaKaynnistaOhjelma();
-        
-
         boolean loytykoHaettavaTekstiOsa = io.getPrints()
                 .stream()
                 .anyMatch(x -> x.contains(teksti));

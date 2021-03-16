@@ -28,19 +28,33 @@ Syötä: 2
 ### Lukuvinkkien listaus
 
 Syötä: 3
-- Ohjelma listaa lisätyt lukuvinkit
+- Lukuvinkit voi listata neljällä eri tavalla seuraavilla syötteillä:
+    - 1: listaa kaikki lukuvinkit
+    - 2: listaa lukemattomat lukuvinkit
+    - 3: listaa luetut lukuvinkit
+    - 4: listaa lukuvinkit käyttäjän syöttämien tagien perusteella
 
-### Lukuvinkkien haku tagien avulla
+### Erillisen lukuvinkkitiedoston liittäminen osaksi lukuvinkkikirjastoa
+
+Syötä: 4
+- Ohjelma kysyy polkua, josta liitettävä tiedosto haetaan
+- Lukuvinkkitiedoston liittämisen onnistuessa ohjelma ilmoittaa tästä vielä vahvistusviestillä 
+
+### Lukuvinkkien vienti erilliseen tiedostoon
+
+Syötä: 5
+- Ohjelma luo tietokannassa olevista lukuvinkeistä oman tiedoston
+- Ohjelma vahvistaa tiedoston luonnin onnistuminen erillisellä vahvistusviestillä
+
+### Lukuvinkkien asettaminen luetuksi
 
 Syötä: 6
--  Ohjelma kysyy käyttäjältä tageja, jotka syötetään yksi kerrallaan ja tagien välissä painetaan enter.
-- Kun tagit on syötetty, painetaan vielä kerran enter, jonka jälkeen ohjelma listaa tagit sisältävät lukuvinkit.
-- Jos tageja ei löydy, ei ohjelma tulosta mitään.
+-  Ohjelma kysyy lukuvinkin otsikkoa, jonka käyttäjä haluaa merkitä luetuksi
+-  Käyttäjän syöttäessä lukuvinkkikirjastosta löytyvän otsikon, ohjelma kysyy vielä käyttäjältä vahvistuksen luetuksi merkkaamiseen
 
 ### Ohjelman sulkeminen
 
 Syötä: -1
 - Ohjelma sulkeutuu
 
-Ohjelmassa on tällä hetkellä myös komennot: "selaa lukuvinkkejä" ja "muokkaa lukuvinkkejä", joiden takana ei ole vielä toiminnallisuutta.
     
