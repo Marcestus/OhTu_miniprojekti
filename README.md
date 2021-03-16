@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/Marcestus/OhTu_miniprojekti/branch/main/graph/badge.svg?token=3I741H9BV4)](https://codecov.io/gh/Marcestus/OhTu_miniprojekti)
 
 - [Product and sprint backlogs](https://docs.google.com/spreadsheets/d/1jyfgLB1t1S6TO1p4N9tchziZxmQHy6vSwmqAWskcUM4/edit?usp=sharing)
-- [Käyttöohje](https://github.com/Marcestus/OhTu_miniprojekti/blob/main/dokumentaatio/kayttohje.md)
+- [Käyttöohje](https://github.com/Marcestus/OhTu_miniprojekti/blob/main/dokumentaatio/kayttoohje.md)
 
 ## Definition of done
 
