@@ -184,7 +184,7 @@ public class Kayttoliittyma {
             return;
         }
 
-        io.print("Tietokannassa olevat lukuvinkit:");
+        io.print("Tietokannassa olevat lukuvinkit:\n");
         tulostaLukuvinkit(vinkit);
     }
 

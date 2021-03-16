@@ -218,7 +218,7 @@ public class Stepdefs {
         alustaStubTulostuksetJaKaynnistaOhjelma();
         
         boolean alustusTekstiLoytyy = io.getPrints()
-                                        .contains("Tietokannassa olevat lukuvinkit:");
+                                        .contains("Tietokannassa olevat lukuvinkit:\n");
         assertTrue(alustusTekstiLoytyy);
         
         boolean lisattyLukuvinkkiLoytyy = io.getPrints()
