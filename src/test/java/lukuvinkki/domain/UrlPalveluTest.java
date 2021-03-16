@@ -17,6 +17,8 @@ public class UrlPalveluTest {
         assertEquals("https://www.google.com", testiUrlPalvelu.normalisoiOsoite("google.com"));
         assertEquals("https://www.google.com", testiUrlPalvelu.normalisoiOsoite("www.google.com"));
         assertEquals("https://www.google.com", testiUrlPalvelu.normalisoiOsoite("https://www.google.com"));
+        assertEquals("https://dl.acm.org", testiUrlPalvelu.normalisoiOsoite("dl.acm.org"));
+        assertEquals("https://ieeexplore.ieee.org", testiUrlPalvelu.normalisoiOsoite("ieeexplore.ieee.org"));
     }
 
     @Test
@@ -33,13 +35,16 @@ public class UrlPalveluTest {
         assertFalse(testiUrlPalvelu.sivustoOnOlemassa("https://www.facebook.fi"));
 
     }
-  
+
     @Test
     public void testLisaaOsoitteenAlkuJosTarpeen() {
         assertEquals("www.google.com", testiUrlPalvelu.lisaaOsoitteenAlkuJosTarpeen("google.com"));
         assertEquals("www.google.com", testiUrlPalvelu.lisaaOsoitteenAlkuJosTarpeen("www.google.com"));
         assertEquals("https://google.com", testiUrlPalvelu.lisaaOsoitteenAlkuJosTarpeen("https://google.com"));
         assertEquals("http://google.com", testiUrlPalvelu.lisaaOsoitteenAlkuJosTarpeen("http://google.com"));
+        assertEquals("dl.acm.org", testiUrlPalvelu.lisaaOsoitteenAlkuJosTarpeen("dl.acm.org"));
+        assertEquals("ieeexplore.ieee.org", testiUrlPalvelu.lisaaOsoitteenAlkuJosTarpeen("ieeexplore.ieee.org"));
+        
     }
 
     @Test
