@@ -98,20 +98,18 @@ public class Lukuvinkkipalvelu {
                 return new ArrayList<>();
         }
     }
-    
-    public Lukuvinkki haeLukematonLukuvinkkiOtsikonPerusteella(String otsikko) {
-        for (Lukuvinkki lukematonVinkki : haeLukuvinkitSyotteenPerusteella("2")) {
-            if (lukematonVinkki.getOtsikko().contains(otsikko)) {
-                return lukematonVinkki;
-            }
-        }
-        return null;
-    }
 
     public List<Lukuvinkki> haeLukuvinkitLuetunStatuksenPerusteella(boolean onkoLuettu) {
         return haeLukuvunkit().stream()
                 .filter(l -> l.getLuettu() == onkoLuettu)
                 .collect(Collectors.toList());
+    }
+    
+    public Lukuvinkki haeLukematonLukuvinkkiOtsikonPerusteella(String otsikko) {
+        return haeLukuvinkitSyotteenPerusteella("2").stream()
+                .filter(lukuvinkki -> lukuvinkki.getOtsikko().contains(otsikko))
+                .findFirst()
+                .orElse(null);
     }
 
     public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
