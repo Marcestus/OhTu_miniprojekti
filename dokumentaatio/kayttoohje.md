@@ -2,7 +2,7 @@
 
 ### Asennus
 
-Lataa tiedosto [lukuvinkki.jar](https://github.com/Marcestus/OhTu_miniprojekti/releases/tag/v1.0).
+Lataa tiedosto [lukuvinkki.jar](https://github.com/Marcestus/OhTu_miniprojekti/releases/tag/v2.0).
 
 ### Käynnistys
 
