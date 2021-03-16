@@ -31,7 +31,7 @@ public class Kayttoliittyma {
         tulostaKomennot();
         loop:
         while (true) {
-            io.print("Anna komento (Paina Enter jos haluat nähdä listauksen komennoista):");
+            io.print("\nAnna komento (Paina Enter, jos haluat nähdä listauksen komennoista):");
             String vastaus = io.syote();
             switch (vastaus) {
                 case "":
@@ -41,19 +41,19 @@ public class Kayttoliittyma {
                     lisaaLukuvinkki();
                     break;
                 case "2":
-                    poistaLukuvinkki();
+                    kaynnistaLukuvinkinAsetusLuetuksi();
                     break;
                 case "3":
-                    haeLukuvunkit();
+                    poistaLukuvinkki();
                     break;
                 case "4":
-                    tuoTiedosto();
+                    haeLukuvunkit();
                     break;
                 case "5":
-                    vieTiedosto();
+                    tuoTiedosto();
                     break;
                 case "6":
-                    kaynnistaLukuvinkinAsetusLuetuksi();
+                    vieTiedosto();
                     break;
                 case "-1":
                     io.print("Ohjelma sulkeutuu...");
@@ -73,8 +73,7 @@ public class Kayttoliittyma {
         if (lukuvinkinOtsikko.isEmpty()) {
             return;
         }
-        Lukuvinkki haettuLukuvinkki = palvelu.haeLukuvinkkiSyotteenPerusteella(lukuvinkinOtsikko, false);
-        
+        Lukuvinkki haettuLukuvinkki = palvelu.haeLukematonLukuvinkkiOtsikonPerusteella(lukuvinkinOtsikko);
         asetaLukuvinkkiLuetuksiJosTarpeen(haettuLukuvinkki);
     }
     
@@ -87,7 +86,7 @@ public class Kayttoliittyma {
             String vahvistus = io.syote();
             vahvistaAsetus(vahvistus, lukuvinkkiLuetuksi);
         } else {
-            io.print("Kyseisellä otsikolla ei löytynyt lukuvinkkiä tietokannasta.");
+            io.print("Kyseisellä otsikolla ei löytynyt lukematonta lukuvinkkiä tietokannasta.");
         }
     }
     
@@ -95,15 +94,15 @@ public class Kayttoliittyma {
         if (vahvistus.equals("k")) {
             suoritaAsetus(lukuvinkkiLuetuksi.getID());
         } else {
-            io.print("Lukuvinkkiä ei merkattu luetuksi.\n");
+            io.print("Lukuvinkkiä ei merkattu luetuksi.");
         }
     }
     
     public void suoritaAsetus(int lukuvinkinID) {
         if (palvelu.asetaLukuvinkkiLuetuksi(lukuvinkinID)) {
-            io.print("Lukuvinkki asetettu onnistuneesti luetuksi!\n");
+            io.print("Lukuvinkki asetettu onnistuneesti luetuksi!");
         } else {
-            io.print("Lukuvinkin luetuksi asetuksessa tapahtui virhe.\n");
+            io.print("Lukuvinkin luetuksi asetuksessa tapahtui virhe.");
         }
     }
     
@@ -184,7 +183,7 @@ public class Kayttoliittyma {
                 break;
             }
 
-            io.print("Virheellinen valinta. Valitse komento väliltä 1-4");
+            io.print("Virheellinen valinta. Valitse komento väliltä 1-4.");
         }
 
         List<Lukuvinkki> vinkit = syote.equals("4")
@@ -246,7 +245,7 @@ public class Kayttoliittyma {
             if (urlPalvelu.sivustoOnOlemassa(url)) {
                 return url;
             } else {
-                io.print("Virhe: Osoitteella ei löytynyt sisältöä");
+                io.print("Virhe: Osoitteella ei löytynyt sisältöä.");
                 io.print("Ole hyvä ja anna kelvollinen lukuvinkin url: ");
             }
         }
@@ -335,7 +334,7 @@ public class Kayttoliittyma {
             io.print("\n" + poistettavaLukuvinkki + "\n");
             io.print("Poistetaanko kyseinen lukuvinkki?");
             io.print(" kyllä: syötä 'k'");
-            io.print(" ei: paina enter");
+            io.print(" ei: paina Enter");
             String poistoVahvistus = io.syote();
 
             suoritaPoistoJosTarpeen(poistoVahvistus, poistettavaLukuvinkki.getID());
@@ -347,23 +346,23 @@ public class Kayttoliittyma {
     public void suoritaPoistoJosTarpeen(String poistoVahvistus, int poistettavanLukuvinkinID) {
         if (poistoVahvistus.equals("k")) {
             if (palvelu.poistaLukuvinkki(poistettavanLukuvinkinID)) {
-                io.print("Lukuvinkki poistettu onnistuneesti!\n");
+                io.print("Lukuvinkki poistettu onnistuneesti!");
             } else {
-                io.print("Poistaminen ei onnistunut.\n");
+                io.print("Poistaminen ei onnistunut.");
             }
         } else {
-            io.print("Lukuvinkin poistaminen keskeytetty.\n");
+            io.print("Lukuvinkin poistaminen keskeytetty.");
         }
     }
 
     public void tulostaKomennot() {
         io.print("Komennot:");
         io.print("1 - lisää lukuvinkki");
-        io.print("2 - poista lukuvinkki");
-        io.print("3 - hae lukuvinkit");
-        io.print("4 - tuo tiedosto");
-        io.print("5 - vie tiedosto");
-        io.print("6 - aseta lukuvinkki luetuksi");
+        io.print("2 - aseta lukuvinkki luetuksi");
+        io.print("3 - poista lukuvinkki");
+        io.print("4 - hae lukuvinkit");
+        io.print("5 - tuo tiedosto");
+        io.print("6 - vie tiedosto");
         io.print("-1 - lopeta ohjelma");
     }
 }

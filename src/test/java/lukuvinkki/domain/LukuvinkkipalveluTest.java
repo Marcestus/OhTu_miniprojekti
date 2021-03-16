@@ -178,4 +178,18 @@ public class LukuvinkkipalveluTest {
         assertEquals(3, testiPalvelu.haeLukuvinkitLuetunStatuksenPerusteella(false).size());
         assertEquals(1, testiPalvelu.haeLukuvinkitLuetunStatuksenPerusteella(true).size());
     }
+
+    @Test
+    public void testHaeLukuvinkitLuetunStatuksenPerusteellaOnnistuu() {
+        Lukuvinkki testiVinkki = testiPalvelu.haeLukematonLukuvinkkiOtsikonPerusteella("testiVinkki");
+        assertEquals("testiVinkki1", testiVinkki.getOtsikko());
+    }
+    
+    @Test
+    public void testHaeLukuvinkitLuetunStatuksenPerusteellaEpaonnistuuKunVinkkiLuettu() {
+        Lukuvinkki testiVinkki = testiPalvelu.haeLukematonLukuvinkkiOtsikonPerusteella("testiVinkki1");
+        testiPalvelu.asetaLukuvinkkiLuetuksi(testiVinkki.getID());
+        testiVinkki = testiPalvelu.haeLukematonLukuvinkkiOtsikonPerusteella("testiVinkki1");
+        assertEquals(null, testiVinkki);
+    }
 }

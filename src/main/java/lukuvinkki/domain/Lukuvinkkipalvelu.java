@@ -98,6 +98,15 @@ public class Lukuvinkkipalvelu {
                 return new ArrayList<>();
         }
     }
+    
+    public Lukuvinkki haeLukematonLukuvinkkiOtsikonPerusteella(String otsikko) {
+        for (Lukuvinkki lukematonVinkki : haeLukuvinkitSyotteenPerusteella("2")) {
+            if (lukematonVinkki.getOtsikko().contains(otsikko)) {
+                return lukematonVinkki;
+            }
+        }
+        return null;
+    }
 
     public List<Lukuvinkki> haeLukuvinkitLuetunStatuksenPerusteella(boolean onkoLuettu) {
         return haeLukuvunkit().stream()

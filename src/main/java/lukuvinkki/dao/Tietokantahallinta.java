@@ -26,10 +26,12 @@ public class Tietokantahallinta implements TietokantaRajapinta {
 
     }
 
+    @Override
     public boolean otaYhteysTietokantaan() {
         return alustaTietokanta();
     }
 
+    @Override
     public boolean lisaaUusiLukuvinkki(Lukuvinkki lukuvinkki) {
         String addKasky = "INSERT INTO lukuvinkki (otsikko, url, tagit, luettu) VALUES (?, ?, ?, 0);";
         try {
@@ -50,6 +52,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
 
     }
 
+    @Override
     public boolean lisaaLukuvinkitListasta(ArrayList<Lukuvinkki> lukuvinkit) {
 
         for (Lukuvinkki lukuvinkki : lukuvinkit) {
@@ -60,6 +63,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         return true;
     }
 
+    @Override
     public ArrayList<Lukuvinkki> haeKaikkiLukuvinkit() {
         String hakuKasky = "SELECT id, otsikko, url, tagit, luettu FROM lukuvinkki;";
         ArrayList<Lukuvinkki> lukuvinkit = new ArrayList<>();
@@ -84,6 +88,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
         return lukuvinkit;
     }
 
+    @Override
     public boolean asetaLuetuksi(int muutettavanID) {
         String kasky = "UPDATE lukuvinkki SET luettu = 1 WHERE id = ?;";
 
@@ -102,6 +107,7 @@ public class Tietokantahallinta implements TietokantaRajapinta {
 
     }
 
+    @Override
     public boolean poistaLukuvinkki(int poistettavanID) {
         String poistoKasky = "DELETE FROM lukuvinkki WHERE id = ?;";
 
