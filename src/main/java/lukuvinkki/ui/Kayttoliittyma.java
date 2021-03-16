@@ -66,11 +66,14 @@ public class Kayttoliittyma {
     }
     
     public void kaynnistaLukuvinkinAsetusLuetuksi() {
-        io.print("Komento (aseta lukuvinkki luetuksi) valittu \n");
+        io.print("\nKomento (aseta lukuvinkki luetuksi) valittu");
+        io.print("Jos haluat palata takaisin, paina Enter.\n");
         io.print("Syötä lukuvinkin otsikko, jonka haluat merkata luetuksi:");
         String lukuvinkinOtsikko = io.syote();
+        if (lukuvinkinOtsikko.isEmpty()) {
+            return;
+        }
         Lukuvinkki haettuLukuvinkki = palvelu.haeLukematonLukuvinkkiOtsikonPerusteella(lukuvinkinOtsikko);
-        
         asetaLukuvinkkiLuetuksiJosTarpeen(haettuLukuvinkki);
     }
     
@@ -104,7 +107,7 @@ public class Kayttoliittyma {
     }
     
     public void tuoTiedosto() {
-        io.print("Komento (tuo tiedosto) valittu \n");
+        io.print("\nKomento (tuo tiedosto) valittu\n");
         io.print("Anna tiedoston polku:");
         String tiedostonPolku = io.syote();
 
@@ -153,14 +156,15 @@ public class Kayttoliittyma {
     }
 
     public List<Lukuvinkki> haeLukuvinkitTagienPerusteella() {
-        io.print("Komento (hae lukuvinkit tägeillä) valittu \n");
+        io.print("\nKomento (hae lukuvinkit tägeillä) valittu");
         io.print("Anna tagit haulle, (Painamalla Enter voit lopettaa tagien syöttämisen) \n");
         ArrayList<String> tagit = muodostaTagit("");
         return palvelu.haeLukuvinkitTaginPerusteella(tagit);
     }
 
     public void haeLukuvunkit() {
-        io.print("Komento (hae lukuvinkit) valittu \n");
+        io.print("\nKomento (hae lukuvinkit) valittu");
+        io.print("Jos haluat palata takaisin, paina Enter.\n");
         String syote;
 
         while (true) {
@@ -170,6 +174,10 @@ public class Kayttoliittyma {
             io.print("Valitse 4: Hae tagien perusteella");
 
             syote = io.syote();
+
+            if (syote.isEmpty()) {
+                return;
+            }
 
             if (syote.matches("[1234]")) {
                 break;
@@ -222,6 +230,8 @@ public class Kayttoliittyma {
 
             if (otsikko.length() > 3) {
                 return otsikko;
+            } else if (otsikko.isEmpty()) {
+                return "";
             } else {
                 io.print("Virhe: Otsikon tulee olla vähintään 4 merkkiä pitkä");
                 io.print("Ole hyvä ja anna kelvollinen lukuvinkin otsikko: ");
@@ -257,10 +267,15 @@ public class Kayttoliittyma {
     }
 
     public void lisaaLukuvinkki() {
-        io.print("Komento (lisää lukuvinkki) valittu \n");
+        io.print("\nKomento (lisää lukuvinkki) valittu");
+        io.print("Jos haluat palata takaisin, paina Enter.\n");
 
         io.print("Anna lukuvinkin otsikko: ");
         String otsikko = muodostaOtsikko();
+
+        if (otsikko.isEmpty()) {
+            return;
+        }
 
         io.print("Anna lukuvinkin url: ");
         String url = muodostaUrl();
@@ -284,7 +299,8 @@ public class Kayttoliittyma {
     }
 
     public void poistaLukuvinkki() {
-        io.print("Komento (poista lukuvinkki) valittu.");
+        io.print("\nKomento (poista lukuvinkki) valittu.");
+        io.print("Jos haluat palata takaisin, paina Enter.\n");
         io.print("Syötä 'u', jos haluat poistaa lukuvinkin url:n perusteella");
         io.print("Syötä 'o', jos haluat poistaa lukuvinkin otsikon perusteella");
 
@@ -292,6 +308,8 @@ public class Kayttoliittyma {
         if (onkoPoistoSyoteValidi(poistoKomento)) {
             boolean onkoURLPerusteella = poistoKomento.equals("u");
             aloitaPoisto(onkoURLPerusteella);
+        } else if (poistoKomento.isEmpty()) {
+            return;
         } else {
             io.print("Virheellinen syöte!");
         }
