@@ -226,9 +226,19 @@ public class Stepdefs {
                 .anyMatch(x -> x.contains(teksti));
 
         assertTrue(loytykoHaettavaTekstiOsa);
-        String poistotiedosto = io.getPrints().get(21).split(": ")[1];
-        Tietokantahallinta poisto = new Tietokantahallinta(poistotiedosto, io);
-        poisto.poistaTestiTietokanta(poistotiedosto);
+        int i = 0;
+        for (String s : io.getPrints()) {
+            
+            if (s.contains("Tiedosto löytyy samasta hakemistosta")) {
+                String poistotiedosto = s.split(": ")[1];
+                Tietokantahallinta poisto = new Tietokantahallinta(poistotiedosto, io);
+                poisto.poistaTestiTietokanta(poistotiedosto);
+                break;
+            }
+            i++;
+        }
+        
+        
     }
     
     @Then("ohjelman tulostus listaa luodun vinkin otsikolla {string}, url {string}, tagit {string}, luettu {string}")
