@@ -113,12 +113,10 @@ public class Lukuvinkkipalvelu {
     }
 
     public Lukuvinkki haeLukuvinkkiSyotteenPerusteella(String hakuSyote, boolean onkoURLPerusteella) {
-        for (Lukuvinkki lukuvinkki : tietokanta.haeKaikkiLukuvinkit()) {
-            if (loytyykoHakuSyoteVinkista(lukuvinkki, onkoURLPerusteella, hakuSyote)) {
-                return lukuvinkki;
-            }
-        }
-        return null;
+        return haeLukuvunkit().stream()
+                .filter(lukuvinkki -> loytyykoHakuSyoteVinkista(lukuvinkki, onkoURLPerusteella, hakuSyote))
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean loytyykoHakuSyoteVinkista(Lukuvinkki lukuvinkki, boolean onkoURLPerusteella, String syote) {
