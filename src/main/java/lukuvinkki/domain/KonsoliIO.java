@@ -9,10 +9,12 @@ public class KonsoliIO implements IORajapinta {
         lukija = new Scanner(System.in);
     }
 
+    @Override
     public void print(String tulostettava) {
         System.out.println(tulostettava);
     }
 
+    @Override
     public String syote() {
         return lukija.nextLine();
     }

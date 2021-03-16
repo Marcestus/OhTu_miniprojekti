@@ -41,19 +41,19 @@ public class Kayttoliittyma {
                     lisaaLukuvinkki();
                     break;
                 case "2":
-                    poistaLukuvinkki();
+                    kaynnistaLukuvinkinAsetusLuetuksi();
                     break;
                 case "3":
-                    haeLukuvunkit();
+                    poistaLukuvinkki();
                     break;
                 case "4":
-                    tuoTiedosto();
+                    haeLukuvunkit();
                     break;
                 case "5":
-                    vieTiedosto();
+                    tuoTiedosto();
                     break;
                 case "6":
-                    kaynnistaLukuvinkinAsetusLuetuksi();
+                    vieTiedosto();
                     break;
                 case "-1":
                     io.print("Ohjelma sulkeutuu...");
@@ -340,11 +340,11 @@ public class Kayttoliittyma {
     public void tulostaKomennot() {
         io.print("Komennot:");
         io.print("1 - lisää lukuvinkki");
-        io.print("2 - poista lukuvinkki");
-        io.print("3 - hae lukuvinkit");
-        io.print("4 - tuo tiedosto");
-        io.print("5 - vie tiedosto");
-        io.print("6 - aseta lukuvinkki luetuksi");
+        io.print("2 - aseta lukuvinkki luetuksi");
+        io.print("3 - poista lukuvinkki");
+        io.print("4 - hae lukuvinkit");
+        io.print("5 - tuo tiedosto");
+        io.print("6 - vie tiedosto");
         io.print("-1 - lopeta ohjelma");
     }
 }
