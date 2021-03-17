@@ -84,7 +84,7 @@ public class Stepdefs {
         int maara = Integer.valueOf(lisattavienMaara);
         
         for (int i = 1; i <= maara; i++) {
-            importTietokantaPalvelu.lisaaUusiLukuvinkki(new Lukuvinkki("testi" + i, "www.google.com","tag1"));
+            importTietokantaPalvelu.lisaaUusiLukuvinkki(new Lukuvinkki("testi" + i, "www.google.com", "tag1"));
         }
     }
     
@@ -276,7 +276,7 @@ public class Stepdefs {
                 .anyMatch(x -> x.contains(teksti));
 
         assertTrue(loytykoHaettavaTekstiOsa);
-        assertEquals((int)Integer.valueOf(koko), tietokanta.haeKaikkiLukuvinkit().size());
+        assertEquals((int) Integer.valueOf(koko), tietokanta.haeKaikkiLukuvinkit().size());
         importTietokantaPalvelu.poistaTestiTietokanta("./importTestiDatabase.db");
     }
     
