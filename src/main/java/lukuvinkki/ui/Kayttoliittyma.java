@@ -149,7 +149,7 @@ public class Kayttoliittyma {
         ArrayList<Lukuvinkki> exportattavatLukuvinkit = palvelu.haeLukuvunkit();
         if (exportPalvelu.lisaaLukuvinkitListasta(exportattavatLukuvinkit)) {
             io.print("Export-tiedoston luonti onnistui!");
-            io.print("Tiedosto löytyy samasta hakemistosta missä .jar tiedosto löytyy. Tiedoston nimi: " + exportNimi);
+            io.print("Tiedosto löytyy samasta hakemistosta missä ajoit .jar tiedoston. Tiedoston nimi: " + exportNimi);
         } else {
             io.print("Export-tiedoston luonti ei onnistunut.");
         }
