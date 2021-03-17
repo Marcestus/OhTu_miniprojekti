@@ -189,6 +189,7 @@ public class LukuvinkkipalveluTest {
     public void testHaeLukuvinkitLuetunStatuksenPerusteellaEpaonnistuuKunVinkkiLuettu() {
         Lukuvinkki testiVinkki = testiPalvelu.haeLukematonLukuvinkkiOtsikonPerusteella("testiVinkki1");
         testiPalvelu.asetaLukuvinkkiLuetuksi(testiVinkki.getID());
+        
         testiVinkki = testiPalvelu.haeLukematonLukuvinkkiOtsikonPerusteella("testiVinkki1");
         assertEquals(null, testiVinkki);
     }

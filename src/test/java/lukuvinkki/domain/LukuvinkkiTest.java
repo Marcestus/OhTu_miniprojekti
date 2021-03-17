@@ -53,4 +53,8 @@ public class LukuvinkkiTest {
         testiString = "Otsikko: testi\nUrl: urlTesti\nTagit: ekaTagiTyhjanJalkeen, tokaTagi, kolmasTagi, neljasTagi\nLuettu: false";
         assertEquals(testiString, vinkkiIlmanTagia.toString());
     }   
+    @Test
+    public void otsikkoOikeinTestilla() {
+        assertEquals("testi", lukuvinkki.getOtsikko());
+    }
 }
