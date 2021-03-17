@@ -16,6 +16,7 @@ Syötä: 1
 - Ohjelma kysyy tämän jälkeen otsikon, url:n ja tagit
 - Ohjelma tarkistaa otsikon oikeellisuuden (väh. 4 merkkiä) ja että url löytyy internetistä (url:n voi kirjoittaa ilman www-etuliitettä).
 - Ohjelma tarjoaa myös mahdollisuutta korvata syötetyn otsikon url-osoitteesta löytyvällä otsikolla, jolloin lukuvinkin otsikoksi asetetaan url-osoitteen tarjoama otsikko.
+- Ohjelma kysyy haluaako käyttäjä lukuvinkeille tägejä, jotka helpottavat hakemista tulevaisuudessa, käyttäjä voi myöskin jättää lisäämättä. Riippuen lukuvinkin url-osoitteesta, ohjelma saattaa lisätä automaattisesti tägejä.
 
 ### Lukuvinkkien asettaminen luetuksi
 
@@ -37,7 +38,7 @@ Syötä: 4
     - 1: listaa kaikki lukuvinkit
     - 2: listaa lukemattomat lukuvinkit
     - 3: listaa luetut lukuvinkit
-    - 4: listaa lukuvinkit käyttäjän syöttämien tagien perusteella
+    - 4: listaa lukuvinkit käyttäjän syöttämien tagien perusteella (voit syöttää useita hakutägejä, listaus näyttää kaikki lukuvinkit jotka toteuttavat edes jonkun haetuista tägeistä)
 
 ### Erillisen lukuvinkkitiedoston liittäminen osaksi lukuvinkkikirjastoa
 
