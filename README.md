@@ -5,6 +5,7 @@
 
 - [Product and sprint backlogs](https://docs.google.com/spreadsheets/d/1jyfgLB1t1S6TO1p4N9tchziZxmQHy6vSwmqAWskcUM4/edit?usp=sharing)
 - [Käyttöohje](https://github.com/Marcestus/OhTu_miniprojekti/blob/main/dokumentaatio/kayttoohje.md)
+- [Loppuraportti](https://github.com/Marcestus/OhTu_miniprojekti/blob/main/dokumentaatio/RAPORTTI.md)
 
 ## Definition of done
 
