@@ -23,3 +23,5 @@ User story katsotaan valmiiksi, kun se täyttää seuraavat vaatimukset:
   * uusi koodi on lisätty repositorioon pull requestin kautta ja läpäisee automaattiset testit
   * joku muu kuin koodin kirjoittaja(t) on katselmoinut koodin
   * koodi on lisätty päähaaraan vasta, kun se on katselmoitu.
+
+
