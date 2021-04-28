@@ -8,7 +8,7 @@ Lataa tiedosto [lukuvinkki.jar](https://github.com/Marcestus/OhTu_miniprojekti/r
 
 Navigoi hakemistoon, johon tallensit edellä ladatun jar-tiedoston, ja syötä komento `java -jar lukuvinkki.jar`. Komento luo uuden tietokannan samaan hakemistoon ja käynnistää ohjelman.
 
-Vaihtoehtoisesti voit kloonata koko repositorion koneellesi. Tällöin saat ohjelman käynnistettyä navigoimalla repositorion juureen ja syöttämällä komennon `gradle run`. Voit myös käyttää komentoa `gradle run -q --console=plain`, jolloin ohjelma ei näytä gradlen välitulostuksia.
+Vaihtoehtoisesti voit kloonata koko repositorion koneellesi. Tällöin saat ohjelman käynnistettyä navigoimalla repositorion juureen ja syöttämällä komennon `gradle run`. Voit myös käyttää komentoa `gradle run -q --console=plain`, jolloin ohjelma ei näytä gradlen välitulostuksia. Jos `gradle` ei toimi yritä käyttää komentoa `./gradlew`.
 
 ### Lukuvinkin lisäys
 
